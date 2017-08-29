@@ -11,9 +11,14 @@
 |
 */
 
+
+Route::get('/test', function() {
+	return App\Server::first();
+});
+
 Route::get('/', function () {
     return view('home');
-});
+})->name('index');
 
 Auth::routes();
 Route::get('logout', 'Auth\LoginController@logout');
@@ -27,3 +32,5 @@ Route::prefix('api')->group(function() {
 		Route::resource('stalls', 'StallController');
 	});
 });
+
+Route::resource('stalls', 'StallController');

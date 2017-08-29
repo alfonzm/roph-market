@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Stall;
+use App\Server;
 use Illuminate\Http\Request;
 
 class StallController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         return Stall::latest()->get();
@@ -14,7 +20,7 @@ class StallController extends Controller
 
     public function create()
     {
-        //
+        return view('stalls/create');
     }
 
     public function store(Request $request)
@@ -23,7 +29,11 @@ class StallController extends Controller
             'name' => 'required|max:100'
         ]);
 
-        return Stall::create(['body' => request('body')]);
+        return Stall::create([
+            'name' => request('name'),
+            'user_id' => Auth::id(),
+            'server_id' => Server::first()->id,
+        ]);
     }
 
     /**

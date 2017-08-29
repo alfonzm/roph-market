@@ -7,7 +7,7 @@
 
         <!-- Email -->
         <div>
-            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+            <label for="email">E-Mail Address</label>
             <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus>
 
             @if ($errors->has('email'))
@@ -19,7 +19,7 @@
 
         <!-- Password -->
         <div>
-            <label for="password" class="col-md-4 control-label">Password</label>
+            <label for="password">Password</label>
             <input id="password" type="password" class="form-control" name="password" required>
 
             @if ($errors->has('password'))

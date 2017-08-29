@@ -27,7 +27,7 @@ class CreateStallsTable extends Migration
             $table->integer('server_id')->unsigned();
             $table->foreign('server_id')->references('id')->on('servers');
 
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
@@ -40,5 +40,6 @@ class CreateStallsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('stalls');
+        Schema::dropIfExists('servers');
     }
 }

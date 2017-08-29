@@ -1,6 +1,5 @@
 <template>
     <div>
-        <strong>Stalls:</strong>
         <ul>
             <template v-if="loading">
                 Loading...
