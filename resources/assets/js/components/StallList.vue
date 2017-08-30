@@ -6,7 +6,7 @@
             </template>
             <template v-else>
                 <li v-for="(stall, index) in stalls">
-                    {{ stall.name }}
+                    <a :href="`/stalls/${stall.id}`">{{ stall.name }}</a>
                 </li>
             </template>
         </ul>

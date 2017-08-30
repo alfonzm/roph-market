@@ -26,21 +26,19 @@ class StallController extends Controller
 
     public function store(Request $request)
     {
-        // $this->validate($request, [
-        //     'name' => 'required|max:100'
-        // ]);
-
         $stall = Stall::create([
             'name' => request('name'),
             'user_id' => Auth::id(),
             'server_id' => Server::first()->id,
         ]);
 
-        $stallItemsRequest = request('stall_items');
         $stallItems = [];
+        $stallItemsRequest = request('stall_items');
+
         foreach($stallItemsRequest as $stallItem) {
             $stallItems[] = new StallItem($stallItem);
         }
+
         return $stall->stallItems()->saveMany($stallItems);
     }
 
@@ -52,7 +50,9 @@ class StallController extends Controller
      */
     public function show(Stall $stall)
     {
-        //
+        return view('stalls/show', [
+            'stall' => $stall->load('stallItems.roItem')
+        ]);
     }
 
     /**
