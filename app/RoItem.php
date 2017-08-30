@@ -4,9 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Stall extends Model
+class RoItem extends Model
 {
     protected $guarded = [];
+
+    public function roItemType() {
+    	return $this->belongsTo('App\RoItemType');
+    }
 
     public function stallItems() {
     	return $this->hasMany('App\StallItem');

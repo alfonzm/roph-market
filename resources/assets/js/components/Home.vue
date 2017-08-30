@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import ItemSearchBar from './ItemSearchBar.vue'
+import ItemSearch from './ItemSearch.vue'
 import StallList from './StallList.vue'
 
 export default {
@@ -15,7 +15,7 @@ export default {
 		}
 	},
 	components: {
-		'item-search-bar': ItemSearchBar,
+		'item-search': ItemSearch,
 		'stall-list': StallList,
 	},
 	mounted() {

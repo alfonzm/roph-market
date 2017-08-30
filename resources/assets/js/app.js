@@ -8,7 +8,8 @@ const app = new Vue({
     el: '#app',
     components: {
     	'home': require('./components/Home.vue'),
-    	'item-search-bar': require('./components/ItemSearchBar.vue'),
+    	'item-search': require('./components/ItemSearch.vue'),
 		'stall-list': require('./components/StallList.vue'),
+		'create-stall': require('./components/CreateStall.vue'),
     }
 });

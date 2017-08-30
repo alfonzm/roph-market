@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\Stall;
+use App\StallItem;
 use App\Server;
 use Illuminate\Http\Request;
 
@@ -25,15 +26,22 @@ class StallController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required|max:100'
-        ]);
+        // $this->validate($request, [
+        //     'name' => 'required|max:100'
+        // ]);
 
-        return Stall::create([
+        $stall = Stall::create([
             'name' => request('name'),
             'user_id' => Auth::id(),
             'server_id' => Server::first()->id,
         ]);
+
+        $stallItemsRequest = request('stall_items');
+        $stallItems = [];
+        foreach($stallItemsRequest as $stallItem) {
+            $stallItems[] = new StallItem($stallItem);
+        }
+        return $stall->stallItems()->saveMany($stallItems);
     }
 
     /**

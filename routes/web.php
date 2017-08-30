@@ -13,7 +13,23 @@
 
 
 Route::get('/test', function() {
-	return App\Server::first();
+	// return $stallItem = App\StallItem::create([
+	// 	'stall_id' => 1,
+	// 	'ro_item_id' => 500,
+	// 	'price' => 200
+	// ]);
+
+	// return App\StallItem::with('roItem')->first();
+	// return App\RoItem::with('type')->first();
+	// return App\RoItemType::with('roItems')->first();
+
+    $stall = App\Stall::create([
+        'name' => 'nameee',
+        'user_id' => Auth::id(),
+        'server_id' => App\Server::first()->id,
+    ]);
+
+    return $stall;
 });
 
 Route::get('/', function () {

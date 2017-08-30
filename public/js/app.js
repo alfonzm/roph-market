@@ -571,46 +571,7 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var Component = __webpack_require__(2)(
-  /* script */
-  __webpack_require__(41),
-  /* template */
-  __webpack_require__(42),
-  /* styles */
-  null,
-  /* scopeId */
-  null,
-  /* moduleIdentifier (server only) */
-  null
-)
-Component.options.__file = "/Applications/MAMP/htdocs/roph-market/resources/assets/js/components/ItemSearchBar.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] ItemSearchBar.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3792926c", Component.options)
-  } else {
-    hotAPI.reload("data-v-3792926c", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
+/* 3 */,
 /* 4 */
 /***/ (function(module, exports) {
 
@@ -967,8 +928,9 @@ var app = new Vue({
     el: '#app',
     components: {
         'home': __webpack_require__(39),
-        'item-search-bar': __webpack_require__(3),
-        'stall-list': __webpack_require__(10)
+        'item-search': __webpack_require__(56),
+        'stall-list': __webpack_require__(10),
+        'create-stall': __webpack_require__(59)
     }
 });
 
@@ -41998,8 +41960,8 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ItemSearchBar_vue__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ItemSearchBar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__ItemSearchBar_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ItemSearch_vue__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ItemSearch_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__ItemSearch_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__StallList_vue__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__StallList_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__StallList_vue__);
 //
@@ -42020,71 +41982,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 
 	components: {
-		'item-search-bar': __WEBPACK_IMPORTED_MODULE_0__ItemSearchBar_vue___default.a,
+		'item-search': __WEBPACK_IMPORTED_MODULE_0__ItemSearch_vue___default.a,
 		'stall-list': __WEBPACK_IMPORTED_MODULE_1__StallList_vue___default.a
 	},
 	mounted: function mounted() {}
 });
 
 /***/ }),
-/* 41 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ItemSearchBar_vue__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ItemSearchBar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__ItemSearchBar_vue__);
-//
-//
-//
-//
-//
-//
-//
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-	data: function data() {
-		return {
-			test: 'hi'
-		};
-	},
-
-	components: {
-		'item-search-bar': __WEBPACK_IMPORTED_MODULE_0__ItemSearchBar_vue___default.a
-	},
-	mounted: function mounted() {}
-});
-
-/***/ }),
-/* 42 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('input', {
-    attrs: {
-      "type": "text",
-      "placeholder": "Search for an item..."
-    }
-  }), _vm._v(" "), _c('input', {
-    attrs: {
-      "type": "submit",
-      "value": "Search"
-    }
-  })])
-}]}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-3792926c", module.exports)
-  }
-}
-
-/***/ }),
+/* 41 */,
+/* 42 */,
 /* 43 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -42169,6 +42075,315 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 47 */,
+/* 48 */,
+/* 49 */,
+/* 50 */,
+/* 51 */,
+/* 52 */,
+/* 53 */,
+/* 54 */,
+/* 55 */,
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var Component = __webpack_require__(2)(
+  /* script */
+  __webpack_require__(57),
+  /* template */
+  __webpack_require__(58),
+  /* styles */
+  null,
+  /* scopeId */
+  null,
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "/Applications/MAMP/htdocs/roph-market/resources/assets/js/components/ItemSearch.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] ItemSearch.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-5f2788d7", Component.options)
+  } else {
+    hotAPI.reload("data-v-5f2788d7", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 57 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	data: function data() {
+		return {};
+	},
+	mounted: function mounted() {}
+});
+
+/***/ }),
+/* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _vm._m(0)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('input', {
+    attrs: {
+      "type": "text",
+      "placeholder": "Search for an item..."
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "submit",
+      "value": "Search"
+    }
+  })])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-5f2788d7", module.exports)
+  }
+}
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var Component = __webpack_require__(2)(
+  /* script */
+  __webpack_require__(60),
+  /* template */
+  __webpack_require__(61),
+  /* styles */
+  null,
+  /* scopeId */
+  null,
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "/Applications/MAMP/htdocs/roph-market/resources/assets/js/components/CreateStall.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] CreateStall.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-5f360810", Component.options)
+  } else {
+    hotAPI.reload("data-v-5f360810", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 60 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	data: function data() {
+		return {
+			item: {
+				price: null,
+				roItemId: null
+			},
+			dropdownItems: [],
+			items: []
+		};
+	},
+	mounted: function mounted() {},
+
+	methods: {
+		addItem: function addItem() {
+			this.items.push(this.item);
+			this.item = {};
+			console.log(this.item.name);
+			console.log(this.item.price);
+		}
+	}
+});
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_vm._m(0), _vm._v(" "), _c('form', {
+    on: {
+      "submit": function($event) {
+        $event.preventDefault();
+        _vm.addItem($event)
+      }
+    }
+  }, [_c('label', [_vm._v("Add an item")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.item.roItemId),
+      expression: "item.roItemId"
+    }],
+    attrs: {
+      "type": "text",
+      "placeholder": "Item ID"
+    },
+    domProps: {
+      "value": (_vm.item.roItemId)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.item.roItemId = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.item.price),
+      expression: "item.price"
+    }],
+    attrs: {
+      "type": "text",
+      "placeholder": "Price"
+    },
+    domProps: {
+      "value": (_vm.item.price)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.item.price = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "submit"
+    }
+  })]), _vm._v(" "), _c('div', [_vm._v("\n\t\t\tItems:\n\t\t\t"), _c('ul', _vm._l((_vm.items), function(item, index) {
+    return _c('li', [_vm._v("\n\t\t\t\t\t" + _vm._s(item.roItemId) + " / " + _vm._s(item.price) + "\n\t\t\t\t\t"), _c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": 'stall_items[' + index + '][ro_item_id]'
+      },
+      domProps: {
+        "value": item.roItemId
+      }
+    }), _vm._v(" "), _c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": 'stall_items[' + index + '][price]'
+      },
+      domProps: {
+        "value": item.price
+      }
+    })])
+  }))]), _vm._v(" "), _vm._m(1)])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('label', {
+    attrs: {
+      "for": "stall"
+    }
+  }, [_vm._v("Stall name")]), _vm._v(" "), _c('input', {
+    attrs: {
+      "id": "name",
+      "type": "text",
+      "name": "name",
+      "required": "",
+      "autofocus": ""
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('button', {
+    attrs: {
+      "type": "submit"
+    }
+  }, [_vm._v("\n                Create stall\n            ")])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-5f360810", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
