@@ -36,6 +36,7 @@ Route::get('/', function () {
     return view('home');
 })->name('index');
 
+
 Auth::routes();
 Route::get('logout', 'Auth\LoginController@logout');
 
@@ -46,6 +47,7 @@ Route::group(['middleware' => 'web'], function() {
 Route::prefix('api')->group(function() {
 	Route::prefix('v1')->group(function() {
 		Route::resource('stalls', 'StallController');
+		Route::get('ro-items/search', 'RoItemController@search');
 	});
 });
 

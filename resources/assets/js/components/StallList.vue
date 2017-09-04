@@ -27,7 +27,7 @@
         methods: {
             fetchStallsList() {
                 this.loading = true
-                axios.get('api/v1/stalls').then((res) => {
+                axios.get('/api/v1/stalls').then((res) => {
                     this.loading = false
                     this.stalls = res.data
                 })

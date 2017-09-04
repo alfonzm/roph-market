@@ -9,9 +9,10 @@
 		<!-- Add item -->
 		<form @submit.prevent="addItem">
 			<label>Add an item</label>
-			<input v-model="item.roItemId" type="text" placeholder="Item ID">
-			<input v-model="item.price" type="text" placeholder="Price">
-			<input type="submit">
+			<item-search @onSelectSearchResult="onSelectSearchResult" v-model="query"></item-search>
+			<input v-model="itemToAdd.price" type="text" placeholder="Price">
+			<input v-model="itemToAdd.quantity" type="number" placeholder="Quantity">
+			<input type="submit" value="Add item">
 		</form>
 
 		<!-- Items -->
@@ -19,9 +20,10 @@
 			Items:
 			<ul>
 				<li v-for="(item, index) in items">
-					{{ item.roItemId }} / {{ item.price }}
-					<input type="hidden" :name="'stall_items[' + index + '][ro_item_id]'" :value="item.roItemId">
+					{{ item.name }} / {{ item.price }}z
+					<input type="hidden" :name="'stall_items[' + index + '][ro_item_id]'" :value="item.id">
 					<input type="hidden" :name="'stall_items[' + index + '][price]'" :value="item.price">
+					<input type="hidden" :name="'stall_items[' + index + '][quantity]'" :value="item.quantity">
 				</li>
 			</ul>
         </div>
@@ -36,13 +38,13 @@
 
 <script>
 
+import ItemSearch from './ItemSearch.vue'
+
 export default {
 	data() {
 		return {
-			item: {
-				price: null,
-				roItemId: null
-			},
+			query: '',
+			itemToAdd: {},
 			dropdownItems: [],
 			items: [],
 		}
@@ -50,12 +52,17 @@ export default {
 	mounted() {
 
 	},
+	components: {
+		'item-search': ItemSearch
+	},
 	methods: {
+		onSelectSearchResult(roItem) {
+			this.itemToAdd = roItem
+		},
 		addItem() {
-			this.items.push(this.item)
-			this.item = {}
-			console.log(this.item.name)
-			console.log(this.item.price)
+			this.items.push(Object.assign({}, this.itemToAdd))
+			this.itemToAdd = {}
+			this.query = null
 		}
 	}
 }
