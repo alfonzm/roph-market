@@ -43,12 +43,18 @@ Route::get('logout', 'Auth\LoginController@logout');
 Route::group(['middleware' => 'web'], function() {
 });
 
+// Stall views
+Route::get('stalls/create', 'StallController@create')->name('stalls.create');
+Route::get('stalls/{stall}', 'StallController@show')->name('stalls.show');
+
 // API
 Route::prefix('api')->group(function() {
 	Route::prefix('v1')->group(function() {
-		Route::resource('stalls', 'StallController');
 		Route::get('ro-items/search', 'RoItemController@search');
+
+		// Stalls
+		Route::get('stalls', 'StallController@index')->name('stalls.index');
+		Route::post('stalls', 'StallController@store')->name('stalls.store');
+		Route::get('stalls/search', 'StallController@search');
 	});
 });
-
-Route::resource('stalls', 'StallController');

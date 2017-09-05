@@ -42,48 +42,36 @@ class StallController extends Controller
         return $stall->stallItems()->saveMany($stallItems);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Stall  $stall
-     * @return \Illuminate\Http\Response
-     */
+    public function search(Request $request)
+    {
+        $roItemIdToSearch = $request->input('i');
+        $results = Stall::with(['stallItems' => function ($query) use ($roItemIdToSearch) {
+            $query->where('ro_item_id', '=', $roItemIdToSearch);
+        }])->whereHas('stallItems', function ($query) use ($roItemIdToSearch) {
+            $query->where('ro_item_id', '=', $roItemIdToSearch);
+        })->get();
+
+        return $results;
+    }
+
     public function show(Stall $stall)
     {
+        // $stall = Stall::find($stallId);
         return view('stalls/show', [
             'stall' => $stall->load('stallItems.roItem')
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Stall  $stall
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Stall $stall)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Stall  $stall
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Stall $stall)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Stall  $stall
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Stall $stall)
     {
         $stall->delete();

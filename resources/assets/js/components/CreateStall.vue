@@ -9,7 +9,7 @@
 		<!-- Add item -->
 		<form @submit.prevent="addItem">
 			<label>Add an item</label>
-			<item-search @onSelectSearchResult="onSelectSearchResult" v-model="query"></item-search>
+			<item-search @onSelectSearchResult="onSelectSearchResult"></item-search>
 			<input v-model="itemToAdd.price" type="text" placeholder="Price">
 			<input v-model="itemToAdd.quantity" type="number" placeholder="Quantity">
 			<input type="submit" value="Add item">
@@ -43,7 +43,6 @@ import ItemSearch from './ItemSearch.vue'
 export default {
 	data() {
 		return {
-			query: '',
 			itemToAdd: {},
 			dropdownItems: [],
 			items: [],
@@ -62,7 +61,6 @@ export default {
 		addItem() {
 			this.items.push(Object.assign({}, this.itemToAdd))
 			this.itemToAdd = {}
-			this.query = null
 		}
 	}
 }
