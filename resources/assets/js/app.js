@@ -9,5 +9,6 @@ const app = new Vue({
 		'stall-list': require('./components/StallList.vue'),
 		'stall-search': require('./components/RoItemStallSearch.vue'),
 		'create-stall': require('./components/CreateStall.vue'),
+		'ro-item-image': require('./components/RoItemImage.vue'),
     }
 });

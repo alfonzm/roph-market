@@ -4,8 +4,16 @@
 		<input type="text" ref="input" placeholder="Search for an item..." :value="value" @input="updateValue($event.target.value)"/>
 		<div style="display: inline">
 			<ul v-if="results.length > 0">
-				<li v-for="result in results">
-					<a href="#" @click="selectItem(result)">{{ result.name }}</a>
+				<li v-for="item in results">
+					<!-- roitem list item -->
+					<ro-item-image :id="item.id" :type="item.type" />
+					<a href="#" @click="selectItem(item)">
+						{{ item.name }}
+						<template v-if="item.slots > 0">
+							[{{ item.slots }}]
+						</template>
+					</a>
+					<span style="color: #aaa;">(#{{ item.id }})</span>
 				</li>
 			</ul>
 		</div>
@@ -16,8 +24,13 @@
 
 /* Make sure to have v-model="query" as item-search prop */
 
+import RoItemImage from './RoItemImage.vue'
+
 export default {
 	props: ['value'],
+	components: {
+		'ro-item-image': RoItemImage
+	},
 	data() {
 		return {
 			results: [],

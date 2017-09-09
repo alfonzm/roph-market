@@ -26,4 +26,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function contacts() {
+        return $this->hasMany('App\UserContact');
+    }
+
+    public function igns() {
+        return $this->hasMany('App\UserIgn');
+    }
 }

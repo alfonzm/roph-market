@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStallItemsTable extends Migration
+class CreateInitialTables extends Migration
 {
     /**
      * Run the migrations.
@@ -13,6 +13,24 @@ class CreateStallItemsTable extends Migration
      */
     public function up()
     {
+        Schema::create('servers', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+        });
+
+        Schema::create('stalls', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
+
+            $table->integer('server_id')->unsigned();
+            $table->foreign('server_id')->references('id')->on('servers');
+
+            $table->text('description')->nullable();
+            $table->timestamps();
+        });
+
         Schema::create('ro_item_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
@@ -50,6 +68,29 @@ class CreateStallItemsTable extends Migration
 
             $table->timestamps();
         });
+        
+        Schema::create('user_igns', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('ign');
+
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
+
+            $table->integer('server_id')->unsigned();
+            $table->foreign('server_id')->references('id')->on('servers');
+
+            $table->timestamps();
+        });
+        
+        Schema::create('user_contacts', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->string('value');
+
+            $table->timestamps();
+        });
     }
 
     /**
@@ -59,8 +100,12 @@ class CreateStallItemsTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('user_contacts');
+        Schema::dropIfExists('user_igns');
         Schema::dropIfExists('stall_items');
         Schema::dropIfExists('ro_items');
         Schema::dropIfExists('ro_item_types');
+        Schema::dropIfExists('stalls');
+        Schema::dropIfExists('servers');
     }
 }
