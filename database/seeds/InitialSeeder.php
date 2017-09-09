@@ -21,39 +21,24 @@ class InitialSeeder extends Seeder
 
         // RO Item Types
         DB::table('ro_item_types')->insert([
-            'name' => 'consumable',
-        ]);
-        DB::table('ro_item_types')->insert([
-            'name' => 'weapon',
-        ]);
-        DB::table('ro_item_types')->insert([
-            'name' => 'card',
-        ]);
-
-        // RO Items
-        DB::table('ro_items')->insert([
-            'id' => 500,
-            'name' => 'Red Potion',
-            'ro_item_type_id' => 1
-        ]);
-        DB::table('ro_items')->insert([
-            'id' => 501,
-            'name' => 'Blue Potion',
-            'ro_item_type_id' => 1
-        ]);
-        DB::table('ro_items')->insert([
-            'id' => 700,
-            'name' => 'White Potion',
-            'ro_item_type_id' => 1
+            ['id' => 0, 'name' => 'healing_item', 'display_name' => 'Healing item'],
+            ['id' => 2, 'name' => 'usable_item', 'display_name' => 'Usable item'],
+            ['id' => 3, 'name' => 'etc', 'display_name' => 'Etc'],
+            ['id' => 4, 'name' => 'weapon', 'display_name' => 'Weapon'],
+            ['id' => 5, 'name' => 'armor', 'display_name' => 'Armor'],
+            ['id' => 6, 'name' => 'card', 'display_name' => 'Card'],
+            ['id' => 7, 'name' => 'pet_egg', 'display_name' => 'Pet egg'],
+            ['id' => 8, 'name' => 'pet_equipment', 'display_name' => 'Pet equipment'],
+            ['id' => 10, 'name' => 'ammo', 'display_name' => 'Ammo'],
+            ['id' => 11, 'name' => 'delayed_usable', 'display_name' => 'Usable with delayed consumption'],
+            ['id' => 18, 'name' => 'delayed_usable_confirm', 'display_name' => 'Delayed consume that requires user confirmation before using item']
         ]);
 
         // Servers
         DB::table('servers')->insert([
-        	'name' => 'thor'
-    	]);
-        DB::table('servers')->insert([
-        	'name' => 'loki'
-    	]);
+        	['name' => 'thor'],
+        	['name' => 'loki']
+        ]);
 
         // Stalls
         DB::table('stalls')->insert([
@@ -61,5 +46,7 @@ class InitialSeeder extends Seeder
             'user_id' => 1,
             'server_id' => 1
         ]);
+
+        // $this->call(RoItemsSeeder::class);
     }
 }

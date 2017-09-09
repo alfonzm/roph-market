@@ -10,7 +10,7 @@
 		<ul>
 			@foreach($stall->stallItems as $stallItem)
 				<li>
-			    {{ $stallItem->roItem->name }} / {{ $stallItem->price }}z / {{ $stallItem->quantity }} ea
+			    <img src="http://imgs.ratemyserver.net/items/small/{{ $stallItem->roItem->id }}.gif"> {{ $stallItem->roItem->name }} / {{ $stallItem->price }}z / {{ $stallItem->quantity }} ea
 				</li>
 		    @endforeach
 		</ul>
