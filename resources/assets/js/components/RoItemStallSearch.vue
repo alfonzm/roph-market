@@ -1,6 +1,6 @@
 <template>
 	<div style="display: inline">
-		<item-search @onSelectSearchResult="searchStallByRoItem"></item-search>
+		<item-search @onSelectSearchResult="searchStallByRoItem" v-model="query"></item-search>
 		<div>
 			<span v-if="loading">Loading stalls...</span>
 			<ul v-else>
@@ -18,6 +18,7 @@ import ItemSearch from './ItemSearch.vue'
 export default {
 	data() {
 		return {
+			query: '',
 			results: [],
 			loading: false
 		}

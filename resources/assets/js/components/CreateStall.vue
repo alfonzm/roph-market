@@ -9,7 +9,7 @@
 		<!-- Add item -->
 		<form @submit.prevent="addItem">
 			<label>Add an item</label>
-			<item-search @onSelectSearchResult="onSelectSearchResult"></item-search>
+			<item-search @onSelectSearchResult="onSelectSearchResult" v-model="query"></item-search>
 			<input v-model="itemToAdd.price" type="text" placeholder="Price">
 			<input v-model="itemToAdd.quantity" type="number" placeholder="Quantity">
 			<input type="submit" value="Add item">
@@ -24,6 +24,7 @@
 					<input type="hidden" :name="'stall_items[' + index + '][ro_item_id]'" :value="item.id">
 					<input type="hidden" :name="'stall_items[' + index + '][price]'" :value="item.price">
 					<input type="hidden" :name="'stall_items[' + index + '][quantity]'" :value="item.quantity">
+					<input type="button" value="Remove" @click="remove(index)">
 				</li>
 			</ul>
         </div>
@@ -43,6 +44,7 @@ import ItemSearch from './ItemSearch.vue'
 export default {
 	data() {
 		return {
+			query: null,
 			itemToAdd: {},
 			dropdownItems: [],
 			items: [],
@@ -55,12 +57,16 @@ export default {
 		'item-search': ItemSearch
 	},
 	methods: {
+		remove(index) {
+			this.items.splice(index, 1)
+		},
 		onSelectSearchResult(roItem) {
 			this.itemToAdd = roItem
 		},
 		addItem() {
 			this.items.push(Object.assign({}, this.itemToAdd))
 			this.itemToAdd = {}
+			this.query = null
 		}
 	}
 }
