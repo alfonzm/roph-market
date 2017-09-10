@@ -39,7 +39,7 @@
 
 <script>
 
-import ItemSearch from './ItemSearch.vue'
+import ItemSearch from './presentational/ItemSearch.vue'
 
 export default {
 	data() {

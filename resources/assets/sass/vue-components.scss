@@ -1,0 +1,75 @@
+// ItemSearch.vue
+.item-search {
+	display: inline;
+}
+
+// RoItemStallSearch.vue
+.ro-item-stall-search {
+	display: inline;
+
+	.item-search input[type="text"] {
+		padding: 10px;
+		font-size: $medium-font;
+		width: 100%;
+	}
+}
+
+// StallList.vue
+.stall-list {
+	table {
+		padding: 0;
+		margin: 0;
+
+		width: 100%;
+	}
+}
+
+@mixin listTableRow {
+	td {
+		&.name {
+			a {
+				display: block;
+			}
+
+			padding: 8px;
+		}
+
+		&.img {
+			width: 25px;
+		}
+
+		&.timestamp {
+			text-align: right;
+			width: 200px;
+			padding: 8px;
+		}
+	}
+
+	&:nth-child(even) {
+		background-color: lighten($light-gray-color, 5%);
+	}
+}
+
+// StallListRow.vue
+tr.stall-row {
+	font-size: $normal-font;
+
+	@include listTableRow();
+
+}
+
+// StallItemList.vue
+table.stall-item-list {
+	width: 100%;
+}
+
+// StallItemListRow.vue
+tr.stall-item-row {
+	@include listTableRow();
+
+	td {
+		&.quantity, &.price {
+			text-align: right
+		}
+	}
+}

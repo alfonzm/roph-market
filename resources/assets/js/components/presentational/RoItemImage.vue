@@ -4,8 +4,6 @@
 
 <script>
 
-import ItemSearch from './ItemSearch.vue'
-
 export default {
 	props: ['id', 'type'],
 	data() {

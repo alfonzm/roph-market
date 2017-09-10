@@ -1,0 +1,47 @@
+* {
+	color: $black-color;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: 300;
+}
+
+a {
+	text-decoration: none;
+	color: $brand-color;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+@mixin placeholder() {
+	::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+		color: $gray-color;
+		font-weight: 300;
+	}
+	::-moz-placeholder { /* Firefox 19+ */
+		color: $gray-color;
+		font-weight: 300;
+	}
+	:-ms-input-placeholder { /* IE 10+ */
+		color: $gray-color;
+		font-weight: 300;
+	}
+	:-moz-placeholder { /* Firefox 18- */
+		color: $gray-color;
+		font-weight: 300;
+	}
+}
+
+input[type="text"],
+input[type="number"] {
+	outline: none;
+	border: 1px solid $border-color;
+	font-size: $normal-font;
+
+	font-family: $primary-font;
+	padding: 6px;
+	border-radius: 5px;
+	box-sizing: border-box;	
+}

@@ -5,10 +5,10 @@ window.Vue = require('vue');
 const app = new Vue({
     el: '#app',
     components: {
-    	'item-search': require('./components/ItemSearch.vue'),
-		'stall-list': require('./components/StallList.vue'),
+		'latest-stalls': require('./components/LatestStalls.vue'),
+		'latest-items': require('./components/LatestItems.vue'),
 		'stall-search': require('./components/RoItemStallSearch.vue'),
 		'create-stall': require('./components/CreateStall.vue'),
-		'ro-item-image': require('./components/RoItemImage.vue'),
+		'stall-item-list': require('./components/presentational/StallItemList.vue'),
     }
 });

@@ -1,7 +1,6 @@
-
 <template>
-	<div style="display: inline">
-		<input type="text" ref="input" placeholder="Search for an item..." :value="value" @input="updateValue($event.target.value)"/>
+	<div class="item-search">
+		<input type="text" ref="input" placeholder="What are you looking for? (e.g. Marc Card, +7 Occult Wand)" :value="value" @input="updateValue($event.target.value)"/>
 		<div style="display: inline">
 			<ul v-if="results.length > 0">
 				<li v-for="item in results">

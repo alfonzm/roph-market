@@ -1,10 +1,14 @@
 @extends('layout')
 
 @section('content')
-    <h1>Home</h1>
 	<stall-search></stall-search>
-	<hr>
-    <h2>Latest stalls:</h2>
-    <stall-list></stall-list>
+	<section>
+	    <h2>Latest items</h2>
+	    <latest-items></latest-items>
+	</section>
+	<section>
+	    <h2>Latest stalls</h2>
+	    <latest-stalls></latest-stalls>
+	</section>
 
 @endsection

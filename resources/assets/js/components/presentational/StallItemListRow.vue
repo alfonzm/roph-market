@@ -1,0 +1,29 @@
+<template>
+    <tr class="stall-item-row">
+        <td class="img">
+            <ro-item-image :id="stallItem.ro_item_id" :type="stallItem.ro_item.type" />
+        </td>
+        <td class="name">
+            <a :href="`/stalls/${stallItem.id}`">
+                {{ stallItem.ro_item.name }}
+            </a>
+        </td>
+        <td class="quantity">
+            {{ stallItem.quantity }}x
+        </td>
+        <td class="price">
+            {{ stallItem.price }} Z
+        </td>
+    </tr>
+</template>
+
+<script>
+import RoItemImage from './RoItemImage.vue'
+
+export default {
+    props: ['stallItem'],
+    components: {
+        'ro-item-image': RoItemImage
+    },
+}
+</script>

@@ -1,5 +1,5 @@
 <template>
-	<div style="display: inline">
+	<div class="ro-item-stall-search">
 		<item-search @onSelectSearchResult="searchStallByRoItem" v-model="query"></item-search>
 		<div>
 			<span v-if="loading">Loading stalls...</span>
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import ItemSearch from './ItemSearch.vue'
+import ItemSearch from './presentational/ItemSearch.vue'
 
 export default {
 	data() {
