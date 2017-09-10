@@ -5,46 +5,64 @@
     <form method="POST" action="{{ route('login') }}">
         {{ csrf_field() }}
 
-        <!-- Email -->
-        <div>
-            <label for="email">E-Mail Address</label>
-            <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus>
+        <table>
+            <tbody>
+                <!-- Email -->
+                <tr>
+                    <td>
+                        <label for="email">E-Mail Address</label>
+                    </td>
+                    <td>
+                        <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus>
+                        @if ($errors->has('email'))
+                        <span>
+                            <strong>{{ $errors->first('email') }}</strong>
+                        </span>
+                        @endif
+                    </td>
+                </tr>
 
-            @if ($errors->has('email'))
-            <span>
-                <strong>{{ $errors->first('email') }}</strong>
-            </span>
-            @endif
-        </div>
+                <!-- Password -->
+                <tr>
+                    <td>
+                        <label for="password">Password</label>
+                    </td>
+                    <td>
+                        <input id="password" type="password" class="form-control" name="password" required>
 
-        <!-- Password -->
-        <div>
-            <label for="password">Password</label>
-            <input id="password" type="password" class="form-control" name="password" required>
+                        @if ($errors->has('password'))
+                        <span>
+                            <strong>{{ $errors->first('password') }}</strong>
+                        </span>
+                        @endif
+                    </td>
+                </tr>
 
-            @if ($errors->has('password'))
-            <span>
-                <strong>{{ $errors->first('password') }}</strong>
-            </span>
-            @endif
-        </div>
+                <!-- Remember me -->
+                <!-- <tr>
+                    <td>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
+                            </label>
+                        </div>
+                    </td>
+                </tr> -->
+            </tbody>
+        </table>
 
-        <!-- Remember me -->
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-            </label>
-        </div>
+        <!-- Forgot password -->
+        <p>
+            <a href="{{ route('password.request') }}">
+                Forgot Your Password?
+            </a>
+        </p>
 
-        <div>
-            <button type="submit">
-                Login
-            </button>
-        </div>
+        <!-- Submit -->
+        <button type="submit">
+            Login
+        </button>
 
-        <a href="{{ route('password.request') }}">
-            Forgot Your Password?
-        </a>
     </form>
 </div>
 @endsection

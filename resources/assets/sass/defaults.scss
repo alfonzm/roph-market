@@ -34,14 +34,29 @@ a {
 	}
 }
 
-input[type="text"],
-input[type="number"] {
+@mixin formControl {
 	outline: none;
-	border: 1px solid $border-color;
 	font-size: $normal-font;
-
 	font-family: $primary-font;
-	padding: 6px;
+	padding: 4px;
 	border-radius: 5px;
-	box-sizing: border-box;	
+	box-sizing: border-box;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"] {
+	border: 1px solid $border-color;
+	@include formControl();
+}
+
+button, input[type="submit"] {
+	@include formControl();
+
+	border: 1px solid $brand-color;
+	font-weight: 300;
+	background-color: $brand-color;
+	color: white;
+	padding: 4px 15px;
 }
