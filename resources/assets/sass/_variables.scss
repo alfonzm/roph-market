@@ -18,4 +18,4 @@ $gray-color: #999;
 $light-gray-color: #eee;
 $border-color: #ccc;
 
-$hover-bg-color: $light-gray-color;
+$hover-bg-color: lighten($light-gray-color, 5%);

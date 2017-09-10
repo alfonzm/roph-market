@@ -1,5 +1,5 @@
 <template>
-	<img :src="src" />
+	<img :src="src" class="ro-item-image" />
 </template>
 
 <script>

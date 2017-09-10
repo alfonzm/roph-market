@@ -5,7 +5,7 @@
         </td>
         <td class="name">
             <a :href="`/stalls/${stallItem.id}`">
-                {{ stallItem.ro_item.name }}
+                {{ stallItem.ro_item.name }} <template v-if="stallItem.ro_item.slots > 0">[{{ stallItem.ro_item.slots }}]</template>
             </a>
         </td>
         <td class="quantity">

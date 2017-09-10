@@ -1,21 +1,31 @@
 <template>
 	<div class="item-search">
-		<input type="text" ref="input" placeholder="What are you looking for? (e.g. Marc Card, +7 Occult Wand)" :value="value" @input="updateValue($event.target.value)"/>
-		<div style="display: inline">
-			<ul v-if="results.length > 0">
-				<li v-for="item in results">
-					<!-- roitem list item -->
+		<input
+			type="text"
+			ref="input"
+			placeholder="What are you looking for? (e.g. Marc Card, +7 Occult Wand)"
+			:value="value"
+			@input="updateValue($event.target.value)"
+			@keydown.enter="onSearchFieldEnter"
+			@keydown.down="onSearchFieldDown"
+			@keydown.up="onSearchFieldUp"
+			@blur="hideResults"
+			/>
+
+		<!-- Results -->
+		<ul class="results" v-if="results.length > 0 && showResults">
+			<li v-for="(item, index) in results" :class="{'active' : isActive(index)}">
+				<!-- roitem list item -->
+				<a href="#" @mousedown="selectItem(item)">
 					<ro-item-image :id="item.id" :type="item.type" />
-					<a href="#" @click="selectItem(item)">
-						{{ item.name }}
-						<template v-if="item.slots > 0">
-							[{{ item.slots }}]
-						</template>
-					</a>
+					{{ item.name }}
+					<template v-if="item.slots > 0">
+						[{{ item.slots }}]
+					</template>
 					<span style="color: #aaa;">(#{{ item.id }})</span>
-				</li>
-			</ul>
-		</div>
+				</a>
+			</li>
+		</ul>
 	</div>	
 </template>
 
@@ -32,14 +42,41 @@ export default {
 	},
 	data() {
 		return {
+			showResults: true,
+			current: 0,
 			results: [],
 			searchTimeout: null,
 			loading: true
 		}
 	},
 	methods: {
+		hideResults() {
+			this.showResults = false
+		},
+		isActive(index) {
+			return this.current == index
+		},
+		onSearchFieldEnter(item) {
+			this.selectItem(this.results[this.current])
+		},
+		onSearchFieldDown() {
+			this.showResults = true
+
+			if(this.current < this.results.length - 1) {
+				this.current++
+			}
+		},
+		onSearchFieldUp() {
+			this.showResults = true
+
+			if(this.current > 0) {
+				this.current--
+			}
+		},
 		selectItem(selectedItem) {
 			this.results = []
+			this.current = 0
+
 			this.$emit('input', selectedItem.name)
 			this.$emit('onSelectSearchResult', selectedItem)
 		},
@@ -59,8 +96,10 @@ export default {
 						s: this.value
 					}
 				}).then(response => {
+					this.showResults = true
 					this.loading = false
 					this.results = response.data
+					this.current = 0
 				});
 			}
 		}

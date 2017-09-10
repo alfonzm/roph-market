@@ -1,6 +1,50 @@
 // ItemSearch.vue
 .item-search {
 	display: inline;
+	position: relative;
+
+	ul.results {
+		margin: 5px 0;
+		padding: 0;
+		border: 1px solid $border-color;
+		background-color: white;
+		min-width: 300px;
+		width: inherit;
+		box-sizing: border-box;
+
+		border-radius: 5px;
+
+		position: absolute;
+		top: 45;
+		left: 0;
+
+		li {
+			list-style-type: none;
+
+			a {
+				padding: 5px;
+				display: block;
+
+				&:hover {
+					text-decoration: none;
+				}
+			}
+
+			&:hover {
+				background-color: $hover-bg-color;
+			}
+
+			&.active {
+				background-color: $light-gray-color;
+			}
+		}
+	}
+}
+
+// RoItemImage.vue
+img.ro-item-image {
+	width: 25px;
+	vertical-align: middle;
 }
 
 // RoItemStallSearch.vue
@@ -46,7 +90,7 @@
 	}
 
 	&:nth-child(even) {
-		background-color: lighten($light-gray-color, 5%);
+		background-color: $hover-bg-color;
 	}
 }
 
