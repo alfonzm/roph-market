@@ -5,6 +5,8 @@
 </template>
 
 <script>
+// Props: array of stallitems
+
 import StallItemListRow from './StallItemListRow.vue'
 
 export default {

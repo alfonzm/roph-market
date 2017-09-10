@@ -22,10 +22,10 @@ class CreateInitialTables extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->integer('server_id')->unsigned();
-            $table->foreign('server_id')->references('id')->on('servers');
+            $table->foreign('server_id')->references('id')->on('servers')->onDelete('cascade');
 
             $table->text('description')->nullable();
             $table->timestamps();
@@ -58,10 +58,10 @@ class CreateInitialTables extends Migration
         Schema::create('stall_items', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('stall_id')->unsigned();
-            $table->foreign('stall_id')->references('id')->on('stalls');
+            $table->foreign('stall_id')->references('id')->on('stalls')->onDelete('cascade');
 
             $table->integer('ro_item_id')->unsigned();
-            $table->foreign('ro_item_id')->references('id')->on('ro_items');
+            $table->foreign('ro_item_id')->references('id')->on('ro_items')->onDelete('cascade');
 
             $table->integer('price')->nullable();
             $table->integer('quantity')->default(1);
@@ -74,10 +74,10 @@ class CreateInitialTables extends Migration
             $table->string('ign');
 
             $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->integer('server_id')->unsigned();
-            $table->foreign('server_id')->references('id')->on('servers');
+            $table->foreign('server_id')->references('id')->on('servers')->onDelete('cascade');
 
             $table->timestamps();
         });
@@ -86,7 +86,7 @@ class CreateInitialTables extends Migration
             $table->increments('id');
             $table->string('title');
             $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('value');
 
             $table->timestamps();

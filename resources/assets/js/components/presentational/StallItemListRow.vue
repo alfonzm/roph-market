@@ -4,7 +4,7 @@
             <ro-item-image :id="stallItem.ro_item_id" :type="stallItem.ro_item.type" />
         </td>
         <td class="name">
-            <a :href="`/stalls/${stallItem.id}`">
+            <a :href="`/ro-items/${stallItem.ro_item_id}`">
                 {{ stallItem.ro_item.name }} <template v-if="stallItem.ro_item.slots > 0">[{{ stallItem.ro_item.slots }}]</template>
             </a>
         </td>

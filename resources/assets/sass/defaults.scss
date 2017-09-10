@@ -38,11 +38,12 @@ a {
 	outline: none;
 	font-size: $normal-font;
 	font-family: $primary-font;
-	padding: 4px;
-	border-radius: 5px;
+	padding: 8px;
+	// border-radius: 5px;
 	box-sizing: border-box;
 }
 
+textarea,
 input[type="text"],
 input[type="email"],
 input[type="password"],
@@ -59,4 +60,11 @@ button, input[type="submit"] {
 	background-color: $brand-color;
 	color: white;
 	padding: 4px 15px;
+	margin-top: 6px;
+
+	&:hover {
+		cursor: pointer;
+		background-color: lighten($brand-color, 5%);
+		border-color: lighten($brand-color, 5%);
+	}
 }

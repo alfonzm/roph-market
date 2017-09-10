@@ -1,6 +1,6 @@
 <template>
 	<div class="ro-item-stall-search">
-		<item-search @onSelectSearchResult="searchStallByRoItem" v-model="query"></item-search>
+		<item-search placeholder="What are you looking for? (e.g. Marc Card, +7 Occult Wand)" @onSelectSearchResult="searchStallByRoItem" v-model="query"></item-search>
 		<div>
 			<span v-if="loading">Loading stalls...</span>
 			<ul v-else>

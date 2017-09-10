@@ -19,6 +19,10 @@ html, body {
 	@include placeholder();
 }
 
+body {
+    padding-bottom: 50px;
+}
+
 // header
 header {
 	// title

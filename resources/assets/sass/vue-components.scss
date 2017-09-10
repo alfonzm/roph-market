@@ -117,3 +117,79 @@ tr.stall-item-row {
 		}
 	}
 }
+
+// CreateStall.vue
+form.create-stall {
+	table.create-stall-form {
+		width: 100%;
+
+		colgroup {
+			col.label {
+				width: 100px;
+			}
+		}
+
+		td {
+			padding-bottom: 10px;
+
+			&.label {
+				font-size: 13pt;
+				text-align: left;
+				// vertical-align: top;
+			}
+		}
+
+		tr.stall-name,
+		tr.stall-description,
+		tr.stall-add-item {
+			input[type="text"], textarea {
+				width: 100%;
+			}
+		}
+	}
+
+	table.add-items-form {
+		width: 100%;
+
+		input[type="text"],
+		input[type="number"] {
+			font-size: $small-font;
+			padding: 2px;
+			// background-color: rgba(0,0,0,0);
+			// border: none;
+			margin: 3px;
+			display: inline;
+		}
+
+		tr {			
+			&:nth-child(even) {
+				background-color: $hover-bg-color;
+			}
+		}
+
+		td {
+			padding: 6px 0;
+
+			&.fields {
+				word-wrap: break-word;
+			}
+
+			&.image {
+				width: 35px;
+				padding: 0 5px;
+			}
+
+			&.name {
+				margin: 0;
+				padding-right: 10px;
+				white-space: nowrap;
+			}
+
+			&.remove {
+				text-align: center;
+				padding: 0 5px;
+				white-space: nowrap;
+			}
+		}
+	}
+}

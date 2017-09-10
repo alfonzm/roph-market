@@ -3,12 +3,13 @@
 		<input
 			type="text"
 			ref="input"
-			placeholder="What are you looking for? (e.g. Marc Card, +7 Occult Wand)"
+			:placeholder="placeholder || 'Search item...'"
 			:value="value"
 			@input="updateValue($event.target.value)"
-			@keydown.enter="onSearchFieldEnter"
-			@keydown.down="onSearchFieldDown"
-			@keydown.up="onSearchFieldUp"
+			@keydown.enter.prevent="onSearchFieldEnter"
+			@keydown.down.prevent="onSearchFieldDown"
+			@keydown.up.prevent="onSearchFieldUp"
+			@keydown.esc.prevent="hideResults"
 			@blur="hideResults"
 			/>
 
@@ -36,7 +37,7 @@
 import RoItemImage from './RoItemImage.vue'
 
 export default {
-	props: ['value'],
+	props: ['value', 'placeholder'],
 	components: {
 		'ro-item-image': RoItemImage
 	},
@@ -77,6 +78,7 @@ export default {
 			this.results = []
 			this.current = 0
 
+			clearTimeout(this.searchTimeout)
 			this.$emit('input', selectedItem.name)
 			this.$emit('onSelectSearchResult', selectedItem)
 		},
