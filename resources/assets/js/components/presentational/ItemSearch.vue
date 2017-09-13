@@ -37,7 +37,7 @@
 import RoItemImage from './RoItemImage.vue'
 
 export default {
-	props: ['value', 'placeholder'],
+	props: ['value', 'placeholder', 'typeFilter'],
 	components: {
 		'ro-item-image': RoItemImage
 	},
@@ -95,7 +95,8 @@ export default {
 
 				axios.get('/api/v1/ro-items/search', {
 					params: {
-						s: this.value
+						s: this.value,
+						type: this.typeFilter
 					}
 				}).then(response => {
 					this.showResults = true

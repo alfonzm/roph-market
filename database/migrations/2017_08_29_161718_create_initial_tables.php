@@ -63,8 +63,20 @@ class CreateInitialTables extends Migration
             $table->integer('ro_item_id')->unsigned();
             $table->foreign('ro_item_id')->references('id')->on('ro_items')->onDelete('cascade');
 
-            $table->integer('price')->nullable();
-            $table->integer('quantity')->default(1);
+            $table->integer('price')->unsigned()->nullable();
+            $table->tinyInteger('refine')->unsigned()->nullable();
+            $table->integer('quantity')->unsigned()->default(1);
+
+            $table->timestamps();
+        });
+
+        Schema::create('stall_item_cards', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('stall_item_id')->unsigned();
+            $table->foreign('stall_item_id')->references('id')->on('stall_items')->onDelete('cascade');
+
+            $table->integer('card_id')->unsigned();
+            $table->foreign('card_id')->references('id')->on('ro_items')->onDelete('cascade');
 
             $table->timestamps();
         });
@@ -102,6 +114,7 @@ class CreateInitialTables extends Migration
     {
         Schema::dropIfExists('user_contacts');
         Schema::dropIfExists('user_igns');
+        Schema::dropIfExists('stall_item_cards');
         Schema::dropIfExists('stall_items');
         Schema::dropIfExists('ro_items');
         Schema::dropIfExists('ro_item_types');

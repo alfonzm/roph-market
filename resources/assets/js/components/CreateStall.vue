@@ -58,7 +58,7 @@
 										<ro-item-image :id="item.ro_item_id" :type="item.ro_item.type" />
 									</td>
 									<td class="name">
-										{{ item.ro_item.name }} <template v-if="item.ro_item.slots > 0">[{{ item.ro_item.slots }}]</template>
+										<ro-item-name :ro-item="item.ro_item" />
 									</td>
 									<td class="fields">
 										<input
@@ -82,12 +82,21 @@
 												placeholder="refine (0-10)">
 										</template>
 
-										<template v-for="i in item.ro_item.slots">
+										<template v-for="slotIndex in item.ro_item.slots">
+											<item-search
+												@onSelectSearchResult="(roItem) => {
+													items[index].cards[slotIndex-1] = roItem
+												}"
+												v-model="item.cardsQuery[slotIndex-1]"
+												:type-filter="[6]"
+												:placeholder="`card slot #${slotIndex}`" />
+
 											<input
-												:name="`stall_items[${index}][slots][${i}]`"
-												type="text"
-												v-model="item.cards[i-1]"
-												:placeholder="`card slot #${i}`">
+												v-if="(slotIndex-1) in item.cards && 'id' in item.cards[slotIndex-1]"
+												type="hidden"
+												:name="`stall_items[${index}][slots][${slotIndex}]`"
+												v-model="item.cards[slotIndex-1].id"
+												>
 										</template>
 									</td>
 									<td class="remove">
@@ -127,6 +136,7 @@
 import ItemSearch from './presentational/ItemSearch.vue'
 import StallItemList from './presentational/StallItemList.vue'
 import RoItemImage from './presentational/RoItemImage.vue'
+import RoItemName from './presentational/RoItemName.vue'
 
 export default {
 	data() {
@@ -145,6 +155,7 @@ export default {
 		'item-search': ItemSearch,
 		'stall-item-list': StallItemList,
         'ro-item-image': RoItemImage,
+        'ro-item-name': RoItemName,
 	},
 	methods: {
 		remove(index) {
@@ -154,6 +165,7 @@ export default {
 			this.itemToAdd.price = null
 			this.itemToAdd.quantity = null
 			this.itemToAdd.cards = []
+			this.itemToAdd.cardsQuery = []
 			this.itemToAdd.ro_item = roItem
 			this.itemToAdd.ro_item_id = roItem.id
 

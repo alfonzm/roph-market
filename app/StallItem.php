@@ -16,6 +16,10 @@ class StallItem extends Model
     	return $this->belongsTo('App\RoItem');
     }
 
+    public function cards() {
+        return $this->hasMany('App\StallItemCard');
+    }
+
     public function roItemType() {
     	return $this->roItem()->roItemType();
     }

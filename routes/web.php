@@ -12,7 +12,30 @@
 */
 
 
-Route::get('/test', function() {
+// Route::get('/test', function() {
+	// $stall = new App\Stall;
+
+	// $stall->fill([
+ //        'name' => 'STALLY',
+ //        'user_id' => 1,
+ //        'server_id' => App\Server::first()->id,
+ //    ]);
+
+	// $stallItem = new App\StallItem;
+
+	// $stallItem->fill([
+	// 	'ro_item_id' => 500,
+	// 	'price' => 200
+	// ]);
+
+ //    $stall->stallItems->add($stallItem);
+
+ //    if($stall->save()){
+ //    	return $stall;
+ //    } else {
+ //    	return 'no';
+ //    }
+
 	// return $stallItem = App\StallItem::create([
 	// 	'stall_id' => 1,
 	// 	'ro_item_id' => 500,
@@ -22,15 +45,7 @@ Route::get('/test', function() {
 	// return App\StallItem::with('roItem')->first();
 	// return App\RoItem::with('type')->first();
 	// return App\RoItemType::with('roItems')->first();
-
-    $stall = App\Stall::create([
-        'name' => 'nameee',
-        'user_id' => Auth::id(),
-        'server_id' => App\Server::first()->id,
-    ]);
-
-    return $stall;
-});
+// });
 
 // Home
 Route::get('/', function () {

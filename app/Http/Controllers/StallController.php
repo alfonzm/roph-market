@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use App\Stall;
 use App\StallItem;
+use App\StallItemCard;
 use App\Server;
 use Illuminate\Http\Request;
 
@@ -28,14 +29,31 @@ class StallController extends Controller
             'server_id' => Server::first()->id,
         ]);
 
-        $stallItems = [];
-        $stallItemsRequest = request('stall_items');
+        foreach(request('stall_items') as $stallItem) {
+            $newStallItem = $stall->stallItems()->create([
+                'quantity' => $stallItem['quantity'],
+                'price' => $stallItem['price'],
+                'refine' => $stallItem['refine'] ?? null,
+                'ro_item_id' => $stallItem['ro_item_id']
+            ]);
 
-        foreach($stallItemsRequest as $stallItem) {
-            $stallItems[] = new StallItem($stallItem);
+            // Insert cards to stallItem
+            $cards = [];
+            foreach(($stallItem['slots'] ?? []) as $slot) {
+                $cards[] = new StallItemCard(['card_id' => $slot]);
+            }
+
+            // Save all cards
+            $newStallItem->cards = $newStallItem->cards()->saveMany($cards);
+
+            // Add stall item to stallItems variable
+            // $stallItems[] = $newStallItem;
         }
 
-        return $stall->stallItems()->saveMany($stallItems);
+        return view('stalls/show', [
+            'stall' => $stall->load('stallItems.cards.roItem', 'stallItems.roItem')
+        ]);
+        
     }
 
     public function search(Request $request)
@@ -52,9 +70,8 @@ class StallController extends Controller
 
     public function show(Stall $stall)
     {
-        // $stall = Stall::find($stallId);
         return view('stalls/show', [
-            'stall' => $stall->load('stallItems.roItem')
+            'stall' => $stall->load('stallItems.cards.roItem', 'stallItems.roItem')
         ]);
     }
 

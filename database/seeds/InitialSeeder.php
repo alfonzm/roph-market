@@ -34,6 +34,10 @@ class InitialSeeder extends Seeder
             ['id' => 18, 'name' => 'delayed_usable_confirm', 'display_name' => 'Delayed consume that requires user confirmation before using item']
         ]);
 
+        $healingItemType = App\RoItemType::first();
+        $healingItemType->id = 0;
+        $healingItemType->save();
+
         // Servers
         DB::table('servers')->insert([
         	['name' => 'thor'],

@@ -5,7 +5,7 @@
         </td>
         <td class="name">
             <a :href="`/ro-items/${stallItem.ro_item_id}`">
-                {{ stallItem.ro_item.name }} <template v-if="stallItem.ro_item.slots > 0">[{{ stallItem.ro_item.slots }}]</template>
+                <ro-item-name :refine="stallItem.refine" :ro-item="stallItem.ro_item" />
             </a>
         </td>
         <td class="quantity">
@@ -19,11 +19,13 @@
 
 <script>
 import RoItemImage from './RoItemImage.vue'
+import RoItemName from './RoItemName.vue'
 
 export default {
     props: ['stallItem'],
     components: {
-        'ro-item-image': RoItemImage
+        'ro-item-image': RoItemImage,
+        'ro-item-name': RoItemName
     },
 }
 </script>
