@@ -6,7 +6,7 @@
         <td class="name">
             <a :href="`/ro-items/${stallItem.ro_item_id}`">
                 <ro-item-name :refine="stallItem.refine" :ro-item="stallItem.ro_item" />
-            </a>
+            </a> <span v-html="stringifyCards(stallItem.cards)"></span>
         </td>
         <td class="quantity">
             {{ stallItem.quantity }}x
@@ -27,5 +27,11 @@ export default {
         'ro-item-image': RoItemImage,
         'ro-item-name': RoItemName
     },
+    methods: {
+        // receive array of StallItemCard.php objects
+        stringifyCards(cards) {
+            return cards.map(card => "<a href='#'>" + card.ro_item.name + "</a>").join(", ")
+        }
+    }
 }
 </script>

@@ -115,7 +115,13 @@ tr.stall-item-row {
 
 	td {
 		&.quantity, &.price {
-			text-align: right
+			text-align: right;
+			padding: 0 5px;
+			min-width: 30px;
+		}
+
+		&.name a {
+			display: inline;
 		}
 	}
 }
