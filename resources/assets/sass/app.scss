@@ -89,3 +89,23 @@ section#show-stall {
 		margin-right: 5px;
 	}
 }
+
+section#show-user {
+	h2 {
+		a.edit-profile-link {
+			font-size: 14pt;
+			font-weight: 400;
+		}
+	}
+}
+
+section#edit-user {
+	table {
+		tr {
+			td {
+				padding-bottom: 10px;
+				text-align: left;
+			}
+		}
+	}
+}

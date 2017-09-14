@@ -34,4 +34,8 @@ class User extends Authenticatable
     public function igns() {
         return $this->hasMany('App\UserIgn');
     }
+
+    public function stalls() {
+        return $this->hasMany('App\Stall');
+    }
 }

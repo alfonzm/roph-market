@@ -2,11 +2,12 @@
 	<nav>
 		<ul>
 		    @if (Auth::check())
-		    <li><a href="{{ route('logout') }}">Logout</a></li>
+		    <li><a href="{{ route('logout') }}">logout</a></li>
+		    <li><a href="{{ route('users.show', Auth::user()->name) }}">profile</a></li>
 		    @else
-		    <li><a href="{{ route('login') }}">Login</a></li>
+		    <li><a href="{{ route('login') }}">login</a></li>
 		    @endif
-		    <li><a href="{{ route('stalls.create') }}">Create a Stall</a></li>
+		    <li><a href="{{ route('stalls.create') }}">create a stall</a></li>
 		</ul>
 	</nav>
 

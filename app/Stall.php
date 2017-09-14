@@ -11,4 +11,8 @@ class Stall extends Model
     public function stallItems() {
     	return $this->hasMany('App\StallItem');
     }
+
+    public function user() {
+    	return $this->belongsTo('App\User');
+    }
 }

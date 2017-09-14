@@ -13,38 +13,6 @@
 
 
 // Route::get('/test', function() {
-	// $stall = new App\Stall;
-
-	// $stall->fill([
- //        'name' => 'STALLY',
- //        'user_id' => 1,
- //        'server_id' => App\Server::first()->id,
- //    ]);
-
-	// $stallItem = new App\StallItem;
-
-	// $stallItem->fill([
-	// 	'ro_item_id' => 500,
-	// 	'price' => 200
-	// ]);
-
- //    $stall->stallItems->add($stallItem);
-
- //    if($stall->save()){
- //    	return $stall;
- //    } else {
- //    	return 'no';
- //    }
-
-	// return $stallItem = App\StallItem::create([
-	// 	'stall_id' => 1,
-	// 	'ro_item_id' => 500,
-	// 	'price' => 200
-	// ]);
-
-	// return App\StallItem::with('roItem')->first();
-	// return App\RoItem::with('type')->first();
-	// return App\RoItemType::with('roItems')->first();
 // });
 
 // Home
@@ -60,9 +28,13 @@ Route::get('logout', 'Auth\LoginController@logout');
 // Route::group(['middleware' => 'web'], function() {
 // });
 
-// Stalls
 Route::group(['middleware' => ['auth']], function () {
+	// Stalls
 	Route::get('stalls/create', 'StallController@create')->name('stalls.create');
+
+	// Users
+	Route::get('user/edit', 'UserController@edit')->name('users.edit');
+	Route::get('user/{name}', 'UserController@show')->name('users.show');
 });
 
 // Stall views
@@ -74,6 +46,9 @@ Route::prefix('api')->group(function() {
 		// auth middleware
 		Route::group(['middleware' => ['auth']], function () {
 			Route::post('stalls', 'StallController@store')->name('stalls.store');
+			Route::post('users/{id}', 'UserController@update')->name('users.update');
+			Route::post('users/{id}/igns', 'UserController@storeIgn')->name('users.storeIgn');
+			Route::delete('users/{id}/igns/{ignId}', 'UserController@deleteIgn')->name('users.deleteIgn');
 		});
 
 		// Search RO items		

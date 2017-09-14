@@ -9,6 +9,9 @@ const app = new Vue({
 		'latest-items': require('./components/LatestItems.vue'),
 		'stall-search': require('./components/RoItemStallSearch.vue'),
 		'create-stall': require('./components/CreateStall.vue'),
+		'igns-form': require('./components/IgnsForm.vue'),
+		
+		'stall-list': require('./components/presentational/StallList.vue'),
 		'stall-item-list': require('./components/presentational/StallItemList.vue'),
     }
 });
