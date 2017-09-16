@@ -14,18 +14,29 @@
         <template v-if="localIgns.length <= 0">
             No igns found.
         </template>
-        <template v-else>
-            <ul>
-                <li v-for="(ign, index) in localIgns">
-                    {{ ign.ign }} — {{ ign.server.name }} <a href="#" @click.prevent="deleteIgn(ign.id, index)">[delete]</a>
-                </li>
-            </ul>
-        </template>
+        <template v-else v-for="(serverIgns, serverName) in localIgns">
+            <template v-if="serverIgns.length > 0">
+                <h5>{{ serverName }}</h5>
+                <table>
+                    <tbody>
+                        <tr v-for="(ign, index) in serverIgns">
+                            <td>
+                                {{ ign.ign }}
+                            </td>
+                            <td>
+                                <a v-if="ignsCount > 1" href="#" @click.prevent="deleteIgn(ign.id, serverName, index)">[delete]</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </template>
 
+        </template>
     </div>
 </template>
 
 <script>
+import _ from 'lodash'
 
 export default {
     props: ['igns', 'userId'],
@@ -36,11 +47,18 @@ export default {
             ignToAdd: {
                 ign: null,
                 server_id: 1
-            }
+            },
         }
     },
     beforeMount() {
         this.localIgns = this.igns
+    },
+    computed: {
+        ignsCount() {
+            return _.reduce(this.localIgns, (sum, serverIgns) => {
+                return sum + serverIgns.length
+            }, 0)
+        }
     },
     methods: {
         submitForm() {
@@ -52,14 +70,20 @@ export default {
                 this.loading = false
 
                 this.ignToAdd.ign = null
-                this.localIgns.push(res.data)
+                this.localIgns[res.data.server.name].push(Object.assign({}, res.data))
             })
         },
-        deleteIgn(id, index) {
+        deleteIgn(id, server, index) {
             axios.delete(`/api/v1/users/${this.userId}/igns/${id}`, {}).then((res) => {
                 if(res.data.success) {
-                    this.localIgns.splice(index, 1)
+                    if(!(server in this.localIgns)) {
+                        this.localIgns[server] = []
+                    }
+                    this.localIgns[server].splice(index, 1)
                 }
+            }).catch((err) => {
+                console.log(err)
+                alert(err.response.data.message)
             })
         }
     }

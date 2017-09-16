@@ -4,7 +4,9 @@
 		<item-search
 			placeholder="What are you looking for? (e.g. Marc Card, +7 Occult Wand)"
 			@onSelectSearchResult="searchStallByRoItem"
-			v-model="query" />
+			v-model="query"
+			:autofocus="autofocus ? autofocus : null"
+			/>
 		<div class="search-results">
 			<p class="searching" v-if="loading">Searching for stalls...</p>
 			<template v-else-if="showResults">
@@ -30,6 +32,7 @@ export default {
 		'initial-stallItems',
 		'initial-query',
 		'initial-roItemToSearch',
+		'autofocus',
 		'redirect' // if set, onSelectSearchResult will redirect to /search page
 	],
 	data() {

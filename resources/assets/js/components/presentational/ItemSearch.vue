@@ -5,6 +5,7 @@
 			ref="input"
 			:placeholder="placeholder || 'Search item...'"
 			:value="value"
+			:autofocus="autofocus ? autofocus : null"
 			@input="updateValue($event.target.value)"
 			@keydown.enter.prevent="onSearchFieldEnter"
 			@keydown.down.prevent="onSearchFieldDown"
@@ -37,7 +38,7 @@
 import RoItemImage from './RoItemImage.vue'
 
 export default {
-	props: ['value', 'placeholder', 'typeFilter'],
+	props: ['value', 'placeholder', 'typeFilter', 'autofocus'],
 	components: {
 		'ro-item-image': RoItemImage
 	},

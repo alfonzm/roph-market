@@ -21,13 +21,15 @@ class UserController extends Controller
     {
     	$user = Auth::user();
     	$user->load('igns.server');
-    	return view('users/edit', compact('user'));
+        $user->groupIgns();
+        return view('users/edit', compact('user'));
     }
 
     public function update(Request $request, $id)
     {
-    	return $request->input();
-    	return User::with('igns')->find($id);
+        // return $request->input();
+        // return User::with('igns')->find($id);
+    	return redirect()->route('users.edit');
     }
 
     public function storeIgn(Request $request) {
@@ -41,10 +43,16 @@ class UserController extends Controller
     }
 
     public function deleteIgn($userId, $ignId) {
-    	if(UserIgn::destroy($ignId)) {
-    		return response(['success' => 'true']);
-		}
+        $user = User::find($userId);
 
-		return response(['success' => 'false'], 400);
+        if(count($user->igns) == 1) {
+    		return response(['success' => 'false', 'message' => 'You must have at least one IGN.'], 400);
+        }
+
+        if(UserIgn::destroy($ignId)) {
+            return response(['success' => 'true']);
+        }
+
+        return response(['success' => 'false'], 400);
     }
 }

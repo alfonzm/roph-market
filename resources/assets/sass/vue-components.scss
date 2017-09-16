@@ -97,6 +97,7 @@ img.ro-item-image {
 			text-align: right;
 			width: 200px;
 			padding: 8px;
+			font-size: $small-font;
 		}
 	}
 
@@ -206,6 +207,20 @@ form.create-stall {
 				padding: 0 5px;
 				white-space: nowrap;
 			}
+		}
+	}
+}
+
+.igns-form {
+	h5 {
+		@include serverNameHeader()
+		font-size: $normal-font;
+	}
+
+	ul {
+		li {
+			font-size: $normal-font;
+			line-height: 1.4;
 		}
 	}
 }

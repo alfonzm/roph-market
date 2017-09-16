@@ -25,18 +25,30 @@
 
 			<h4>IGNs</h4>
 			<ul>
-				@foreach($stall->user->groupedIgns as $server => $igns)
-					<h5>{{ strtoupper($server) }}</h5>
-					@foreach($igns as $ign)
-						<li>{{ $ign }}</li>
+				@if(count($stall->user->groupedIgns) > 0)
+					@foreach($stall->user->groupedIgns as $server => $igns)
+						<h5>{{ $server }}</h5>
+						@foreach($igns as $ign)
+							<li>{{ $ign['ign'] }}</li>
+						@endforeach
 					@endforeach
-				@endforeach
+				@else
+					<p>
+						<span class="muted">No IGNs.</span>
+					</p>
+				@endif
 			</ul>
 
 			<!-- <h4>Contact</h4> -->
 
 			<h4>Playing Schedule</h4>
-			<p>{{ $stall->user->schedule }}</p>
+			<p>
+				@if(!empty($stall->user->schedule))
+					{{ $stall->user->schedule }}
+				@else
+					<span class="muted">No playing schedule specified.</span>
+				@endif
+			</p>
 		</aside>
 	</section>
 @endsection

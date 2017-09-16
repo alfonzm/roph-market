@@ -40,7 +40,7 @@ Route::get('/', function () {
 // Search
 Route::get('search', 'SearchController@index')->name('search.index');
 
-// Stall views
+// Stall page
 Route::get('stalls/{stall}', 'StallController@show')->name('stalls.show');
 
 // API ===============

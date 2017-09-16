@@ -17,6 +17,7 @@ a {
 
 ul {
 	padding: 0;
+	margin: 0;
 
 	li {
 		list-style-type: none;
@@ -25,6 +26,17 @@ ul {
 
 p {
 	font-size: $normal-font;
+}
+
+@mixin serverNameHeader {
+	margin: 0;
+	font-size: $very-small-font;
+	text-transform: uppercase;
+
+	margin-top: 1em;
+	&:first-child {
+		margin-top: 0;
+	}
 }
 
 @mixin placeholder() {
@@ -50,8 +62,8 @@ p {
 	outline: none;
 	font-size: $normal-font;
 	font-family: $primary-font;
-	padding: 8px;
-	// border-radius: 5px;
+	border-radius: 5px;
+	padding: 5px;
 	box-sizing: border-box;
 }
 
@@ -64,6 +76,13 @@ input[type="number"] {
 	@include formControl();
 }
 
+select {
+	padding: 1em;
+	height: 34px;
+	min-width: 100px;
+	font-size: 100%;
+}
+
 button, input[type="submit"] {
 	@include formControl();
 
@@ -71,8 +90,7 @@ button, input[type="submit"] {
 	font-weight: 300;
 	background-color: $brand-color;
 	color: white;
-	padding: 4px 15px;
-	margin-top: 6px;
+	padding: 5px 25px;
 
 	&:hover {
 		cursor: pointer;

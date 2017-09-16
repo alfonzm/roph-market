@@ -23,6 +23,10 @@ body {
     padding-bottom: 50px;
 }
 
+.muted {
+	color: $gray-color;
+}
+
 // header
 header {
 	// title
@@ -34,6 +38,10 @@ header {
 			font-weight: 300;
 			font-size: $very-large-font;
 			color: $black-2-color;
+			&:hover {
+				text-decoration: none;
+				border-bottom: 1px solid black;
+			}
 		}
 	}
 
@@ -71,6 +79,11 @@ section {
 		font-size: $large-font;
 		font-weight: 600;
 		margin: 0;
+		margin-bottom: 6px;
+
+		&:not(:first-child) { 
+			margin-top: 1.2em;
+		}
 	}
 
 	h3 {
@@ -139,20 +152,15 @@ section#show-stall {
 				margin-top: 0;
 			}
 
-			+ p, + a {
-				margin-top: 0;
-				font-size: $normal-font;
-			}
+		}
+
+		p, a {
+			margin-top: 0;
+			font-size: $normal-font;
 		}
 
 		h5 {
-			margin: 0;
-			font-size: $very-small-font;
-
-			margin-top: 1em;
-			&:first-child {
-				margin-top: 0;
-			}
+			@include serverNameHeader()
 		}
 
 		ul {

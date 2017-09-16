@@ -50,10 +50,9 @@ class StallController extends Controller
             // $stallItems[] = $newStallItem;
         }
 
-        $stall = $stall->load('stallItems.cards.roItem', 'stallItems.roItem');
+        // $stall = $stall->load('stallItems.cards.roItem', 'stallItems.roItem');
 
-        return view('stalls/show', compact('stall'));
-        
+        return redirect()->route('stalls.show', [$stall]);
     }
 
     public function search(Request $request)
