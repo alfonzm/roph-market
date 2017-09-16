@@ -58,7 +58,8 @@ class StallController extends Controller
 
     public function search(Request $request)
     {
-        $roItemIdToSearch = $request->input('i');
+        // Search stalls by ro item id
+        $roItemIdToSearch = $request->input('s');
         $results = Stall::with(['stallItems' => function ($query) use ($roItemIdToSearch) {
             $query->where('ro_item_id', '=', $roItemIdToSearch);
         }])->whereHas('stallItems', function ($query) use ($roItemIdToSearch) {

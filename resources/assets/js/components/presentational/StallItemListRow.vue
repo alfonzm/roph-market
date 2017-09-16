@@ -12,7 +12,15 @@
             {{ stallItem.quantity }}x
         </td>
         <td class="price">
-            {{ stallItem.price }} Z
+            <template v-if="stallItem.price">
+                {{ stallItem.price }} Z
+            </template>
+            <template v-else>
+                --
+            </template>
+        </td>
+        <td v-if="timestamp" class="timestamp">
+            {{ timeAgo(stallItem.updated_at) }}
         </td>
     </tr>
 </template>
@@ -20,9 +28,10 @@
 <script>
 import RoItemImage from './RoItemImage.vue'
 import RoItemName from './RoItemName.vue'
+import moment from 'moment'
 
 export default {
-    props: ['stallItem'],
+    props: ['stallItem', 'timestamp'],
     components: {
         'ro-item-image': RoItemImage,
         'ro-item-name': RoItemName
@@ -31,6 +40,9 @@ export default {
         // receive array of StallItemCard.php objects
         stringifyCards(cards) {
             return cards.map(card => "<a href='#'>" + card.ro_item.name + "</a>").join(", ")
+        },
+        timeAgo: function(date) {
+            return moment(date).fromNow();
         }
     }
 }

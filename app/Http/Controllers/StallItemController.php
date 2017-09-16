@@ -12,7 +12,12 @@ class StallItemController extends Controller
 {
     public function search(Request $request)
     {
-        $searchTerm = $request->input('s');
-        
+        $itemId = $request->input('s');
+        $results = StallItem::with('stall', 'roItem', 'cards')
+        				->where('ro_item_id', $itemId)
+        				->orderBy('created_at', 'DESC')
+        				->get();
+
+        return $results;
     }
 }

@@ -79,6 +79,10 @@ section {
 		color: $brand-color;
 		font-weight: 400;
 		margin-bottom: 10px;
+
+		* {
+			color: $brand-color;
+		}
 	}
 }
 

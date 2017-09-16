@@ -49,14 +49,25 @@ img.ro-item-image {
 	vertical-align: middle;
 }
 
-// RoItemStallSearch.vue
-.ro-item-stall-search {
+// StallItemSearch.vue
+.stall-item-search {
 	display: inline;
 
 	.item-search input[type="text"] {
 		padding: 10px;
 		font-size: $medium-font;
 		width: 100%;
+	}
+
+
+	.search-results {
+		.searching {
+			font-size: $medium-font;
+		}
+
+		.searching, h3 {
+			font-weight: 300;
+		}
 	}
 }
 
@@ -114,7 +125,7 @@ tr.stall-item-row {
 	@include listTableRow();
 
 	td {
-		&.quantity, &.price {
+		&.quantity, &.price, &.timestamp {
 			text-align: right;
 			padding: 0 5px;
 			min-width: 30px;

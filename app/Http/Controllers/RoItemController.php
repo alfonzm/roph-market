@@ -14,7 +14,7 @@ class RoItemController extends Controller
     public function search(Request $request)
     {
         $searchTerm = $request->input('s');
-        $q = RoItem::where('name', 'like', '%' . $searchTerm . '%');
+        $q = RoItem::where('name', 'like', '%' . $searchTerm . '%')->orWhere('id', 'like', '%' . $searchTerm . '%');
 
         $typeFilter = $request->input('type');
 

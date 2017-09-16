@@ -15,18 +15,11 @@
 // Route::get('/test', function() {
 // });
 
-// Home
-Route::get('/', function () {
-    return view('home');
-})->name('index');
-
-
 // Auth
 Auth::routes();
 Route::get('logout', 'Auth\LoginController@logout');
 
-// Route::group(['middleware' => 'web'], function() {
-// });
+// Pages ===============
 
 Route::group(['middleware' => ['auth']], function () {
 	// Stalls
@@ -37,10 +30,19 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::get('user/{name}', 'UserController@show')->name('users.show');
 });
 
+// Home
+Route::get('/', function () {
+    return view('home');
+})->name('index');
+
+// Search
+Route::get('search', 'SearchController@index')->name('search.index');
+
 // Stall views
 Route::get('stalls/{stall}', 'StallController@show')->name('stalls.show');
 
-// API
+// API ===============
+
 Route::prefix('api')->group(function() {
 	Route::prefix('v1')->group(function() {
 		// auth middleware
@@ -53,6 +55,9 @@ Route::prefix('api')->group(function() {
 
 		// Search RO items		
 		Route::get('ro-items/search', 'RoItemController@search');
+
+		// StallItem
+		Route::get('stall-items/search', 'StallItemController@search');
 
 		// Stalls
 		Route::get('stalls', 'StallController@index')->name('stalls.index');
