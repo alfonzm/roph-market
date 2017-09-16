@@ -50,9 +50,9 @@ class StallController extends Controller
             // $stallItems[] = $newStallItem;
         }
 
-        return view('stalls/show', [
-            'stall' => $stall->load('stallItems.cards.roItem', 'stallItems.roItem')
-        ]);
+        $stall = $stall->load('stallItems.cards.roItem', 'stallItems.roItem');
+
+        return view('stalls/show', compact('stall'));
         
     }
 
@@ -71,9 +71,13 @@ class StallController extends Controller
 
     public function show(Stall $stall)
     {
-        return view('stalls/show', [
-            'stall' => $stall->load('stallItems.cards.roItem', 'stallItems.roItem')
-        ]);
+        $stall = $stall->load('stallItems.cards.roItem', 'stallItems.roItem');
+        $stall->user->groupIgns();
+        $stall->user->igns = null;
+
+        // return $stall;
+
+        return view('stalls/show', compact('stall'));
     }
 
     public function edit(Stall $stall)

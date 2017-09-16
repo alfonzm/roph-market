@@ -25,10 +25,12 @@ Route::group(['middleware' => ['auth']], function () {
 	// Stalls
 	Route::get('stalls/create', 'StallController@create')->name('stalls.create');
 
-	// Users
+	// Edit profile
 	Route::get('user/edit', 'UserController@edit')->name('users.edit');
-	Route::get('user/{name}', 'UserController@show')->name('users.show');
 });
+
+// View user profile
+Route::get('user/{name}', 'UserController@show')->name('users.show');
 
 // Home
 Route::get('/', function () {
