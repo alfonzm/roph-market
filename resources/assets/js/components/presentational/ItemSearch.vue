@@ -38,14 +38,14 @@
 import RoItemImage from './RoItemImage.vue'
 
 export default {
-	props: ['value', 'placeholder', 'typeFilter', 'autofocus'],
+	props: ['value', 'placeholder', 'typeFilter', 'locationFilter', 'autofocus'],
 	components: {
 		'ro-item-image': RoItemImage
 	},
 	data() {
 		return {
 			showResults: true,
-			current: 0,
+			current: null,
 			results: [],
 			searchTimeout: null,
 			loading: true
@@ -59,12 +59,14 @@ export default {
 			return this.current == index
 		},
 		onSearchFieldEnter(item) {
-			this.selectItem(this.results[this.current])
+			this.selectItem()
 		},
 		onSearchFieldDown() {
 			this.showResults = true
 
-			if(this.current < this.results.length - 1) {
+			if(this.current == null ){
+				this.current = 0
+			} else if(this.current < this.results.length - 1) {
 				this.current++
 			}
 		},
@@ -73,15 +75,23 @@ export default {
 
 			if(this.current > 0) {
 				this.current--
+			} else {
+				this.current = null
 			}
 		},
-		selectItem(selectedItem) {
+		selectItem() {
+			if(this.current in this.results) {
+				var selectedItem = this.results[this.current]
+				this.$emit('input', selectedItem.name)
+				this.$emit('onSelectSearchResult', selectedItem)
+			} else {
+				this.$emit('onEnterQuery', this.value)
+			}
+
 			this.results = []
-			this.current = 0
+			this.current = null
 
 			clearTimeout(this.searchTimeout)
-			this.$emit('input', selectedItem.name)
-			this.$emit('onSelectSearchResult', selectedItem)
 		},
 		updateValue(value) {
 			this.$emit('input', value)
@@ -97,13 +107,14 @@ export default {
 				axios.get('/api/v1/ro-items/search', {
 					params: {
 						s: this.value,
-						type: this.typeFilter
+						type: this.typeFilter,
+						location: this.locationFilter
 					}
 				}).then(response => {
 					this.showResults = true
 					this.loading = false
 					this.results = response.data
-					this.current = 0
+					this.current = null
 				});
 			}
 		}

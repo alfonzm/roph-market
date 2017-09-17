@@ -102,6 +102,7 @@
 												}"
 												v-model="item.cardsQuery[slotIndex-1]"
 												:type-filter="[6]"
+												:location-filter="item.ro_item.equip_locations"
 												:placeholder="`card slot #${slotIndex}`" />
 
 											<input

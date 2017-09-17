@@ -70,7 +70,7 @@ img.ro-item-image {
 }
 
 // StallList.vue
-.stall-list {
+.latest-stalls {
 	table {
 		padding: 0;
 		margin: 0;
@@ -80,25 +80,47 @@ img.ro-item-image {
 }
 
 @mixin listTableRow {
-	td {
+	td, th {
+		padding: 8px;
+		
 		&.name {
 			a {
-				display: block;
+				display: inline;
 			}
 
-			padding: 8px;
+			text-align: left;
+			width: 100%;
 		}
 
 		&.img {
 			width: 25px;
 		}
 
-		&.timestamp {
+		&.price, &.timestamp, &.quantity {
 			text-align: right;
-			width: 200px;
-			padding: 8px;
+		}
+
+		&.price {
+			min-width: 120px;
+		}
+
+		&.quantity {
+			min-width: 40px;
+		}
+
+		&.timestamp {
+			min-width: 120px;
+		}
+	}
+
+	td {
+		&.timestamp {
 			font-size: $small-font;
 		}
+	}
+
+	th {
+		font-weight: 600;
 	}
 
 	&:nth-child(even) {
@@ -106,33 +128,28 @@ img.ro-item-image {
 	}
 }
 
+// StallList.vue
+table.stall-list {
+	table-layout: auto;
+	border-collapse: collapse;
+	width: 100%;
+}
+
 // StallListRow.vue
 tr.stall-row {
-	font-size: $normal-font;
-
 	@include listTableRow();
-
+	font-size: $normal-font;
 }
 
 // StallItemList.vue
 table.stall-item-list {
+	table-layout: auto;
+	border-collapse: collapse;
 	width: 100%;
-}
 
-// StallItemListRow.vue
-tr.stall-item-row {
-	@include listTableRow();
-
-	td {
-		&.quantity, &.price, &.timestamp {
-			text-align: right;
-			padding: 0 5px;
-			min-width: 30px;
-		}
-
-		&.name a {
-			display: inline;
-		}
+	// header / StallItemListRow.vue
+	tr {
+		@include listTableRow();
 	}
 }
 
@@ -221,6 +238,14 @@ form.create-stall {
 		li {
 			font-size: $normal-font;
 			line-height: 1.4;
+		}
+	}
+
+	table.igns {
+		tr {
+			td.ign {
+				padding-right: 20px;
+			}
 		}
 	}
 }

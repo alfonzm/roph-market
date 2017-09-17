@@ -1,5 +1,5 @@
 <template>
-    <table cellspacing="0">
+    <table cellspacing="0" class="stall-list">
 	    <stall-row
             v-for="(stall, index) in stalls"
             :key="stall.id"

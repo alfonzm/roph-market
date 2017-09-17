@@ -19,10 +19,10 @@
         <template v-else v-for="(serverIgns, serverName) in localIgns">
             <template v-if="serverIgns.length > 0">
                 <h5>{{ serverName }}</h5>
-                <table>
+                <table class="igns">
                     <tbody>
                         <tr v-for="(ign, index) in serverIgns">
-                            <td>
+                            <td class="ign"> 
                                 {{ ign.ign }}
                             </td>
                             <td>
@@ -44,7 +44,9 @@ export default {
     props: ['igns', 'userId'],
     data() {
         return {
+            // grouped IGNs
             localIgns: {},
+
             loading: false,
             ignToAdd: {
                 ign: null,

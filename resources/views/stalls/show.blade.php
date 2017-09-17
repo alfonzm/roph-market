@@ -3,9 +3,18 @@
 @section('content')
 	<section id="show-stall">
 		<div id="stall-items">
-			<h2>
-				<img src="{{ asset('img/vend_2x.png') }}" />{{ $stall->name }}
-			</h2>
+			<div class="stall-name">
+				<div class="stall-name-img">
+					<img src="{{ asset('img/vend_2x.png') }}" />
+				</div>
+				<div class="stall-name-name">
+					<h2>
+						{{ $stall->name }}
+						<small>Edit Stall</small>
+					</h2>
+					Last updated <time-ago-date date="{{ $stall->updated_at }}" />
+				</div>
+			</div>
 
 			<h3>Items in stall</h3>
 			@if (count($stall->stallItems) == 0)

@@ -13,7 +13,7 @@ class StallController extends Controller
 {
     public function index()
     {
-        return Stall::latest()->get();
+        return Stall::latest()->limit(10)->get();
     }
 
     public function create()

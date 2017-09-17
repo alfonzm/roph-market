@@ -1,5 +1,5 @@
 <template>
-    <div class="stall-list">
+    <div class="latest-stalls">
         <template v-if="loading">
             Loading...
         </template>

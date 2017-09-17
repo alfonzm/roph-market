@@ -1,6 +1,15 @@
 require('./bootstrap')
+import moment from 'moment'
 
 window.Vue = require('vue')
+
+var helpers = {
+	methods: {
+		timeAgo: function(date) {
+            return moment(date).fromNow();
+        }
+	}
+}
 
 const app = new Vue({
     el: '#app',
@@ -13,5 +22,7 @@ const app = new Vue({
 		
 		'stall-list': require('./components/presentational/StallList.vue'),
 		'stall-item-list': require('./components/presentational/StallItemList.vue'),
-    }
+		'time-ago-date': require('./components/presentational/TimeAgoDate.vue'),
+    },
+    mixins: [helpers]
 });

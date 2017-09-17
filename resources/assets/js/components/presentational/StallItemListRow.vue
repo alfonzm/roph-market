@@ -6,7 +6,7 @@
         <td class="name">
             <a :href="`/ro-items/${stallItem.ro_item_id}`">
                 <ro-item-name :refine="stallItem.refine" :ro-item="stallItem.ro_item" />
-            </a> <span v-html="stringifyCards(stallItem.cards)"></span>
+            </a> <span class="item-cards" v-html="stringifyCards(stallItem.cards)"></span>
         </td>
         <td class="quantity">
             {{ stallItem.quantity }}x
@@ -39,7 +39,7 @@ export default {
     methods: {
         // receive array of StallItemCard.php objects
         stringifyCards(cards) {
-            return cards.map(card => "<a href='#'>" + card.ro_item.name + "</a>").join(", ")
+            return cards.map(card => "<a href='#'>" + card.ro_item.name + "</a>").join(" / ")
         },
         timeAgo: function(date) {
             return moment(date).fromNow();

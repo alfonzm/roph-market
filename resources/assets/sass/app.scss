@@ -127,6 +127,8 @@ section#login, section#signup {
 
 // show stall blade
 section#show-stall {
+	display: table;
+
 	h2 {
     	margin-top: 0;
     }
@@ -136,23 +138,11 @@ section#show-stall {
 		margin-right: 5px;
 	}
 
-    display: -webkit-flex;
-    display: flex;
-
-    -webkit-flex-wrap: wrap;
-    flex-wrap: wrap;
-
-    -webkit-flex-direction: row;
-    flex-direction: row;
-
-	justify-content: flex-start;
-	align-items: stretch;
-
 	// Stall owner profile sidebar
 	aside {
 		border: 1px solid $light-gray-color;
 		box-shadow: 0px 2px 2px $light-gray-color;
-		padding: 25px;
+		padding: 20px;
 		border-radius: 5px;
 		order: 2;
 		box-sizing: border-box;
@@ -194,26 +184,30 @@ section#show-stall {
 	}
 
 	#stall-items {
-		order: 1;
-	}
+		.stall-name {
+			.stall-name-img {
+				float: left;
+			}
 
-	#stall-items, aside {
-		flex-basis: 100%;
+			.stall-name-name {
+				h2 {
+					margin: 0;
+				}
+			}
+		}
 	}
 
 	@media all and (min-width: 768px) {
 		#stall-items {
-			-webkit-flex: 1 1 auto;
-			flex: 1 1 auto;
-			flex-basis: 1;
-			order: 1;
+			width: 100%;
+			display: table-cell;
+			padding-right: 20px;
 		}
 
 		aside {
 			margin-top: 0;
-			margin-left: 30px;
-			order: 2;
-			flex-basis: 350px;
+			display: table-cell;
+			min-width: 250px;
 		}
 	}
 }
