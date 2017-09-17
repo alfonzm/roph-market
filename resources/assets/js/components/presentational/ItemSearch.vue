@@ -79,9 +79,9 @@ export default {
 				this.current = null
 			}
 		},
-		selectItem() {
-			if(this.current in this.results) {
-				var selectedItem = this.results[this.current]
+		selectItem(item) {
+			if(item != null || this.current in this.results) {
+				var selectedItem = item || this.results[this.current]
 				this.$emit('input', selectedItem.name)
 				this.$emit('onSelectSearchResult', selectedItem)
 			} else {

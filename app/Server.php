@@ -11,4 +11,8 @@ class Server extends Model
     public function igns() {
     	return $this->hasMany('App\UserIgn');
     }
+
+    public function stalls() {
+    	return $this->hasMany('App\Stall');
+    }
 }

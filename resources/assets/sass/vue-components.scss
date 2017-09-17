@@ -8,7 +8,7 @@
 		padding: 0;
 		border: 1px solid $border-color;
 		background-color: white;
-		min-width: 300px;
+		min-width: 250px;
 		width: 100%;
 		box-sizing: border-box;
 
@@ -119,10 +119,6 @@ img.ro-item-image {
 		}
 	}
 
-	th {
-		font-weight: 600;
-	}
-
 	&:nth-child(even) {
 		background-color: $hover-bg-color;
 	}
@@ -153,9 +149,9 @@ table.stall-item-list {
 	}
 }
 
-// CreateStall.vue
-form.create-stall {
-	table.create-stall-form {
+// StallForm.vue
+form.stall-form {
+	table.stall-form {
 		width: 100%;
 
 		colgroup {
@@ -188,7 +184,6 @@ form.create-stall {
 		input[type="text"],
 		input[type="number"] {
 			font-size: $small-font;
-			padding: 2px;
 			// background-color: rgba(0,0,0,0);
 			// border: none;
 			margin: 3px;
@@ -201,11 +196,13 @@ form.create-stall {
 			}
 		}
 
-		td {
+		td, th {
 			padding: 6px 0;
+			word-wrap: break-word;
+			text-align: center;
 
-			&.fields {
-				word-wrap: break-word;
+			.item-search {
+				text-align: left;
 			}
 
 			&.image {
@@ -217,6 +214,17 @@ form.create-stall {
 				margin: 0;
 				padding-right: 10px;
 				white-space: nowrap;
+				text-align: left;
+			}
+
+			input {
+				text-align: center;
+			}
+
+			&.refine, &.quantity {
+				input {
+					width: 60px;
+				}
 			}
 
 			&.remove {

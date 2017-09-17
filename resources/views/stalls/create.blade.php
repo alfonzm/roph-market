@@ -4,8 +4,8 @@
 <section>
 	<h2>Create stall</h2>
 	
-	<create-stall method="POST" action="{{ route('stalls.store') }}">
+	<stall-form method="POST" action="{{ route('stalls.store') }}">
 		{{ csrf_field() }}
-	</create-stall>
+	</stall-form>
 </section>
 @endsection

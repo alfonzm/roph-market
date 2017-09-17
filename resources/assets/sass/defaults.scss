@@ -83,6 +83,12 @@ select {
 	font-size: 100%;
 }
 
+table {
+	th {
+		font-weight: 600;
+	}
+}
+
 button, input[type="submit"] {
 	@include formControl();
 

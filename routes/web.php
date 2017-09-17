@@ -24,6 +24,7 @@ Route::get('logout', 'Auth\LoginController@logout');
 Route::group(['middleware' => ['auth']], function () {
 	// Stalls
 	Route::get('stalls/create', 'StallController@create')->name('stalls.create');
+	Route::get('stalls/{stall}/edit', 'StallController@edit')->name('stalls.edit');
 
 	// Edit profile
 	Route::get('user/edit', 'UserController@edit')->name('users.edit');
@@ -50,6 +51,8 @@ Route::prefix('api')->group(function() {
 		// auth middleware
 		Route::group(['middleware' => ['auth']], function () {
 			Route::post('stalls', 'StallController@store')->name('stalls.store');
+			Route::put('stalls/{stall}', 'StallController@update')->name('stalls.update');
+
 			Route::post('users/{id}', 'UserController@update')->name('users.update');
 			Route::post('users/{id}/igns', 'UserController@storeIgn')->name('users.storeIgn');
 			Route::delete('users/{id}/igns/{ignId}', 'UserController@deleteIgn')->name('users.deleteIgn');

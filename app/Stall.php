@@ -15,4 +15,8 @@ class Stall extends Model
     public function user() {
     	return $this->belongsTo('App\User');
     }
+
+    public function server() {
+    	return $this->belongsTo('App\Server');
+    }
 }

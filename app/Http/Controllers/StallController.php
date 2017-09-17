@@ -21,6 +21,25 @@ class StallController extends Controller
         return view('stalls/create');
     }
 
+    public function edit(Stall $stall)
+    {
+        $stall->load('stallItems.roItem', 'stallItems.cards.roItem');
+
+        // Initialize stallItems[index]->roItem->name
+        // because Vue.js cannot take undefined v-model in the form
+        foreach($stall->stallItems as $stallItem) {
+            $slots = $stallItem->roItem->slots;
+
+            for($i = 0; $i < $slots; $i++) {
+                if(!isset($stallItem->cards[$i])) {
+                    $stallItem->cards[$i] = ['ro_item' => ['name' => '']];
+                }
+            }
+        }
+
+        return view('stalls/edit', compact('stall'));
+    }
+
     public function store(Request $request)
     {
         $stall = Stall::create([
@@ -39,18 +58,13 @@ class StallController extends Controller
 
             // Insert cards to stallItem
             $cards = [];
-            foreach(($stallItem['slots'] ?? []) as $slot) {
+            foreach(($stallItem['cards'] ?? []) as $slot) {
                 $cards[] = new StallItemCard(['card_id' => $slot]);
             }
 
             // Save all cards
             $newStallItem->cards = $newStallItem->cards()->saveMany($cards);
-
-            // Add stall item to stallItems variable
-            // $stallItems[] = $newStallItem;
         }
-
-        // $stall = $stall->load('stallItems.cards.roItem', 'stallItems.roItem');
 
         return redirect()->route('stalls.show', [$stall]);
     }
@@ -79,14 +93,34 @@ class StallController extends Controller
         return view('stalls/show', compact('stall'));
     }
 
-    public function edit(Stall $stall)
-    {
-        //
-    }
-
     public function update(Request $request, Stall $stall)
     {
-        //
+        $request = request()->input();
+
+        $stall->name = $request['name'];
+        $stall->server_id = $request['server_id'];
+        $stall->description = $request['description'];
+
+        foreach(request('stall_items') as $stallItem) {
+            $newStallItem = $stall->stallItems()->create([
+                'quantity' => $stallItem['quantity'],
+                'price' => $stallItem['price'],
+                'refine' => $stallItem['refine'] ?? null,
+                'ro_item_id' => $stallItem['ro_item_id']
+            ]);
+
+            // Insert cards to stallItem
+            $cards = [];
+            foreach(($stallItem['slots'] ?? []) as $slot) {
+                $cards[] = new StallItemCard(['card_id' => $slot]);
+            }
+
+            // Save all cards
+            $newStallItem->cards = $newStallItem->cards()->saveMany($cards);
+        }
+
+        $stall->save();
+        return redirect()->route('stalls.show', [$stall]);
     }
 
     public function destroy(Stall $stall)
