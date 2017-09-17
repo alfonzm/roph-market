@@ -106,6 +106,23 @@ section {
 		font-weight: 600;
 		font-size: $small-font;
 	}
+
+	hr {
+		border: none;
+		height: 1px;
+		color: $gray-color;
+		background-color: $gray-color;
+		margin: 2em 0;
+	}
+}
+
+section#login, section#signup {
+	table {
+		tr.padded-top td {
+			padding-top: 1em;
+		}
+	}
+
 }
 
 // show stall blade
@@ -214,7 +231,6 @@ section#edit-user {
 	table {
 		tr {
 			td {
-				padding-bottom: 10px;
 				text-align: left;
 			}
 		}

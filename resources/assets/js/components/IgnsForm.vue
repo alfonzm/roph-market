@@ -3,7 +3,7 @@
         <div>
             <form @submit.prevent="submitForm">
                 <input v-model="ignToAdd.ign" name="ign" type="text" placeholder="Character Name" required />
-                <select v-model="ignToAdd.server_id">
+                <select v-model="ignToAdd.server_id" name="server_id">
                     <option value="1" selected>Thor</option>
                     <option value="2">Loki</option>
                 </select>
@@ -11,8 +11,10 @@
             </form>
         </div>
 
-        <template v-if="localIgns.length <= 0">
-            No igns found.
+        <template v-if="Object.keys(localIgns).length <= 0">
+            <p>
+                You have no IGNs.
+            </p>
         </template>
         <template v-else v-for="(serverIgns, serverName) in localIgns">
             <template v-if="serverIgns.length > 0">
@@ -24,7 +26,7 @@
                                 {{ ign.ign }}
                             </td>
                             <td>
-                                <a v-if="ignsCount > 1" href="#" @click.prevent="deleteIgn(ign.id, serverName, index)">[delete]</a>
+                                <a href="#" @click.prevent="deleteIgn(ign.id, serverName, index)">[delete]</a>
                             </td>
                         </tr>
                     </tbody>
@@ -42,7 +44,7 @@ export default {
     props: ['igns', 'userId'],
     data() {
         return {
-            localIgns: [],
+            localIgns: {},
             loading: false,
             ignToAdd: {
                 ign: null,
@@ -51,14 +53,9 @@ export default {
         }
     },
     beforeMount() {
-        this.localIgns = this.igns
+        this.localIgns = this.igns.length == 0 ? {} : this.igns
     },
     computed: {
-        ignsCount() {
-            return _.reduce(this.localIgns, (sum, serverIgns) => {
-                return sum + serverIgns.length
-            }, 0)
-        }
     },
     methods: {
         submitForm() {
@@ -68,9 +65,15 @@ export default {
                 'server_id': this.ignToAdd.server_id,
             }).then((res) => {
                 this.loading = false
-
                 this.ignToAdd.ign = null
-                this.localIgns[res.data.server.name].push(Object.assign({}, res.data))
+
+                if(!(res.data.server.name in this.localIgns)) {
+                    this.localIgns[res.data.server.name] = []
+                }
+                this.localIgns[res.data.server.name].push(Object.assign({}, {
+                    'ign': res.data.ign,
+                    'id': res.data.id
+                }))
             })
         },
         deleteIgn(id, server, index) {

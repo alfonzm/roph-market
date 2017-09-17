@@ -20,7 +20,7 @@
             	<!-- Playing schedule -->
                 <tr>
                     <td valign="top">
-				        {{ Form::label('schedule', 'Schedule') }}
+				        {{ Form::label('schedule', 'Playing Schedule') }}
                     </td>
                     <td>
 				        {{ Form::textarea('name', $user->schedule, ['rows' => 3, 'placeholder' => 'e.g. I am online during weekends at around 7-10 PM']) }}
@@ -38,11 +38,7 @@
 
         <h2>IGNs</h2>
 		<div>
-	        @if(count($user->igns) <= 0)
-		        You have no IGNs.
-	        @else
-	        	<igns-form :igns="{{ json_encode($user->groupedIgns) }}" :user-id="{{ $user->id }}"></igns-form>
-	        @endif
+            <igns-form :igns="{{ json_encode($user->groupedIgns) }}" :user-id="{{ $user->id }}"></igns-form>
 		</div>
 	</section>
 @endsection

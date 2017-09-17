@@ -12,7 +12,20 @@
 						Stall name
 					</td>
 					<td>
-				        <input id="name" type="text" name="name" required autofocus placeholder="e.g. PvP Equips and Cards">
+				        <input id="name" type="text" name="name" required autofocus placeholder="ex. PvP Equips and Cards">
+					</td>
+				</tr>
+
+				<!-- Server -->
+				<tr class="server">
+					<td class="label">
+						Server
+					</td>
+					<td>
+						<select>
+							<option value="1" selected>Thor</option>
+							<option value="2">Loki</option>
+						</select>
 					</td>
 				</tr>
 
@@ -22,7 +35,7 @@
 						Description
 					</td>
 					<td>
-				        <textarea name="description" rows="3" placeholder="e.g. I also accept trades. PM me for offers!"></textarea>
+				        <textarea name="description" rows="3" placeholder="(optional) ex. I also accept trades. PM me for offers!"></textarea>
 					</td>
 				</tr>
 

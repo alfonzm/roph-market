@@ -1,11 +1,12 @@
 @extends('layout')
 
 @section('content')
-<div>
+<section id="login">
+    <h3>Login</h3>
     <form method="POST" action="{{ route('login') }}" autocomplete="on">
         {{ csrf_field() }}
 
-        <table>
+        <table class="login">
             <tbody>
                 <!-- Email -->
                 <tr>
@@ -38,31 +39,38 @@
                     </td>
                 </tr>
 
-                <!-- Remember me -->
-                <!-- <tr>
+                <!-- Submit -->
+                <tr class="padded-top">
+                    <td></td>
                     <td>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                            </label>
-                        </div>
+                        <button type="submit">
+                            Login
+                        </button>
                     </td>
-                </tr> -->
+                </tr>
+
+                <!-- Forgot password -->
+                <tr class="padded-top">
+                    <td></td>
+                    <td>
+                        <a href="{{ route('password.request') }}" class="forgot-pass">
+                            Forgot your password?
+                        </a>
+                    </td>
+                </tr>
+
+                <!-- Register -->
+                <tr class="padded-top">
+                    <td></td>
+                    <td>
+                        <a href="{{ route('register') }}">
+                            Don't have an account? Sign up here.
+                        </a>
+                    </td>
+                </tr>
             </tbody>
         </table>
 
-        <!-- Forgot password -->
-        <p>
-            <a href="{{ route('password.request') }}">
-                Forgot Your Password?
-            </a>
-        </p>
-
-        <!-- Submit -->
-        <button type="submit">
-            Login
-        </button>
-
     </form>
-</div>
+</section>
 @endsection
