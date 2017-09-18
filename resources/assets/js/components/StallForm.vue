@@ -81,12 +81,19 @@
 									<th class="refine" v-if="showRefineColumn">Refine</th>
 									<th class="cards" v-if="showCardsColumn">Cards</th>
 								</tr>
-								<tr v-for="(item, index) in stall.stall_items">
+								<tr v-for="(item, index) in stall.stall_items" :class="{ 'is-deleting': (item.isDeleting == true) }">
 									<td class="image">
 										<ro-item-image :id="item.ro_item_id" :type="item.ro_item.type" />
 									</td>
 									<td class="name">
 										<ro-item-name :ro-item="item.ro_item" />
+										<input type="hidden"
+											:name="`stall_items[${index}][id]`"
+											v-model="item.id">
+
+										<input type="hidden"
+											:name="`stall_items[${index}][stall_id]`"
+											v-model="stall.id">
 									</td>
 									<td class="quantity">
 										<input
@@ -130,18 +137,25 @@
 										</template>
 									</td>
 									<td class="remove">
-										<a href="#" @click.prevent="remove(index)">remove</a>
+										<a href="#" @click.prevent="remove(index, item)">remove</a>
 									</td>
-
 
 									<!-- Hidden fields -->
 									<input type="hidden" :name="`stall_items[${index}][ro_item_id]`" :value="item.ro_item_id">
+
 									<template v-for="(card, slotIndex) in item.cards">
+										<!-- Hidden card input -->
 										<input
-											v-if="card.ro_item.id"
+											v-if="card.ro_item.id && card.ro_item.name"
 											type="hidden"
-											:name="`stall_items[${index}][cards][${slotIndex}]`"
-											v-model="card.ro_item.name"
+											:name="`stall_items[${index}][cards][${slotIndex}][card_id]`"
+											v-model="card.ro_item.id"
+											>
+
+										<input
+											type="hidden"
+											:name="`stall_items[${index}][cards][${slotIndex}][id]`"
+											v-model="card.id"
 											>
 									</template>
 								</tr>
@@ -188,13 +202,9 @@ export default {
         'ro-item-image': RoItemImage,
         'ro-item-name': RoItemName,
 	},
-	mounted() {
-		console.log(this.stall)
-	},
 	computed: {
 		showRefineColumn() {
 			for(var i=0; i < this.stall.stall_items.length; i++) {
-				console.log(this.stall.stall_items[i].ro_item.refineable)
 				if(this.stall.stall_items[i].ro_item.refineable > 0) {
 					return true
 				}
@@ -213,8 +223,25 @@ export default {
 		},
 	},
 	methods: {
-		remove(index) {
-			this.stall.stall_items.splice(index, 1)
+		remove(index, stallItem) {
+			if(stallItem.id) {
+
+				this.$set(this.stall.stall_items[index], 'isDeleting', true)
+				axios.delete(`/api/v1/stall-items/${stallItem.id}`, {}).then((res) => {
+					this.$set(this.stall.stall_items[index], 'isDeleting', false)
+
+	                if(res.data.success) {
+						this.stall.stall_items.splice(index, 1)
+	                } else {
+		                alert(err.response.data.message)
+	                }
+	            }).catch((err) => {
+					this.$set(this.stall.stall_items[index], 'isDeleting', false)
+	                alert(err.response.data.message)
+	            })
+			} else {
+				this.stall.stall_items.splice(index, 1)
+			}
 		},
 		addCard(stallItemIndex, slotIndex, roItem) {
 			this.stall.stall_items[stallItemIndex].cards[slotIndex-1].ro_item = roItem

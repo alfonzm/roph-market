@@ -194,6 +194,11 @@ form.stall-form {
 			&:nth-child(even) {
 				background-color: $hover-bg-color;
 			}
+
+			&.is-deleting {
+				opacity: 0.3;
+				pointer-events: none;
+			}
 		}
 
 		td, th {

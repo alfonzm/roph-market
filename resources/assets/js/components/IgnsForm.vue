@@ -87,7 +87,6 @@ export default {
                     this.localIgns[server].splice(index, 1)
                 }
             }).catch((err) => {
-                console.log(err)
                 alert(err.response.data.message)
             })
         }

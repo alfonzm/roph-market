@@ -48,6 +48,9 @@ Route::get('stalls/{stall}', 'StallController@show')->name('stalls.show');
 
 Route::prefix('api')->group(function() {
 	Route::prefix('v1')->group(function() {
+		// StallItem
+		Route::get('stall-items/search', 'StallItemController@search');
+
 		// auth middleware
 		Route::group(['middleware' => ['auth']], function () {
 			Route::post('stalls', 'StallController@store')->name('stalls.store');
@@ -56,13 +59,12 @@ Route::prefix('api')->group(function() {
 			Route::post('users/{id}', 'UserController@update')->name('users.update');
 			Route::post('users/{id}/igns', 'UserController@storeIgn')->name('users.storeIgn');
 			Route::delete('users/{id}/igns/{ignId}', 'UserController@deleteIgn')->name('users.deleteIgn');
+
+			Route::delete('stall-items/{stallItemId}', 'StallItemController@destroy')->name('stall_items.destroy');
 		});
 
 		// Search RO items		
 		Route::get('ro-items/search', 'RoItemController@search');
-
-		// StallItem
-		Route::get('stall-items/search', 'StallItemController@search');
 
 		// Stalls
 		Route::get('stalls', 'StallController@index')->name('stalls.index');

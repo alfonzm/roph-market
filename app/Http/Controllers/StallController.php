@@ -96,27 +96,44 @@ class StallController extends Controller
     public function update(Request $request, Stall $stall)
     {
         $request = request()->input();
+        // return $request;
 
         $stall->name = $request['name'];
         $stall->server_id = $request['server_id'];
         $stall->description = $request['description'];
 
-        foreach(request('stall_items') as $stallItem) {
-            $newStallItem = $stall->stallItems()->create([
-                'quantity' => $stallItem['quantity'],
-                'price' => $stallItem['price'],
-                'refine' => $stallItem['refine'] ?? null,
-                'ro_item_id' => $stallItem['ro_item_id']
-            ]);
+        $stall->load('stallItems.roItem', 'stallItems.cards');
 
-            // Insert cards to stallItem
-            $cards = [];
-            foreach(($stallItem['slots'] ?? []) as $slot) {
-                $cards[] = new StallItemCard(['card_id' => $slot]);
+        if(request('stall_items')) {
+            foreach(request('stall_items') as $stallItem) {
+                $stallItemBody = [
+                    'stall_id' => $stall->id,
+                    'quantity' => $stallItem['quantity'],
+                    'price' => $stallItem['price'],
+                    'refine' => $stallItem['refine'] ?? null,
+                    'ro_item_id' => $stallItem['ro_item_id']
+                ];
+
+                $updatedStallItem = StallItem::updateOrCreate(['id' => $stallItem['id']], $stallItemBody);
+
+                // Update/insert cards to stallItem
+                $stallItemCardIdsToDelete = [];
+                foreach(($stallItem['cards'] ?? []) as $stallItemCard) {
+                    if(!isset($stallItemCard['card_id']) && isset($stallItemCard['id'])) {
+                        $stallItemCardIdsToDelete[] = $stallItemCard['id'];
+                    } else if(isset($stallItemCard['card_id'])) {
+                        $updatedCard = StallItemCard::updateOrCreate(
+                            ['id' => $stallItemCard['id']],
+                            [
+                                'card_id' => $stallItemCard['card_id'],
+                                'stall_item_id' => $updatedStallItem->id
+                            ]
+                        );
+                    }
+                }
+
+                StallItemCard::destroy($stallItemCardIdsToDelete);
             }
-
-            // Save all cards
-            $newStallItem->cards = $newStallItem->cards()->saveMany($cards);
         }
 
         $stall->save();
