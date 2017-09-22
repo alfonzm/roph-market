@@ -3,9 +3,8 @@
         <div>
             <form @submit.prevent="submitForm">
                 <input v-model="ignToAdd.ign" name="ign" type="text" placeholder="Character Name" required />
-                <select v-model="ignToAdd.server_id" name="server_id">
-                    <option value="1" selected>Thor</option>
-                    <option value="2">Loki</option>
+                <select v-model="ignToAdd.server_id" name="server_id" class="capitalized">
+                    <option v-for="server in servers" :value="server.id">{{ server.name }}</option>
                 </select>
                 <input type="submit" value="Add IGN" :disabled="loading" />
             </form>
@@ -39,6 +38,8 @@
 
 <script>
 import _ from 'lodash'
+import Constants from './Constants'
+import Cookies from 'cookies-js'
 
 export default {
     props: ['igns', 'userId'],
@@ -50,8 +51,9 @@ export default {
             loading: false,
             ignToAdd: {
                 ign: null,
-                server_id: 1
+                server_id: Cookies.get('server') || Constants.servers[0].id,
             },
+            servers: Constants.servers
         }
     },
     beforeMount() {

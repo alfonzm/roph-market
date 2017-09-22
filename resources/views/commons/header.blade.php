@@ -8,6 +8,9 @@
 		    <li><a href="{{ route('login') }}">login</a></li>
 		    @endif
 		    <li><a href="{{ route('stalls.create') }}">create a stall</a></li>
+		    <li>
+				<server-picker></server-picker>
+		    </li>
 		</ul>
 	</nav>
 

@@ -1,6 +1,5 @@
 require('./bootstrap')
 import moment from 'moment'
-
 window.Vue = require('vue')
 
 var helpers = {
@@ -20,6 +19,7 @@ const app = new Vue({
 		'stall-form': require('./components/StallForm.vue'),
 		'igns-form': require('./components/IgnsForm.vue'),
 		
+		'server-picker': require('./components/presentational/ServerPicker.vue'),
 		'stall-list': require('./components/presentational/StallList.vue'),
 		'stall-item-list': require('./components/presentational/StallItemList.vue'),
 		'time-ago-date': require('./components/presentational/TimeAgoDate.vue'),

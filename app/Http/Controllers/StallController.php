@@ -13,7 +13,7 @@ class StallController extends Controller
 {
     public function index()
     {
-        return Stall::latest()->limit(10)->get();
+        return Stall::where('server_id', $_COOKIE['server'])->latest()->limit(10)->get();
     }
 
     public function create()
@@ -56,14 +56,20 @@ class StallController extends Controller
                 'ro_item_id' => $stallItem['ro_item_id']
             ]);
 
-            // Insert cards to stallItem
-            $cards = [];
-            foreach(($stallItem['cards'] ?? []) as $slot) {
-                $cards[] = new StallItemCard(['card_id' => $slot]);
-            }
 
-            // Save all cards
-            $newStallItem->cards = $newStallItem->cards()->saveMany($cards);
+            // Insert cards to stallItem
+            if(isset($stallItem['cards'])){
+                // return $stallItem['cards'];
+                $cards = [];
+                foreach(($stallItem['cards'] ?? []) as $card) {
+                    $cards[] = new StallItemCard(['card_id' => $card['card_id']]);
+                }
+
+                // Save all cards
+                if(count($cards) > 0){
+                    $newStallItem->cards = $newStallItem->cards()->saveMany($cards);
+                }
+            }
         }
 
         return redirect()->route('stalls.show', [$stall]);

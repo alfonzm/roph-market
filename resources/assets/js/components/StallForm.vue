@@ -28,9 +28,13 @@
 						Server
 					</td>
 					<td>
-						<select name="server_id" v-model="stall.server_id">
-							<option value="1" :selected="stall.server_id == 1 ? 'selected' : null">Thor</option>
-							<option value="2" :selected="stall.server_id == 2 ? 'selected' : null">Loki</option>
+						<select name="server_id" v-model="stall.server_id" class="capitalized">
+							<option
+								v-for="server in servers"
+								:value="server.id"
+								:selected="stall.server_id == server.id ? 'selected' : null">
+								{{ server.name }}
+							</option>
 						</select>
 					</td>
 				</tr>
@@ -171,13 +175,18 @@
             Submit
         </button>
 
+        <button type="submit" class="button gray">
+            Delete
+        </button>
+
 		<!-- CSRF Field -->
         <slot></slot>
 	</form>	
 </template>
 
 <script>
-
+import Constants from './Constants'
+import Cookies from 'cookies-js'
 import ItemSearch from './presentational/ItemSearch.vue'
 import StallItemList from './presentational/StallItemList.vue'
 import RoItemImage from './presentational/RoItemImage.vue'
@@ -186,11 +195,12 @@ import RoItemName from './presentational/RoItemName.vue'
 export default {
 	data() {
 		return {
+			servers: Constants.servers,
 			query: null,
 			itemToAdd: {
 			},
 			stall: Vue.util.extend({
-				server_id: 1,
+				server_id: Cookies.get('server') || Constants.servers[0].id,
 				stall_items: []
 			}, this.initialStall)
 		}
@@ -251,10 +261,12 @@ export default {
 			this.itemToAdd.quantity = null
 
 			this.itemToAdd.cards = []
-			this.itemToAdd.cards[0] = { ro_item: { name: '' }}
-			this.itemToAdd.cards[1] = { ro_item: { name: '' }}
-			this.itemToAdd.cards[2] = { ro_item: { name: '' }}
-			this.itemToAdd.cards[3] = { ro_item: { name: '' }}
+			for(var i=0; i < roItem.slots; i++ ){
+				this.itemToAdd.cards.push({ ro_item: { name: '' }})
+			}
+			// this.itemToAdd.cards[1] = { ro_item: { name: '' }}
+			// this.itemToAdd.cards[2] = { ro_item: { name: '' }}
+			// this.itemToAdd.cards[3] = { ro_item: { name: '' }}
 
 			this.itemToAdd.ro_item = roItem
 			this.itemToAdd.ro_item_id = roItem.id

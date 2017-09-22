@@ -46,13 +46,13 @@ class UserController extends Controller
         $user = User::find($userId);
 
         if(count($user->igns) == 1) {
-    		return response()->json(['success' => 'false', 'message' => 'You must have at least one IGN.']);
+    		return response()->json(['success' => 'false', 'message' => 'You must have at least one IGN.'], 400);
         }
 
         if(UserIgn::destroy($ignId)) {
             return response()->json(['success' => 'true']);
         }
 
-        return response()->json(['success' => 'false']);
+        return response()->json(['success' => 'false'], 400);
     }
 }

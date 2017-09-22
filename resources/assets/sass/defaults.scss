@@ -98,6 +98,12 @@ button, input[type="submit"] {
 	color: white;
 	padding: 4px 15px;
 
+	&.button.gray {
+		border-color: $gray-color;
+		background-color: $gray-color;
+		color: white;
+	}
+
 	&:hover {
 		cursor: pointer;
 		background-color: lighten($brand-color, 5%);
@@ -107,4 +113,8 @@ button, input[type="submit"] {
 	&:disabled {
 		opacity: 0.5;
 	}
+}
+
+.capitalized {
+	text-transform: capitalize;
 }

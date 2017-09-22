@@ -9,14 +9,14 @@
     <script>window.Laravel = { csrfToken: '{{ csrf_token() }}' }</script>
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
 
     <title>ROPH Market</title>
 </head>
 <body>
-    @include('commons.header')
-    
     <div id="app">
-       @yield('content')
+        @include('commons.header')
+        @yield('content')
     </div>
 
     @include('commons.footer')

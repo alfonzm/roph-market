@@ -20,6 +20,8 @@
     "vue": "^2.1.10"
   },
   "dependencies": {
-    "query-string": "^5.0.0"
+    "cookies-js": "^1.2.3",
+    "query-string": "^5.0.0",
+    "vue-clickaway": "^2.1.0"
   }
 }
