@@ -13,11 +13,6 @@ class CreateInitialTables extends Migration
      */
     public function up()
     {
-        Schema::create('servers', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-        });
-
         Schema::create('stalls', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
@@ -119,6 +114,5 @@ class CreateInitialTables extends Migration
         Schema::dropIfExists('ro_items');
         Schema::dropIfExists('ro_item_types');
         Schema::dropIfExists('stalls');
-        Schema::dropIfExists('servers');
     }
 }

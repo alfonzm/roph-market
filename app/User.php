@@ -27,6 +27,10 @@ class User extends Authenticatable
         return $this->hasMany('App\Stall');
     }
 
+    public function server() {
+        return $this->belongsTo('App\Server');
+    }
+
     public function groupIgns() {
         $this->attributes['groupedIgns'] = [];
 
