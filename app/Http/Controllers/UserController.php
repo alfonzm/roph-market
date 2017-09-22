@@ -6,6 +6,7 @@ use Auth;
 use App\User;
 use App\UserIgn;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -25,10 +26,18 @@ class UserController extends Controller
         return view('users/edit', compact('user'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $userId)
     {
-        // return $request->input();
-        // return User::with('igns')->find($id);
+        $user = User::find($userId);
+
+        if(!Gate::allows('update-user', $user)) {
+            return 403;
+        }
+
+        $user->name = $request->input('name');
+        $user->schedule = $request->input('schedule');
+        $user->save();
+        
     	return redirect()->route('users.edit');
     }
 
@@ -44,6 +53,10 @@ class UserController extends Controller
 
     public function deleteIgn($userId, $ignId) {
         $user = User::find($userId);
+
+        if(!Gate::allows('update-user', $user)) {
+            return 403;
+        }
 
         if(count($user->igns) == 1) {
     		return response()->json(['success' => 'false', 'message' => 'You must have at least one IGN.'], 400);

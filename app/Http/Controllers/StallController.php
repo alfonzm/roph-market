@@ -8,6 +8,7 @@ use App\StallItem;
 use App\StallItemCard;
 use App\Server;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class StallController extends Controller
 {
@@ -23,6 +24,10 @@ class StallController extends Controller
 
     public function edit(Stall $stall)
     {
+        if(!Gate::allows('update-stall', $stall)) {
+            return 403;
+        }
+
         $stall->load('stallItems.roItem', 'stallItems.cards.roItem');
 
         // Initialize stallItems[index]->roItem->name
@@ -101,8 +106,11 @@ class StallController extends Controller
 
     public function update(Request $request, Stall $stall)
     {
+        if(!Gate::allows('update-stall', $stall)) {
+            return 403;
+        }
+
         $request = request()->input();
-        // return $request;
 
         $stall->name = $request['name'];
         $stall->server_id = $request['server_id'];
@@ -148,6 +156,10 @@ class StallController extends Controller
 
     public function destroy(Stall $stall)
     {
+        if(!Gate::allows('update-stall', $stall)) {
+            return 403;
+        }
+                
         $stall->delete();
         return 204;
     }

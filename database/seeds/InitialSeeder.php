@@ -13,11 +13,11 @@ class InitialSeeder extends Seeder
     public function run()
     {
         // Test user
-        DB::table('users')->insert([
-            'name' => 'alphonsus',
-            'email' => 'm.alfonz@gmail.com',
-            'password' => bcrypt('qweqwe')
-        ]);
+        // DB::table('users')->insert([
+        //     'name' => 'admin',
+        //     'email' => 'm.alfonz@gmail.com',
+        //     'password' => bcrypt('qweqwe')
+        // ]);
 
         // RO Item Types
         DB::table('ro_item_types')->insert([
@@ -40,16 +40,17 @@ class InitialSeeder extends Seeder
 
         // Servers
         DB::table('servers')->insert([
-        	['name' => 'thor'],
-        	['name' => 'loki']
+            ['name' => 'loki'],
+            ['name' => 'thor'],
+        	['name' => 'chaos']
         ]);
 
         // Stalls
-        DB::table('stalls')->insert([
-            'name' => 'S>pots',
-            'user_id' => 1,
-            'server_id' => 1
-        ]);
+        // DB::table('stalls')->insert([
+        //     'name' => 'S>pots',
+        //     'user_id' => 1,
+        //     'server_id' => 1
+        // ]);
 
         // $this->call(RoItemsSeeder::class);
     }

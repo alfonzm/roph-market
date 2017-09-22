@@ -3,8 +3,11 @@
         <template v-if="loading">
             Loading...
         </template>
+        <template v-else-if="stalls.length > 0">
+            <stall-list :stalls="stalls" />
+        </template>
         <template v-else>
-            <stall-list :stalls="stalls"></stall-list>
+            No stalls found.
         </template>
     </div>
 </template>

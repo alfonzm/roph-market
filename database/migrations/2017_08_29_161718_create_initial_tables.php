@@ -58,7 +58,7 @@ class CreateInitialTables extends Migration
             $table->integer('ro_item_id')->unsigned();
             $table->foreign('ro_item_id')->references('id')->on('ro_items')->onDelete('cascade');
 
-            $table->integer('price')->unsigned()->nullable();
+            $table->unsignedBigInteger('price')->unsigned()->nullable();
             $table->tinyInteger('refine')->unsigned()->nullable();
             $table->integer('quantity')->unsigned()->default(1);
 

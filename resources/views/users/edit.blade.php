@@ -5,36 +5,37 @@
 		<h2>
 			Edit Profile
 		</h2>
-	    {!! Form::open(['url' => route('users.update', $user->id)]) !!}
-	    <table>
-            <tbody>
-            	<!-- Username -->
-                <tr>
-                    <td>
-				        {{ Form::label('name', 'Username') }}
-                    </td>
-                    <td>
-				        {{ Form::text('name', $user->name, ['required']) }}
-                    </td>
-                </tr>
-            	<!-- Playing schedule -->
-                <tr>
-                    <td valign="top">
-				        {{ Form::label('schedule', 'Playing Schedule') }}
-                    </td>
-                    <td>
-				        {{ Form::textarea('name', $user->schedule, ['rows' => 3, 'placeholder' => 'e.g. I am online during weekends at around 7-10 PM']) }}
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        {{ Form::submit('Save') }}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        {!! Form::close() !!}
+        <form method="POST" action="{{ route('users.update', ['id' => Auth::user()->id]) }}" autocomplete="on">
+            {{ csrf_field() }}
+    	    <table>
+                <tbody>
+                	<!-- Username -->
+                    <tr>
+                        <td>
+                            <label for="name">Username</label>
+                        </td>
+                        <td>
+                            <input id="name" type="text" name="name" value="{{ $user->name }}" required /> 
+                        </td>
+                    </tr>
+                	<!-- Playing schedule -->
+                    <tr>
+                        <td valign="top">
+    				        <label for="schedule">Playing Schedule</label>
+                        </td>
+                        <td>
+                            <textarea name="schedule" id="schedule" cols="40" rows="3" placeholder="e.g. I am online during weekends at around 7-10 PM">{{ $user->schedule }}</textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            {{ Form::submit('Save') }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
 
         <h2>IGNs</h2>
 		<div>

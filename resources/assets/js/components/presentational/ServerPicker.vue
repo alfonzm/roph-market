@@ -4,9 +4,6 @@
         	<template v-if="server">
 	        	{{ server.name }}
         	</template>
-        	<template v-else>
-        		select a server
-        	</template>
         	&nbsp;&nbsp;<i class="fa fa-caret-down"></i>
         </a>
         <div :class="{active: show}" class="server-list">
@@ -37,7 +34,7 @@ export default {
 		}
 	},
 	mounted() {
-		this.server = _.find(this.servers, (o) => Cookies.get('server') == o.id)
+		this.server = _.find(this.servers, (o) => Cookies.get('server') == o.id) || Constants.servers[0]
 	},
 	methods: {
 		toggle() {

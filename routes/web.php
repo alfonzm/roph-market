@@ -53,13 +53,17 @@ Route::prefix('api')->group(function() {
 
 		// auth middleware
 		Route::group(['middleware' => ['auth']], function () {
+			// Stalls
 			Route::post('stalls', 'StallController@store')->name('stalls.store');
 			Route::put('stalls/{stall}', 'StallController@update')->name('stalls.update');
+			Route::delete('stalls/{stall}', 'StallController@destroy')->name('stalls.destroy');
 
+			// Users
 			Route::post('users/{id}', 'UserController@update')->name('users.update');
 			Route::post('users/{id}/igns', 'UserController@storeIgn')->name('users.storeIgn');
 			Route::delete('users/{id}/igns/{ignId}', 'UserController@deleteIgn')->name('users.deleteIgn');
 
+			// Stall Items
 			Route::delete('stall-items/{stallItemId}', 'StallItemController@destroy')->name('stall_items.destroy');
 		});
 

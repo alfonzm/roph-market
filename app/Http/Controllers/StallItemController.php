@@ -6,6 +6,7 @@ use Auth;
 use App\StallItem;
 use App\Http\Traits\StallItemSearchTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class StallItemController extends Controller
 {
@@ -20,6 +21,10 @@ class StallItemController extends Controller
 
 	public function destroy($stallItemId) {
 		$stallItem = StallItem::with('stall.stallItems')->find($stallItemId);
+
+		if(!Gate::allows('update-stall', $stallItem->stall)) {
+            return 403;
+        }
 
 		if(count($stallItem->stall->stallItems) <= 1) {
 	        return response(['success' => 'false', 'message' => 'Your stall must have at least one item.'], 400);

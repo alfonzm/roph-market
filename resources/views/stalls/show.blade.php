@@ -10,7 +10,9 @@
 				<div class="stall-name-name">
 					<h2>
 						{{ $stall->name }}
-						<small>Edit Stall</small>
+						@if($stall->user_id == Auth::user()->id)
+						<small><a href="{{ route('stalls.edit', ['stall' => $stall->id]) }}">Edit Stall</a></small>
+						@endif
 					</h2>
 					Last updated <time-ago-date date="{{ $stall->updated_at }}" />
 				</div>
