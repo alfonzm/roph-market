@@ -30,7 +30,7 @@
                         <label for="name">Username</label>
                     </td>
                     <td>
-                        <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus size="30">
+                        <input id="name" type="text" name="name" value="{{ old('name') }}" required size="30">
                         @if ($errors->has('name'))
                         <span>
                             <strong>{{ $errors->first('name') }}</strong>
@@ -61,7 +61,7 @@
                         <label for="ign">IGN</label>
                     </td>
                     <td>
-                        <input id="ign" type="text" name="ign" value="{{ old('ign') }}" required autofocus size="30" placeholder="You can add/edit IGNs later">
+                        <input id="ign" type="text" name="ign" value="{{ old('ign') }}" required size="30" placeholder="You can add/edit IGNs later">
                         @if ($errors->has('name'))
                         <span>
                             <strong>{{ $errors->first('ign') }}</strong>
@@ -76,8 +76,9 @@
                     </td>
                     <td>
                         <select name="server_id">
-                            <option value="2" selected>Loki</option>
-                            <option value="1">Thor</option>
+                            <option value="1" selected>Loki</option>
+                            <option value="2">Thor</option>
+                            <option value="3">Chaos</option>
                         </select>
                     </td>
                 </tr>

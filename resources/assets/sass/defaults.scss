@@ -99,9 +99,9 @@ button, input[type="submit"] {
 	padding: 4px 15px;
 
 	&.button.gray {
-		border-color: $gray-color;
-		background-color: $gray-color;
-		color: white;
+		border-color: $gray-btn-color;
+		background-color: white;
+		color: darken($gray-btn-color, 5%);
 	}
 
 	&:hover {

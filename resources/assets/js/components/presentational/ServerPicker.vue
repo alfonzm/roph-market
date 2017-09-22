@@ -34,7 +34,13 @@ export default {
 		}
 	},
 	mounted() {
-		this.server = _.find(this.servers, (o) => Cookies.get('server') == o.id) || Constants.servers[0]
+		var serverCookie = Cookies.get('server')
+
+		if(serverCookie) {
+			this.server = _.find(this.servers, (o) => Cookies.get('server') == o.id)
+		} else {
+			this.selectServer(Constants.servers[0])
+		}
 	},
 	methods: {
 		toggle() {

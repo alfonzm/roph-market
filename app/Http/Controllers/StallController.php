@@ -161,6 +161,7 @@ class StallController extends Controller
         }
                 
         $stall->delete();
-        return 204;
+        
+        return redirect()->route('users.show', ['name' => Auth::user()->name]);
     }
 }

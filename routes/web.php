@@ -43,6 +43,7 @@ Route::get('search', 'SearchController@index')->name('search.index');
 
 // Stall page
 Route::get('stalls/{stall}', 'StallController@show')->name('stalls.show');
+Route::delete('stalls/{stall}/delete', 'StallController@destroy')->name('stalls.destroy');
 
 // API ===============
 
@@ -56,7 +57,6 @@ Route::prefix('api')->group(function() {
 			// Stalls
 			Route::post('stalls', 'StallController@store')->name('stalls.store');
 			Route::put('stalls/{stall}', 'StallController@update')->name('stalls.update');
-			Route::delete('stalls/{stall}', 'StallController@destroy')->name('stalls.destroy');
 
 			// Users
 			Route::post('users/{id}', 'UserController@update')->name('users.update');
