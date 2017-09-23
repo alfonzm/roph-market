@@ -37,7 +37,10 @@
             </table>
         </form>
 
-        <h2>IGNs</h2>
+        <h2>
+            IGNs
+            <span class="subheader">Add your characters' names here so buyers can contact you in-game.</span>
+        </h2>
 		<div>
             <igns-form :igns="{{ json_encode($user->groupedIgns) }}" :user-id="{{ $user->id }}"></igns-form>
 		</div>

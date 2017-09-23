@@ -11,7 +11,7 @@
         </div>
 
         <template v-if="Object.keys(localIgns).length <= 0">
-            <p>
+            <p class="muted">
                 You have no IGNs.
             </p>
         </template>

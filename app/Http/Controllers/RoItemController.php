@@ -26,7 +26,9 @@ class RoItemController extends Controller
         }
 
         if($locationFilter) {
-	    	$q->where('equip_locations', '=', $locationFilter);
+            // if location is 34 (two handed weapon), set filter to 2 (weapon location)
+            $filter = $locationFilter == 34 ? 2 : $locationFilter;
+	    	$q->where('equip_locations', '=', $filter);
         }
 
     	return $q->limit(10)->get();

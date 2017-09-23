@@ -64,7 +64,6 @@ img.ro-item-image {
 		}
 
 		.searching, h3 {
-			font-weight: 300;
 		}
 	}
 }
@@ -80,15 +79,23 @@ img.ro-item-image {
 }
 
 @mixin listTableRow {
+	&:nth-child(even) {
+		background-color: $hover-bg-color;
+	}
+
+	// &:hover {
+	// 	cursor: pointer;
+	// }
+
 	td, th {
-		padding: 8px;
+		padding: 4px;
+		font-size: 12pt;
 		
 		&.name {
 			a {
 				display: inline;
 			}
 
-			text-align: left;
 			width: 100%;
 		}
 
@@ -96,12 +103,9 @@ img.ro-item-image {
 			width: 25px;
 		}
 
-		&.price, &.timestamp, &.quantity {
-			text-align: right;
-		}
-
 		&.price {
-			min-width: 120px;
+			min-width: 130px;
+			padding-right: 10px;
 		}
 
 		&.quantity {
@@ -111,16 +115,28 @@ img.ro-item-image {
 		&.timestamp {
 			min-width: 120px;
 		}
-	}
 
-	td {
-		&.timestamp {
-			font-size: $small-font;
+		&.link-to-stall {
+			padding: 0 15px;
+		}
+
+		&:last-child {
+			padding-right: 10px;
 		}
 	}
 
-	&:nth-child(even) {
-		background-color: $hover-bg-color;
+	th, td {
+		&.name {
+			text-align: left;
+		}
+
+		&.price, &.timestamp, &.quantity {
+			text-align: right;
+		}
+
+		&.link-to-stall {
+			text-align: center;
+		}
 	}
 }
 
@@ -155,17 +171,16 @@ form.stall-form {
 		width: 100%;
 
 		colgroup {
-			col.label {
-				width: 100px;
+			.label {
+				width: 130px;
 			}
 		}
 
 		td {
 			padding-bottom: 10px;
 
-			&.label {
+			label {
 				text-align: left;
-				// vertical-align: top;
 			}
 		}
 
@@ -190,7 +205,19 @@ form.stall-form {
 			display: inline;
 		}
 
-		tr {			
+		tr {
+			td {
+				padding: 3px;
+
+				&.remove {
+					font-size: 12pt;
+				}
+			}			
+
+			th {
+				padding: 6px;
+			}
+
 			&:nth-child(even) {
 				background-color: $hover-bg-color;
 			}
@@ -201,8 +228,8 @@ form.stall-form {
 			}
 		}
 
+
 		td, th {
-			padding: 6px 0;
 			word-wrap: break-word;
 			text-align: center;
 
@@ -217,7 +244,6 @@ form.stall-form {
 
 			&.name {
 				margin: 0;
-				padding-right: 10px;
 				white-space: nowrap;
 				text-align: left;
 			}

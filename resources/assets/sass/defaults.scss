@@ -87,13 +87,18 @@ table {
 	th {
 		font-weight: 600;
 	}
+
+	tr {
+		td:last-child {
+			padding-right: 10px;
+		}
+	}
 }
 
 button, input[type="submit"] {
 	@include formControl();
 
 	border: 1px solid $brand-color;
-	font-weight: 300;
 	background-color: $brand-color;
 	color: white;
 	padding: 4px 15px;
@@ -101,7 +106,12 @@ button, input[type="submit"] {
 	&.button.gray {
 		border-color: $gray-btn-color;
 		background-color: white;
-		color: darken($gray-btn-color, 5%);
+		color: darken($gray-btn-color, 20%);
+
+		&:hover {
+			border-color: darken($gray-btn-color, 30%);
+			color: darken($gray-btn-color, 50%);
+		}
 	}
 
 	&:hover {

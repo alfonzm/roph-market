@@ -2,7 +2,7 @@
 	<!-- <div class="ro-item-stall-search"> -->
 	<div class="stall-item-search">
 		<item-search
-			placeholder="What are you looking for? (e.g. Marc Card, +7 Occult Wand)"
+			placeholder="What are you looking for? (search for item name, item ID, or keywords)"
 			@onSelectSearchResult="searchStallItemByRoItem"
 			@onEnterQuery="searchStallItemByQuery"
 			v-model="query"
@@ -15,12 +15,14 @@
 					Search results for
 					<strong>
 						&ldquo;<ro-item-name v-if="roItemToSearch" :ro-item="roItemToSearch" /><span v-else>{{ query }}</span>&rdquo;
-				</strong>
+					</strong>
 				</h3>
 				<stall-item-list
 					v-if="stallItems.length > 0"
 					:stall-items="stallItems"
-					timestamp="timestamp" />
+					link-to-stall="true"
+					timestamp="timestamp"
+					/>
 				<span v-else>No results found.</span>
 			</template>
 		</div>

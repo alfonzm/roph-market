@@ -3,7 +3,7 @@
 		<input
 			type="text"
 			ref="input"
-			:placeholder="placeholder || 'Search item...'"
+			:placeholder="placeholder || 'Search for an item name or item ID...'"
 			:value="value"
 			:autofocus="autofocus ? autofocus : null"
 			@input="updateValue($event.target.value)"

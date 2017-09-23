@@ -14,6 +14,7 @@ $very-small-font: 10pt;
 $brand-color: #005AA7;
 $black-color: #333333;
 $black-2-color: lighten($black-color, 10%);
+$dark-gray-color: #666;
 $gray-color: #999;
 $light-gray-color: #eee;
 $border-color: #ddd;
@@ -21,5 +22,5 @@ $border-color: #ddd;
 $hover-bg-color: lighten($light-gray-color, 5%);
 
 // Buttons
-$gray-btn-color: #bbb;
+$gray-btn-color: #aaa;
 $gray-btn-text-color: white;

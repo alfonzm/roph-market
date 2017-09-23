@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<form :method="method" :action="action" class="stall-form">
+		<form :method="method" :action="action" class="stall-form" @submit="onSubmit">
 			<table class="stall-form">
 				<colgroup>
 					<col class="label">
@@ -9,8 +9,8 @@
 				<tbody>
 					<!-- Stall name -->
 					<tr class="stall-name">
-						<td class="label">
-							Stall name
+						<td>
+							<label>Stall name</label>
 						</td>
 						<td>
 					        <input
@@ -25,8 +25,8 @@
 
 					<!-- Server -->
 					<tr class="server">
-						<td class="label">
-							Server
+						<td>
+							<label>Server</label>
 						</td>
 						<td>
 							<select name="server_id" v-model="stall.server_id" class="capitalized">
@@ -42,8 +42,8 @@
 
 					<!-- Description -->
 					<tr class="stall-description">
-						<td class="label" valign="top">
-							Description
+						<td valign="top">
+							<label>Description</label>
 						</td>
 						<td>
 					        <textarea v-model="stall.description" name="description" rows="3" placeholder="(optional) ex. I also accept trades. PM me for offers!"></textarea>
@@ -52,27 +52,22 @@
 
 					<!-- Add item -->
 					<tr class="stall-add-item">
-						<td class="label">
-							Add items
+						<td>
+							<label>Add items</label>
 						</td>
 						<td>
-							<!-- <form @submit.prevent="addItem"> -->
-								<item-search @onSelectSearchResult="onSelectSearchResult" v-model="query"></item-search>
-								<!-- <input v-model="itemToAdd.price" type="number" placeholder="Price" required>
-								<input v-model="itemToAdd.quantity" type="number" placeholder="Quantity" min="1" required> -->
-								<br>
-								<!-- <input type="submit" value="Add item"> -->
-							<!-- </form> -->
+							<item-search @onSelectSearchResult="onSelectSearchResult" v-model="query"></item-search>
+							<br>
 						</td>
 					</tr>
 
 					<!-- Items -->
 					<tr class="stall-items">
-						<td class="label" valign="top">
-							Items in stall
+						<td valign="top">
+							<label>Items in stall</label>
 						</td>
 						<td>
-							<span v-if="stall.stall_items.length <= 0" class="no-items">
+							<span v-if="stall.stall_items.length <= 0" class="muted">
 								No items yet.
 							</span>
 							<table class="add-items-form" cellspacing="0" v-else>
@@ -82,7 +77,7 @@
 											Item
 										</th>
 										<th class="quantity">Quantity</th>
-										<th class="price">Price</th>
+										<th class="price">Price (optional)</th>
 										<th class="refine" v-if="showRefineColumn">Refine</th>
 										<th class="cards" v-if="showCardsColumn">Cards</th>
 									</tr>
@@ -256,7 +251,7 @@ export default {
 		},
 		onSelectSearchResult(roItem) {
 			this.itemToAdd.price = null
-			this.itemToAdd.quantity = null
+			this.itemToAdd.quantity = 1
 
 			this.itemToAdd.cards = []
 			for(var i=0; i < roItem.slots; i++ ){
@@ -276,6 +271,15 @@ export default {
 			this.itemToAdd = {}
 			this.query = null
 		},
+		onSubmit(e) {
+			if(this.stall.stall_items.length <= 0) {
+				alert('Stalls must have at least one item!')
+				e.preventDefault()
+				return false
+			}
+
+			return true
+		}
 	}
 }
 </script>

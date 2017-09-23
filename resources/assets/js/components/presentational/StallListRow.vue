@@ -9,9 +9,9 @@
             </a>
         </td>
         <td class="timestamp">
-            <a :href="`/stalls/${id}`">
-                {{ timestamp }}
-            </a>
+            {{ timestamp }}
+            <!-- <a :href="`/stalls/${id}`"> -->
+            <!-- </a> -->
         </td>
     </tr>
 </template>

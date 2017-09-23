@@ -47,10 +47,15 @@ class StallController extends Controller
 
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required',
+            'server_id' => 'required',
+        ]);
+
         $stall = Stall::create([
             'name' => request('name'),
             'user_id' => Auth::id(),
-            'server_id' => Server::first()->id,
+            'server_id' => request('server_id'),
         ]);
 
         foreach(request('stall_items') as $stallItem) {
@@ -61,13 +66,13 @@ class StallController extends Controller
                 'ro_item_id' => $stallItem['ro_item_id']
             ]);
 
-
             // Insert cards to stallItem
             if(isset($stallItem['cards'])){
-                // return $stallItem['cards'];
                 $cards = [];
                 foreach(($stallItem['cards'] ?? []) as $card) {
-                    $cards[] = new StallItemCard(['card_id' => $card['card_id']]);
+                    if(isset($card['card_id'])){
+                        $cards[] = new StallItemCard(['card_id' => $card['card_id']]);
+                    }
                 }
 
                 // Save all cards

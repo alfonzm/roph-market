@@ -10,7 +10,7 @@
 		<h3>Stalls</h3>
 
 		@if (count($user->stalls) == 0)
-			No stalls.
+			No stalls found.
 		@else
 			<stall-list :stalls="{{ $user->stalls }}"></stall-list>
 		@endif
