@@ -11,7 +11,7 @@
 	<form method="POST" action="{{ route('stalls.destroy', ['stall' => $stall->id]) }}" onsubmit="return confirm('Are you sure you want to delete this stall?')">
 		{{ method_field('DELETE') }}
 		{{ csrf_field() }}
-        <button type="submit" class="button gray">
+        <button type="submit" class="basic button gray">
             Delete stall
         </button>
     </form>

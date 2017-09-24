@@ -29,7 +29,7 @@ export default {
         'stall-item-row': StallItemListRow
     },
     props: [
-        'stallItems', //array of StallItem objects
+        'stallItems', //array of StallItem objects with stall, roItem and cards
         'timestamp',
         'linkToStall'
     ], 

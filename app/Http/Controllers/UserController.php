@@ -31,14 +31,14 @@ class UserController extends Controller
         $user = User::find($userId);
 
         if(!Gate::allows('update-user', $user)) {
-            return 403;
+            abort(404);
         }
 
         $user->name = $request->input('name');
         $user->schedule = $request->input('schedule');
         $user->save();
         
-    	return redirect()->route('users.edit');
+    	return redirect()->route('users.show', ['name' => $user->name]);
     }
 
     public function storeIgn(Request $request) {
@@ -55,7 +55,7 @@ class UserController extends Controller
         $user = User::find($userId);
 
         if(!Gate::allows('update-user', $user)) {
-            return 403;
+            abort(404);
         }
 
         if(count($user->igns) == 1) {

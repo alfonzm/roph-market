@@ -3,8 +3,15 @@
         <template v-if="loading">
             Loading...
         </template>
+        <template v-else-if="stallItems.length > 0">
+            <stall-item-list
+                :stall-items="stallItems"
+                link-to-stall="true"
+                timestamp="timestamp"
+                />
+        </template>
         <template v-else>
-            <stall-item-list :items="items"></stall-item-list>
+            No items for sale found.
         </template>
     </div>
 </template>
@@ -12,6 +19,7 @@
 <script>
 
 import StallItemList from './presentational/StallItemList.vue'
+import Cookies from 'cookies-js'
 
 export default {
     components: {
@@ -19,7 +27,7 @@ export default {
     },
     data() {
         return {
-            items: [],
+            stallItems: [],
             loading: true
         }
     },
@@ -29,11 +37,11 @@ export default {
     methods: {
         fetchItemsList() {
             this.loading = true
-            this.loading = false
-            // axios.get('/api/v1/stalls').then((res) => {
-            //     this.loading = false
-            //     this.stalls = res.data
-            // })
+            axios.get('/api/v1/stall-items', { server_id: Cookies.get('server') }).then((res) => {
+                console.log(res.data)
+                this.loading = false
+                this.stallItems = res.data
+            })
         }
     }
 }

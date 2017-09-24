@@ -34,6 +34,7 @@ import RoItemName from './presentational/RoItemName.vue'
 import ItemSearch from './presentational/ItemSearch.vue'
 import StallItemList from './presentational/StallItemList.vue'
 import queryString from 'query-string'
+import Cookies from 'cookies-js'
 
 export default {
 	props: [
@@ -78,38 +79,38 @@ export default {
 			const searchUrl = `/search?${stringified}`
 
 			if(this.redirect) {
-				window.location = searchUrl
+				window.location.href = searchUrl
 				return
 			}
 
 			window.history.pushState({path: searchUrl}, '', searchUrl)
-
 		},
 		searchStallItemByQuery(query) {
 			const params = { q: query }
+			this.redirectSearch(params)
+
 			if(this.redirect) {
-				this.redirectSearch(params)
 				return
 			}
 
 			this.roItemToSearch = null
-			this.loading = true
-
-			axios.get('/api/v1/stall-items/search', {
-				params: params
-			}).then(this.onReceiveSearchResults);
-
+			this.search(params)
 		},
 		searchStallItemByRoItem(roItem) {
 			const params = { s: roItem.id }
-			
+			this.redirectSearch(params)
+
 			if(this.redirect) {
-				this.redirectSearch(params)
 				return
 			}
 
 			this.roItemToSearch = roItem
+			this.search(params)
+		},
+		search(params) {
 			this.loading = true
+			params.server_id = Cookies.get('server')
+			console.log(params)
 
 			axios.get('/api/v1/stall-items/search', {
 				params: params

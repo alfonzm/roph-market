@@ -67,7 +67,7 @@
 							<label>Items in stall</label>
 						</td>
 						<td>
-							<span v-if="stall.stall_items.length <= 0" class="muted">
+							<span v-if="stall.stall_items.length <= 0" class="muted thin">
 								No items yet.
 							</span>
 							<table class="add-items-form" cellspacing="0" v-else>

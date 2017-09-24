@@ -25,7 +25,7 @@ class StallController extends Controller
     public function edit(Stall $stall)
     {
         if(!Gate::allows('update-stall', $stall)) {
-            return 403;
+            abort(404);
         }
 
         $stall->load('stallItems.roItem', 'stallItems.cards.roItem');
@@ -112,7 +112,7 @@ class StallController extends Controller
     public function update(Request $request, Stall $stall)
     {
         if(!Gate::allows('update-stall', $stall)) {
-            return 403;
+            abort(404);
         }
 
         $request = request()->input();
@@ -162,7 +162,7 @@ class StallController extends Controller
     public function destroy(Stall $stall)
     {
         if(!Gate::allows('update-stall', $stall)) {
-            return 403;
+            abort(404);
         }
                 
         $stall->delete();

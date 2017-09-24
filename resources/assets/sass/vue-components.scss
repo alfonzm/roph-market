@@ -125,16 +125,23 @@ img.ro-item-image {
 		}
 	}
 
+	td {
+		&.timestamp {
+			font-size: 10pt;
+			color: $gray-color;
+		}
+	}
+
 	th, td {
 		&.name {
 			text-align: left;
 		}
 
-		&.price, &.timestamp, &.quantity {
+		&.price, &.timestamp {
 			text-align: right;
 		}
 
-		&.link-to-stall {
+		&.link-to-stall, &.quantity {
 			text-align: center;
 		}
 	}
@@ -315,4 +322,18 @@ form.stall-form {
 			display: block;
 		}
 	}
+}
+
+// ItemPrice.vue
+.item-price {
+	// default
+
+	&.tens {	 			color: purple; 	text-shadow: 1px 0px 0px violet;	}
+	&.hundreds { 			color: #0048fb; text-shadow: 1px 0px 0px #76f9fb;	}
+	&.thousands { 			color: red; 	text-shadow: 1px 0px 0px #fff833;	}
+	&.ten-thousands { 		color: #d350f0; text-shadow: 0px 0px 1px lighten(#d350f0, 10%);	}
+	&.hundred-thousands { 	color: darken(blue,5%); 	text-shadow: 1px 0px 1px lighten(blue, 30%);	}
+	&.millions { 			color: #222222; text-shadow: 1px 0px 1px #49ff00;	}
+	&.ten-millions,
+	&.hundred-millions { 	color: red; 	text-shadow: 0px 0px 1px lighten(red,40%);	}
 }

@@ -4,7 +4,7 @@
             <ro-item-image :id="stallItem.ro_item_id" :type="stallItem.ro_item.type" />
         </td>
         <td class="name">
-            <a :href="linkToStall ? `/stalls/${stallItem.stall_id}` : `/search?s=${stallItem.ro_item_id}`">
+            <a :href="`/search?s=${stallItem.ro_item_id}`">
                 <ro-item-name :refine="stallItem.refine" :ro-item="stallItem.ro_item" />
             </a>
             <template v-if="stallItem.cards.length > 0">
@@ -12,18 +12,18 @@
             </template>
         </td>
         <td class="quantity">
-            {{ stallItem.quantity }}x
+            {{ stallItem.quantity }}
         </td>
         <td class="price">
             <template v-if="stallItem.price">
-                {{ stallItem.price }}z
+                <item-price :value="stallItem.price" />
             </template>
             <template v-else>
                 --
             </template>
         </td>
         <td v-if="linkToStall" class="link-to-stall">
-            <a :href="`/stalls/${stallItem.stall_id}`"><i class="fa fa-external-link"></i></a>
+            <a target="_blank" :href="`/stalls/${stallItem.stall_id}`"><i class="fa fa-external-link"></i></a>
         </td>
         <td v-if="timestamp" class="timestamp">
             {{ timeAgo(stallItem.updated_at) }}
@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import ItemPrice from './ItemPrice.vue'
 import RoItemImage from './RoItemImage.vue'
 import RoItemName from './RoItemName.vue'
 import moment from 'moment'
@@ -40,7 +41,8 @@ export default {
     props: ['stallItem', 'timestamp', 'linkToStall'],
     components: {
         'ro-item-image': RoItemImage,
-        'ro-item-name': RoItemName
+        'ro-item-name': RoItemName,
+        'item-price': ItemPrice
     },
     methods: {
         // receive array of StallItemCard.php objects
@@ -49,7 +51,7 @@ export default {
         },
         timeAgo: function(date) {
             return moment(date).fromNow();
-        }
+        },
     }
 }
 </script>

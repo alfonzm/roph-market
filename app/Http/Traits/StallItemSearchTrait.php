@@ -17,17 +17,24 @@ trait StallItemSearchTrait
 		$itemId = $request->input('s');
 		$searchQuery = $request->input('q');
 
+		if($request->input('server_id')) {
+			$serverId = $request->input('server_id');
+		} else if(isset($_COOKIE['server'])) {
+			$serverId = $_COOKIE['server'];
+		}
+
 		$queryBuilder = StallItem::with('stall', 'cards.roItem', 'roItem');
 
 		if($itemId) {
-			$queryBuilder
-				->where('ro_item_id', $itemId)
+			$queryBuilder->where(function ($query) use ($itemId) {
+				$query->where('ro_item_id', $itemId)
 				->orWhereHas('cards', function($query) use ($itemId) {
 					$query->where('card_id', $itemId);
 				});
+			});
 		} else if($searchQuery) {
-			$queryBuilder
-				->whereHas('roItem', function($query) use ($searchQuery) {
+			$queryBuilder->where(function($query) use ($searchQuery) {
+				$query->whereHas('roItem', function($query) use ($searchQuery) {
 					$query->where('name', 'like', '%' . $searchQuery . '%');
 				})
 				->orWhereHas('cards', function($query) use ($searchQuery) {
@@ -35,6 +42,13 @@ trait StallItemSearchTrait
 						$query->where('name', 'like', '%' . $searchQuery . '%');
 					});
 				});
+			});
+		}
+
+		if($serverId) {
+			$queryBuilder->whereHas('stall', function($query) use ($serverId) {
+				$query->where('server_id', $serverId);
+			});
 		}
 
 		return $queryBuilder->orderBy('created_at', 'DESC')->get();

@@ -21,6 +21,10 @@ class SearchController extends Controller
         $roItemId = $request->input('s');
         $searchQuery = $request->input('q');
 
+        if(isset($_COOKIE['server'])) {
+            $serverId = $_COOKIE['server'];
+        }
+
         if($roItemId) {
         	$roItem = RoItem::where('id', $roItemId)->first();
             $query = $roItem->name;

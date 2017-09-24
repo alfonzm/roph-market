@@ -51,6 +51,7 @@ Route::prefix('api')->group(function() {
 	Route::prefix('v1')->group(function() {
 		// StallItem
 		Route::get('stall-items/search', 'StallItemController@search');
+		Route::get('stall-items', 'StallItemController@index')->name('stalls_items.index');
 
 		// auth middleware
 		Route::group(['middleware' => ['auth']], function () {

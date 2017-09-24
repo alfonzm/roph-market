@@ -80,6 +80,8 @@ export default {
 			}
 		},
 		selectItem(item) {
+			clearTimeout(this.searchTimeout)
+
 			if(item != null || this.current in this.results) {
 				var selectedItem = item || this.results[this.current]
 				this.$emit('input', selectedItem.name)
@@ -90,13 +92,11 @@ export default {
 
 			this.results = []
 			this.current = null
-
-			clearTimeout(this.searchTimeout)
 		},
 		updateValue(value) {
 			this.$emit('input', value)
 			clearTimeout(this.searchTimeout)
-			this.searchTimeout = setTimeout(this.search, 250)
+			this.searchTimeout = setTimeout(this.search, 200)
 		},
 		search() {
 			if(this.value == '') {

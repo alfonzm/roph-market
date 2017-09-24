@@ -2,10 +2,17 @@
 
 @section('content')
 	<section id="show-user">
-		<h2>
-			{{ $user->name }}
-			<a href="{{ route('users.edit') }}" class="edit-profile-link">Edit Profile</a>
-		</h2>
+		<div id="title">
+			<h2 id="username">
+				{{ $user->name }}
+			</h2>
+			<a
+				href="{{ route('users.edit') }}"
+				id="edit-profile-link"
+				class="button basic">
+				Edit Profile
+			</a>
+		</div>
 
 		<h3>Stalls</h3>
 

@@ -19,11 +19,30 @@ class StallItemController extends Controller
 		return $this->searchStallItem($request);
 	}
 
+	public function index(Request $request)
+	{
+		$queryBuilder = StallItem::with('stall', 'roItem', 'cards');
+
+		if($request->input('server_id')) {
+			$serverId = $request->input('server_id');
+		} else if(isset($_COOKIE['server'])) {
+			$serverId = $_COOKIE['server'];
+		}
+
+		if($serverId) {
+			$queryBuilder->whereHas('stall', function($query) use ($serverId) {
+				$query->where('server_id', $serverId);
+			});
+		}
+
+		return $queryBuilder->latest()->limit(10)->get();
+	}
+
 	public function destroy($stallItemId) {
 		$stallItem = StallItem::with('stall.stallItems')->find($stallItemId);
 
 		if(!Gate::allows('update-stall', $stallItem->stall)) {
-            return 403;
+            abort(404);
         }
 
 		if(count($stallItem->stall->stallItems) <= 1) {

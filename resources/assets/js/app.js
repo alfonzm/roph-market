@@ -14,7 +14,7 @@ const app = new Vue({
     el: '#app',
     components: {
 		'latest-stalls': require('./components/LatestStalls.vue'),
-		'latest-items': require('./components/LatestItems.vue'),
+		'latest-stall-items': require('./components/LatestStallItems.vue'),
 		'stall-item-search': require('./components/StallItemSearch.vue'),
 		'stall-form': require('./components/StallForm.vue'),
 		'igns-form': require('./components/IgnsForm.vue'),

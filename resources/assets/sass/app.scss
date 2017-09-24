@@ -44,6 +44,10 @@ body {
 	color: $gray-color;
 }
 
+.thin {
+	font-weight: 300;
+}
+
 [v-cloak] {
 	display: none;
 }
@@ -97,16 +101,16 @@ section {
 	margin-top: 30px;
 
 	h2, h3, h4 {
-		color: $brand-color;
+		// color: $brand-color;
 	}
 
 	h1, h2, h3, h4, h5, h6 {
 		.subheader {
 			display: block;
-			font-size: $normal-font;
+			font-size: $small-font;
 			margin-bottom: 1em;
-			font-weight: 300;
-			color: $black-color;
+			font-weight: 400;
+			color: $gray-color;
 		}
 	}
 
@@ -187,10 +191,12 @@ section#show-stall {
 		line-height: 1.6em;
 		
 		h3 {
+			font-weight: 600;
 			margin: 0;
 		}
 
 		h4 {
+			font-weight: 600;
 			margin-bottom: 0;
 
 			&:first-child {
@@ -223,15 +229,23 @@ section#show-stall {
 
 	#stall-items {
 		.stall-name {
+			width: 100%;
+
 			.stall-name-img {
 				margin-top: 8px;
 				float: left;
+				width: 60px;
 			}
 
 			.stall-name-name {
+				margin: 0 auto;
 				h2 {
 					margin: 0;
 				}
+			}
+
+			.edit-stall-link {
+				float: right;
 			}
 		}
 	}
@@ -259,7 +273,17 @@ section#show-stall {
 }
 
 section#show-user {
-	h2 {
+	#title {
+		width: 100%;
+		overflow: hidden;
+
+		#username {
+			float: left;
+		}
+
+		#edit-profile-link {
+			float: right;
+		}
 	}
 }
 
