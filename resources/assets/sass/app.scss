@@ -12,12 +12,16 @@ html, body {
     font-family: $primary-font;
     font-weight: 400;
 
-
 	@include placeholder();
 }
 
+html {
+	min-height: 100%;
+	position: relative;
+}
+
 body {
-    padding-bottom: 50px;
+	margin: 0 0 170px; // for footer
 
     #app {
 	    max-width: 900px;
@@ -48,6 +52,12 @@ body {
 	font-weight: 300;
 }
 
+form span.error {
+	font-size: $small-font;
+	color: darken(red, 5%);
+	margin-left: 8px;
+}
+
 [v-cloak] {
 	display: none;
 }
@@ -66,6 +76,15 @@ header {
 				text-decoration: none;
 				border-bottom: 1px solid black;
 			}
+		}
+
+		sup#beta {
+			font-size: 11pt;
+		}
+
+		.subheader {
+			font-weight: 300;
+			font-size: 10pt;
 		}
 	}
 
@@ -97,21 +116,44 @@ header {
 	}
 }
 
+footer {
+	box-sizing: border-box;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	margin-top: 100px;
+	padding: 10px 10px 30px 10px;
+	text-align: center;
+	color: $gray-color;
+
+	*, p {
+		font-size: $small-font;
+	}
+
+	ul {
+		li {
+			display: inline;
+			margin: 0 10px;
+		}
+	}
+}
+
+h1, h2, h3, h4, h5, h6 {
+	.subheader {
+		display: block;
+		font-size: $small-font;
+		margin-bottom: 1em;
+		font-weight: 400;
+		color: $gray-color;
+	}
+}
+
 section {
 	margin-top: 30px;
 
 	h2, h3, h4 {
 		// color: $brand-color;
-	}
-
-	h1, h2, h3, h4, h5, h6 {
-		.subheader {
-			display: block;
-			font-size: $small-font;
-			margin-bottom: 1em;
-			font-weight: 400;
-			color: $gray-color;
-		}
 	}
 
 	h2 {
@@ -188,39 +230,43 @@ section#show-stall {
 		border-radius: 5px;
 		order: 2;
 		box-sizing: border-box;
-		line-height: 1.6em;
+		// line-height: 1.6em;
 		
 		h3 {
-			font-weight: 600;
-			margin: 0;
-		}
-
-		h4 {
-			font-weight: 600;
 			margin-bottom: 0;
 
 			&:first-child {
 				margin-top: 0;
 			}
-
 		}
 
 		p, a {
-			margin-top: 0;
-			font-size: $normal-font;
+			margin-top: 0px;
+			font-size: 12pt;
 		}
 
-		h5 {
-			@include serverNameHeader()
-		}
+		#igns {
+			h4.server-name {
+				font-weight: 700;
+				text-transform: uppercase;
+				font-size: $small-font;
+				margin-bottom: 0;
+				margin-top: 12px;
 
-		ul {
-			margin: 0;
+				&:first-child {
+					margin-top: 4px;
+				}
+			}
 
-			li {
-				font-size: $normal-font;
+			ul.igns {
+				margin: 0;
+
+				li {
+					font-size: 12pt;
+				}
 			}
 		}
+
 
 		p:last-child {
 			margin-bottom: 0;
@@ -267,22 +313,75 @@ section#show-stall {
 
 		aside {
 			margin-top: 0;
-			min-width: 250px;
+			min-width: 270px;
 		}
 	}
 }
 
 section#show-user {
+	section {
+		margin-top: 25px;
+
+		h3 {
+			margin-top: 0;
+			margin-bottom: 4px;
+		}
+
+		p {
+			margin-top: 0;
+		}
+	}
+
 	#title {
 		width: 100%;
 		overflow: hidden;
+		> * { display: inline-block; }
 
 		#username {
 			float: left;
 		}
 
 		#edit-profile-link {
-			float: right;
+			margin-top: 4px;
+			margin-left: 20px;
+		}
+	}
+
+	#igns {
+		margin-top: 10px;
+
+		table {
+			tr {
+				td {
+					padding-right: 10px;
+
+					&.server {
+						font-weight: 600;
+						text-transform: capitalize;
+					}
+				}
+			}
+		}
+	}
+
+	#ign-list {
+		h4 {
+			font-weight: 700;
+			text-transform: uppercase;
+			font-size: $small-font;
+			margin-bottom: 0;
+
+			&:first-child {
+				margin-top: 0;
+			}
+		}
+
+		ul.igns {
+			margin: 0;
+
+			li {
+				font-size: $normal-font;
+			}
 		}
 	}
 }

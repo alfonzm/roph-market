@@ -156,6 +156,7 @@ class StallController extends Controller
         }
 
         $stall->save();
+        $stall->touch();
         return redirect()->route('stalls.show', [$stall]);
     }
 

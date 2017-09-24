@@ -26,7 +26,7 @@
             <a target="_blank" :href="`/stalls/${stallItem.stall_id}`"><i class="fa fa-external-link"></i></a>
         </td>
         <td v-if="timestamp" class="timestamp">
-            {{ timeAgo(stallItem.updated_at) }}
+            {{ timeAgo(stallItem.created_at) }}
         </td>
     </tr>
 </template>

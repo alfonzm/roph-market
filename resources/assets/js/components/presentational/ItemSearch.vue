@@ -6,7 +6,7 @@
 			:placeholder="placeholder || 'Search for an item name or item ID...'"
 			:value="value"
 			:autofocus="autofocus ? autofocus : null"
-			@input="updateValue($event.target.value)"
+			@input="onTextFieldInput($event.target.value)"
 			@keydown.enter.prevent="onSearchFieldEnter"
 			@keydown.down.prevent="onSearchFieldDown"
 			@keydown.up.prevent="onSearchFieldUp"
@@ -48,7 +48,8 @@ export default {
 			current: null,
 			results: [],
 			searchTimeout: null,
-			loading: true
+			hasSelectedItem: true,
+			loading: true,
 		}
 	},
 	methods: {
@@ -81,6 +82,7 @@ export default {
 		},
 		selectItem(item) {
 			clearTimeout(this.searchTimeout)
+			this.hasSelectedItem = true
 
 			if(item != null || this.current in this.results) {
 				var selectedItem = item || this.results[this.current]
@@ -93,9 +95,11 @@ export default {
 			this.results = []
 			this.current = null
 		},
-		updateValue(value) {
+		onTextFieldInput(value) {
 			this.$emit('input', value)
 			clearTimeout(this.searchTimeout)
+			this.hasSelectedItem = false
+
 			this.searchTimeout = setTimeout(this.search, 200)
 		},
 		search() {
@@ -111,6 +115,8 @@ export default {
 						location: this.locationFilter
 					}
 				}).then(response => {
+					if(this.hasSelectedItem) { return }
+
 					this.showResults = true
 					this.loading = false
 					this.results = response.data

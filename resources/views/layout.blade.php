@@ -17,9 +17,8 @@
     <div id="app" v-cloak>
         @include('commons.header')
         @yield('content')
+        @include('commons.footer')
     </div>
-
-    @include('commons.footer')
    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

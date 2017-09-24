@@ -16,8 +16,8 @@
                     <td>
                         <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus size="30">
                         @if ($errors->has('email'))
-                        <span>
-                            <strong>{{ $errors->first('email') }}</strong>
+                        <span class="error">
+                            {{ $errors->first('email') }}
                         </span>
                         @endif
                     </td>
@@ -32,8 +32,8 @@
                         <input id="password" type="password" class="form-control" name="password" required size="30">
 
                         @if ($errors->has('password'))
-                        <span>
-                            <strong>{{ $errors->first('password') }}</strong>
+                        <span class="error">
+                            {{ $errors->first('password') }}
                         </span>
                         @endif
                     </td>
@@ -50,14 +50,14 @@
                 </tr>
 
                 <!-- Forgot password -->
-                <tr class="padded-top">
+                <!-- <tr class="padded-top">
                     <td></td>
                     <td>
                         <a href="{{ route('password.request') }}" class="forgot-pass">
                             Forgot your password?
                         </a>
                     </td>
-                </tr>
+                </tr> -->
 
                 <!-- Register -->
                 <tr class="padded-top">

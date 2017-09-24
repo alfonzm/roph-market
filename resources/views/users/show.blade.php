@@ -14,12 +14,52 @@
 			</a>
 		</div>
 
-		<h3>Stalls</h3>
+		<section id="igns">
+			<h3>IGNs</h3>
+			<table>
+				@if(count($user->groupedIgns) > 0)
+					@foreach($user->groupedIgns as $server => $igns)
+						<tr>
+							<td class="server">{{ $server }}:</td>
+							<td class="igns">
+								{{
+									implode(", ", array_map(function($ign) { return $ign['ign']; }, $igns))
+								}}
+							</td>
+						</tr>
+					@endforeach
+				@else
+					No IGNs.
+				@endif
+			</table>
+		</section>
 
-		@if (count($user->stalls) == 0)
-			No stalls found.
-		@else
-			<stall-list :stalls="{{ $user->stalls }}"></stall-list>
-		@endif
+		<section id="contact">
+			<h3>Contact Info</h3>
+			@if(!empty($user->contact))
+				<p>{!! nl2br(e($user->contact)) !!}</p>
+			@else
+				<span class="muted">No contact information specified.</span>
+			@endif
+		</section>
+
+		<section id="schedule">
+			<h3>Playing Schedule</h3>
+			@if(!empty($user->schedule))
+				<p>{!! nl2br(e($user->schedule)) !!}</p>
+			@else
+				<span class="muted">No playing schedule specified.</span>
+			@endif
+		</section>
+
+		<section id="stalls">
+			<h3>Stalls</h3>
+
+			@if (count($user->stalls) == 0)
+				No stalls found.
+			@else
+				<stall-list :stalls="{{ $user->stalls }}"></stall-list>
+			@endif
+		</section>
 	</section>
 @endsection

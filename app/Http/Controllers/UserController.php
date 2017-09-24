@@ -15,6 +15,9 @@ class UserController extends Controller
         $user = User::with(['stalls' => function($q) {
         	$q->orderBy('id', 'DESC');
 	    }], 'stalls.stallItems.cards.roItem', 'stalls.stallItems.roItem', 'igns.server')->where('name', $name)->first();
+
+        $user->groupIgns();
+
         return view('users/show', compact('user'));
     }
 
@@ -35,6 +38,7 @@ class UserController extends Controller
         }
 
         $user->name = $request->input('name');
+        $user->contact = $request->input('contact');
         $user->schedule = $request->input('schedule');
         $user->save();
         

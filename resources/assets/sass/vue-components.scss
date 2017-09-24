@@ -169,6 +169,7 @@ table.stall-item-list {
 	// header / StallItemListRow.vue
 	tr {
 		@include listTableRow();
+		height: 33px;
 	}
 }
 
@@ -276,8 +277,10 @@ form.stall-form {
 
 .igns-form {
 	h5 {
-		@include serverNameHeader()
 		font-size: $normal-font;
+		text-transform: uppercase;
+		margin: 0;
+		margin-top: 1em;
 	}
 
 	ul {

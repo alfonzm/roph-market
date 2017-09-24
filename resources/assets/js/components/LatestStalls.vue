@@ -7,7 +7,7 @@
             <stall-list :stalls="stalls" />
         </template>
         <template v-else>
-            No stalls found.
+            No stalls found. Why not <a href="/stalls/create">create a stall?</a>
         </template>
     </div>
 </template>

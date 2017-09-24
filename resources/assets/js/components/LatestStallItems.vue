@@ -11,7 +11,7 @@
                 />
         </template>
         <template v-else>
-            No items for sale found.
+            No items for sale found. Why not <a href="/stalls/create">create a stall?</a>
         </template>
     </div>
 </template>

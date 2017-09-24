@@ -28,6 +28,7 @@ class CreateUsersTable extends Migration
             $table->foreign('server_id')->references('id')->on('servers')->onDelete('cascade');
 
             $table->text('schedule')->nullable();
+            $table->text('contact')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

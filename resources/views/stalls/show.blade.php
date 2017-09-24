@@ -21,7 +21,7 @@
 				<div class="stall-name-name">
 					<h2>
 						{{ $stall->name }}
-						<span class="subheader">Last updated <time-ago-date date="{{ $stall->updated_at }}" /></span>
+						<span class="subheader">Last updated <time-ago-date date="{{ $stall->created_at }}" /></span>
 					</h2>
 				</div>
 			</div>
@@ -43,28 +43,37 @@
 			<h3>Vendor</h3>
 			<a href="/user/{{ $stall->user->name }}">{{ $stall->user->name }}</a>
 
-			<h4>IGNs</h4>
-			<ul>
-				@if(count($stall->user->groupedIgns) > 0)
-					@foreach($stall->user->groupedIgns as $server => $igns)
-						<h5>{{ $server }}</h5>
-						@foreach($igns as $ign)
-							<li>{{ $ign['ign'] }}</li>
-						@endforeach
+			<h3>IGNs</h3>
+			@if(count($stall->user->groupedIgns) > 0)
+				<div id="igns">
+				@foreach($stall->user->groupedIgns as $server => $igns)
+					<h4 class="server-name">{{ $server }}</h4>
+					<ul class="igns">
+					@foreach($igns as $ign)
+						<li>{{ $ign['ign'] }}</li>
 					@endforeach
+					</ul>
+				@endforeach
+				</div>
+			@else
+				<p>
+					<span class="muted">No IGNs.</span>
+				</p>
+			@endif
+
+			<h3>Contact</h3>
+			<p>
+				@if(!empty($stall->user->contact))
+					{!! nl2br(e($stall->user->contact)) !!}
 				@else
-					<p>
-						<span class="muted">No IGNs.</span>
-					</p>
+					<span class="muted">No contact information specified.</span>
 				@endif
-			</ul>
+			</p>
 
-			<!-- <h4>Contact</h4> -->
-
-			<h4>Playing Schedule</h4>
+			<h3>Playing Schedule</h3>
 			<p>
 				@if(!empty($stall->user->schedule))
-					{{ $stall->user->schedule }}
+					{!! nl2br(e($stall->user->schedule)) !!}
 				@else
 					<span class="muted">No playing schedule specified.</span>
 				@endif

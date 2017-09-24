@@ -17,8 +17,8 @@
                     <td>
                         <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus size="30">
                         @if ($errors->has('email'))
-                        <span>
-                            <strong>{{ $errors->first('email') }}</strong>
+                        <span class="error">
+                            {{ $errors->first('email') }}
                         </span>
                         @endif
                     </td>
@@ -32,8 +32,8 @@
                     <td>
                         <input id="name" type="text" name="name" value="{{ old('name') }}" required size="30">
                         @if ($errors->has('name'))
-                        <span>
-                            <strong>{{ $errors->first('name') }}</strong>
+                        <span class="error">
+                            {{ $errors->first('name') }}
                         </span>
                         @endif
                     </td>
@@ -48,8 +48,8 @@
                         <input id="password" type="password" class="form-control" name="password" required size="30">
 
                         @if ($errors->has('password'))
-                        <span>
-                            <strong>{{ $errors->first('password') }}</strong>
+                        <span class="error">
+                            {{ $errors->first('password') }}
                         </span>
                         @endif
                     </td>
@@ -63,8 +63,8 @@
                     <td>
                         <input id="ign" type="text" name="ign" value="{{ old('ign') }}" required size="30" placeholder="You can add/edit IGNs later">
                         @if ($errors->has('name'))
-                        <span>
-                            <strong>{{ $errors->first('ign') }}</strong>
+                        <span class="error">
+                            {{ $errors->first('ign') }}
                         </span>
                         @endif
                     </td>
