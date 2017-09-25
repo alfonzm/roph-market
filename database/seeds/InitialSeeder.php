@@ -12,13 +12,6 @@ class InitialSeeder extends Seeder
      */
     public function run()
     {
-        // Test user
-        // DB::table('users')->insert([
-        //     'name' => 'admin',
-        //     'email' => 'm.alfonz@gmail.com',
-        //     'password' => bcrypt('qweqwe')
-        // ]);
-
         // RO Item Types
         DB::table('ro_item_types')->insert([
             ['id' => 0, 'name' => 'healing_item', 'display_name' => 'Healing item'],
@@ -52,6 +45,6 @@ class InitialSeeder extends Seeder
         //     'server_id' => 1
         // ]);
 
-        // $this->call(RoItemsSeeder::class);
+        $this->call(RoItemsSeeder::class);
     }
 }

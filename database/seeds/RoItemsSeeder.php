@@ -2,9 +2,15 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Flynsarmy\CsvSeeder\CsvSeeder;
 
-class RoItemsSeeder extends Seeder
+class RoItemsSeeder extends CsvSeeder
 {
+    public function __construct() {
+        $this->table = 'ro_items';
+        $this->filename = base_path().'/database/seeds/ro_items.csv';
+    }
+
     /**
      * Run the database seeds.
      *
@@ -13,10 +19,12 @@ class RoItemsSeeder extends Seeder
     public function run()
     {
         // RO Items
-        DB::table('ro_items')->insert([
-            ['id' => 500, 'name' => 'Red Potion', 'ro_item_type_id' => 1],
-            ['id' => 501, 'name' => 'Blue Potion', 'ro_item_type_id' => 1],
-            ['id' => 700, 'name' => 'White Potion', 'ro_item_type_id' => 1]
-        ]);
+        DB::disableQueryLog();
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table($this->table)->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
+        parent::run();
     }
 }

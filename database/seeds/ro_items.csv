@@ -1,3 +1,4 @@
+id,aegis_name,name,type,weight,slots,equip_jobs,equip_upper,equip_genders,equip_locations,weapon_level,equip_level,refineable,view
 501,Red_Potion,Red Potion,0,70,,4294967295,7,2,,,,,
 502,Orange_Potion,Orange Potion,0,100,,4294967295,7,2,,,,,
 503,Yellow_Potion,Yellow Potion,0,130,,4294967295,7,2,,,,,
