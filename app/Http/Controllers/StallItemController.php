@@ -21,7 +21,7 @@ class StallItemController extends Controller
 
 	public function index(Request $request)
 	{
-		$queryBuilder = StallItem::with('stall', 'roItem', 'cards');
+		$queryBuilder = StallItem::with('stall', 'roItem', 'cards', 'cards.roItem');
 
 		if($request->input('server_id')) {
 			$serverId = $request->input('server_id');

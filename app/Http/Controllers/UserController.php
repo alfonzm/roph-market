@@ -12,9 +12,7 @@ class UserController extends Controller
 {
     public function show($name)
     {
-        $user = User::with(['stalls' => function($q) {
-        	$q->orderBy('id', 'DESC');
-	    }], 'stalls.stallItems.cards.roItem', 'stalls.stallItems.roItem', 'igns.server')->where('name', $name)->first();
+        $user = User::with('stalls', 'stalls.server', 'stalls.stallItems.cards.roItem', 'stalls.stallItems.roItem', 'igns.server')->where('name', $name)->first();
 
         $user->groupIgns();
 

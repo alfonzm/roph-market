@@ -6,12 +6,14 @@
 			<h2 id="username">
 				{{ $user->name }}
 			</h2>
+			@if($user->id == Auth::id())
 			<a
 				href="{{ route('users.edit') }}"
 				id="edit-profile-link"
 				class="button basic">
 				Edit Profile
 			</a>
+			@endif
 		</div>
 
 		<section id="igns">

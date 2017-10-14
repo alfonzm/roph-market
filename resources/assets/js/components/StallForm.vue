@@ -20,11 +20,13 @@
 					        	v-model="stall.name"
 					        	placeholder="ex. PvP Equips and Cards"
 					        	required autofocus>
+
+				        	<input name="server_id" type="hidden" :value="stall.server_id" />
 						</td>
 					</tr>
 
 					<!-- Server -->
-					<tr class="server">
+					<!-- <tr class="server">
 						<td>
 							<label>Server</label>
 						</td>
@@ -38,17 +40,17 @@
 								</option>
 							</select>
 						</td>
-					</tr>
+					</tr> -->
 
 					<!-- Description -->
-					<tr class="stall-description">
+					<!-- <tr class="stall-description">
 						<td valign="top">
 							<label>Description</label>
 						</td>
 						<td>
 					        <textarea v-model="stall.description" name="description" rows="3" placeholder="(optional) ex. I also accept trades. PM me for offers!"></textarea>
 						</td>
-					</tr>
+					</tr> -->
 
 					<!-- Add item -->
 					<tr class="stall-add-item">
@@ -64,7 +66,7 @@
 					<!-- Items -->
 					<tr class="stall-items">
 						<td valign="top">
-							<label>Items in stall</label>
+							<!-- <label>Items in stall</label> -->
 						</td>
 						<td>
 							<span v-if="stall.stall_items.length <= 0" class="muted thin">
@@ -163,13 +165,19 @@
 							</table>
 						</td>
 					</tr>
+					<tr>
+						<td></td>
+						<td>
+							<button type="submit">
+					            Save
+					        </button>
+						</td>
+					</tr>
 				</tbody>
 			</table>
 
 			<br>
-	        <button type="submit">
-	            Submit
-	        </button>
+	        
 
 	        <!-- CSRF token -->
 	        <slot></slot>
@@ -193,6 +201,7 @@ export default {
 			itemToAdd: {
 			},
 			stall: Vue.util.extend({
+				name: '',
 				server_id: Cookies.get('server') || Constants.servers[0].id,
 				stall_items: []
 			}, this.initialStall)

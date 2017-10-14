@@ -74,6 +74,7 @@ header {
 			color: $black-2-color;
 			&:hover {
 				text-decoration: none;
+				// color: $brand-color;
 				border-bottom: 1px solid black;
 			}
 		}
@@ -83,6 +84,7 @@ header {
 		}
 
 		.subheader {
+			margin-top: 4px;
 			font-weight: 300;
 			font-size: 10pt;
 		}
@@ -160,7 +162,6 @@ section {
 		font-size: $large-font;
 		font-weight: 600;
 		margin: 0;
-		margin-bottom: 6px;
 
 		&:not(:first-child) { 
 			margin-top: 1.2em;
@@ -224,40 +225,35 @@ section#show-stall {
 	aside {
 		// mobile view
 		margin-top: 20px;
-		border: 1px solid $light-gray-color;
-		box-shadow: 0px 2px 2px $light-gray-color;
+		// border: 1px solid $light-gray-color;
+		// box-shadow: 0px 2px 2px $light-gray-color;
 		padding: 20px;
 		border-radius: 5px;
 		order: 2;
 		box-sizing: border-box;
 		// line-height: 1.6em;
 		
-		h3 {
+		h3, h4 {
+			font-weight: 600;
 			margin-bottom: 0;
-
-			&:first-child {
-				margin-top: 0;
-			}
+			color: $black-color;
 		}
 
-		p, a {
+		h3 {
+			font-weight: 600;
+		}
+
+		p {
 			margin-top: 0px;
 			font-size: 12pt;
 		}
 
+		#stall-server-name {
+			font-weight: 400;
+			font-size: $normal-font;
+		}
+
 		#igns {
-			h4.server-name {
-				font-weight: 700;
-				text-transform: uppercase;
-				font-size: $small-font;
-				margin-bottom: 0;
-				margin-top: 12px;
-
-				&:first-child {
-					margin-top: 4px;
-				}
-			}
-
 			ul.igns {
 				margin: 0;
 
@@ -278,7 +274,7 @@ section#show-stall {
 			width: 100%;
 
 			.stall-name-img {
-				margin-top: 8px;
+				margin-top: 4px;
 				float: left;
 				width: 60px;
 			}
@@ -315,6 +311,12 @@ section#show-stall {
 			margin-top: 0;
 			min-width: 270px;
 		}
+	}
+}
+
+section#edit-stall {
+	h2 .subheader.view-stall-link {
+		font-size: $normal-font;
 	}
 }
 

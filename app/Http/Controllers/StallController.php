@@ -17,6 +17,35 @@ class StallController extends Controller
         return Stall::where('server_id', $_COOKIE['server'])->latest()->limit(10)->get();
     }
 
+    public function myStall()
+    {
+        $stall = Stall::with('stallItems.roItem', 'stallItems.cards.roItem')
+                        ->where([
+                            'server_id' => $_COOKIE['server'],
+                            'user_id' => Auth::id()
+                        ])->first();
+
+        if($stall) {
+            if(!Gate::allows('update-stall', $stall)) {
+                abort(404);
+            }
+
+            // Initialize stallItems[index]->roItem->name
+            // because Vue.js cannot take undefined v-model in the form
+            foreach($stall->stallItems as $stallItem) {
+                $slots = $stallItem->roItem->slots;
+
+                for($i = 0; $i < $slots; $i++) {
+                    if(!isset($stallItem->cards[$i])) {
+                        $stallItem->cards[$i] = ['ro_item' => ['name' => '']];
+                    }
+                }
+            }
+        }
+
+        return view('stalls/edit', compact('stall'));
+    }
+
     public function create()
     {
         return view('stalls/create');
@@ -46,11 +75,15 @@ class StallController extends Controller
     }
 
     public function store(Request $request)
-    {
+    {        
         $this->validate($request, [
             'name' => 'required',
             'server_id' => 'required',
         ]);
+
+        if(Stall::where(['user_id' => Auth::id(), 'server_id' => request('server_id')])->first()) {
+            return 'You already have a stall in this server!';
+        } 
 
         $stall = Stall::create([
             'name' => request('name'),
@@ -98,8 +131,19 @@ class StallController extends Controller
         return $results;
     }
 
+    // public function show(Request $request, $serverName, $username)
     public function show(Stall $stall)
     {
+        // $stall = Stall::with(['user', 'server'])->whereHas('user', function ($query) use ($username) {
+        //     $query->where('name', '=', $username);
+        // })->whereHas('server', function ($query) use ($serverName) {
+        //     $query->where('name', '=', $serverName);
+        // })->first();
+
+        if(!$stall) {
+            return 'not found';
+        }
+
         $stall = $stall->load('stallItems.cards.roItem', 'stallItems.roItem');
         $stall->user->groupIgns();
         $stall->user->igns = null;
@@ -119,7 +163,7 @@ class StallController extends Controller
 
         $stall->name = $request['name'];
         $stall->server_id = $request['server_id'];
-        $stall->description = $request['description'];
+        // $stall->description = $request['description'];
 
         $stall->load('stallItems.roItem', 'stallItems.cards');
 
@@ -168,6 +212,7 @@ class StallController extends Controller
                 
         $stall->delete();
         
-        return redirect()->route('users.show', ['name' => Auth::user()->name]);
+        return redirect()->route('stalls.myStall');
+        // return redirect()->route('users.show', ['name' => Auth::user()->name]);
     }
 }

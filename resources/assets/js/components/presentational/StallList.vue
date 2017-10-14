@@ -5,6 +5,7 @@
             :key="stall.id"
             :name="stall.name"
             :id="stall.id"
+            :server="stall.server ? stall.server.name : null"
             :timestamp="timeAgo(stall.created_at)" />
 	</table>
 </template>

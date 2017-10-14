@@ -23,8 +23,7 @@ Route::get('logout', 'Auth\LoginController@logout');
 
 Route::group(['middleware' => ['auth']], function () {
 	// Stalls
-	Route::get('stalls/create', 'StallController@create')->name('stalls.create');
-	Route::get('stalls/{stall}/edit', 'StallController@edit')->name('stalls.edit');
+	Route::get('my-stall', 'StallController@myStall')->name('stalls.myStall');
 
 	// Edit profile
 	Route::get('user/edit', 'UserController@edit')->name('users.edit');
@@ -32,11 +31,10 @@ Route::group(['middleware' => ['auth']], function () {
 
 // View user profile
 Route::get('user/{name}', 'UserController@show')->name('users.show');
+Route::get('user/{name}/stall/{server}', 'UserController@showStallByServer')->name('users.show.stall');
 
 // Home
-Route::get('/', function () {
-    return view('home');
-})->name('index');
+Route::get('/', 'HomeController@index')->name('index');
 
 // Search
 Route::get('search', 'SearchController@index')->name('search.index');
