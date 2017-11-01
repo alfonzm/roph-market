@@ -41,7 +41,7 @@
 			@if(!empty($user->contact))
 				<p>{!! nl2br(e($user->contact)) !!}</p>
 			@else
-				<span class="muted">No contact information specified.</span>
+				<span class="muted thin">No contact information specified.</span>
 			@endif
 		</section>
 
@@ -50,7 +50,7 @@
 			@if(!empty($user->schedule))
 				<p>{!! nl2br(e($user->schedule)) !!}</p>
 			@else
-				<span class="muted">No playing schedule specified.</span>
+				<span class="muted thin">No playing schedule specified.</span>
 			@endif
 		</section>
 
@@ -58,7 +58,7 @@
 			<h3>Stalls</h3>
 
 			@if (count($user->stalls) == 0)
-				No stalls found.
+				<span class="muted thin">No stalls found.</span>
 			@else
 				<stall-list :stalls="{{ $user->stalls }}"></stall-list>
 			@endif

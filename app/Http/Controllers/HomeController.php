@@ -9,7 +9,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-    	$server = Server::find($_COOKIE['server'])->first();
+    	$server = Server::find($_COOKIE['server']);
         return view('home', compact('server'));
     }
 }

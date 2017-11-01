@@ -75,6 +75,8 @@ class RegisterController extends Controller
             'server_id' => $data['server_id'],
         ]);
 
+        setcookie('server', $data['server_id']);
+
         return $user;
     }
 }

@@ -2,7 +2,7 @@
 
 @section('content')
 <section id="login">
-    <h3>Login</h3>
+    <h2>Login</h2>
     <form method="POST" action="{{ route('login') }}" autocomplete="on">
         {{ csrf_field() }}
 

@@ -3,7 +3,7 @@
 @section('content')
 <section id="edit-stall">
 	<h2>
-		My stall
+		My stall — {{ ucfirst($server->name) }}
 		@if($stall)
 		<div class="subheader view-stall-link"><a href="/stalls/{{ $stall->id }}">View stall</a></div>
 		@endif

@@ -25,6 +25,8 @@ class StallController extends Controller
                             'user_id' => Auth::id()
                         ])->first();
 
+        $server = Server::find($_COOKIE['server']);
+
         if($stall) {
             if(!Gate::allows('update-stall', $stall)) {
                 abort(404);
@@ -43,7 +45,7 @@ class StallController extends Controller
             }
         }
 
-        return view('stalls/edit', compact('stall'));
+        return view('stalls/edit', compact('stall', 'server'));
     }
 
     public function create()

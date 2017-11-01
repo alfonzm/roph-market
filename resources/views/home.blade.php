@@ -5,7 +5,7 @@
 		<stall-item-search redirect="redirect"></stall-item-search>
 	</section>
 	<section>
-	    <h2>Latest items ({{ ucfirst($server->name) }})</h2>
+	    <h2>Latest items</h2>
 	    <latest-stall-items></latest-stall-items>
 	</section>
 	<section>
