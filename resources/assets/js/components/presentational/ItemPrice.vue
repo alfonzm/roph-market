@@ -29,7 +29,7 @@ export default {
     		this.priceClass = 'millions'
     	} else if(this.value < 100000000) {
     		this.priceClass = 'ten-millions'
-    	} else if(this.value < 1000000000) {
+    	} else {
     		this.priceClass = 'hundred-millions'
     	}
     },

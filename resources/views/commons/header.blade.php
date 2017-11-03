@@ -15,7 +15,6 @@
 	</nav>
 
 	<h1>
-		<a href="{{ route('index') }}">roph-market.com</a>
-		<!-- <span class="subheader">A virtual marketplace for Ragnarok Online PH</span> -->
+		<a href="{{ route('index') }}">ragna-market.com</a>
 	</h1>
 </header>

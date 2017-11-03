@@ -11,7 +11,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
 
-    <title>ROPH Market</title>
+    <title>Ragna Market</title>
 </head>
 <body>
     <div id="app" v-cloak>

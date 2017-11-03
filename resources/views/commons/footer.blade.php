@@ -9,6 +9,6 @@
 	</ul>
 
 	<p>
-		© Copyright 2017. roph-market.com
+		© Copyright 2017. ragna-market.com
 	</p>
 </footer>

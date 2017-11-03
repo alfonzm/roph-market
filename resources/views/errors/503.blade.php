@@ -8,7 +8,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
 
-    <title>ROPH Market</title>
+    <title>Ragna Market</title>
 </head>
 <body>
     <h1>Down for maintenance. We'll be right back!</h1>

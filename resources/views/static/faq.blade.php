@@ -4,8 +4,8 @@
 
 @section('static-content')
 <div id="faq">
-	<h3>What is ROPH Market?</h3>
-	<p>ROPH Market is a virtual marketplace for <a href="http://ragnarokonline.com.ph">Ragnarok Online Philippines (EXE)</a> where you can set up a stall to sell your in-game items, or search for items you're looking to buy.</p>
+	<h3>What is Ragna Market?</h3>
+	<p>Ragna Market is a virtual marketplace for <a href="http://ragnarokonline.com.ph">Ragnarok Online Philippines (EXE)</a> where you can set up a stall to sell your in-game items, or search for items you're looking to buy.</p>
 
 	<p>The goal is to make a centralized one-stop shop marketplace for players to make it easier to sell or find items, similar to iRO's <a href="http://ragi.al/">Ragi.al market</a>, or the @autotrade and @whosells commands on private servers!</p>
 
@@ -27,7 +27,7 @@
 	<p>As many as you want!</p>
 
 	<h3>I found a bug / An item is missing / I have suggestions for the website</h3>
-	<p>Please let us know through our <a href="http://fb.com/rophmarket" target="_blank">Facebook page</a> or send us an e-mail at <a href="mailto:rophmarket@gmail.com">rophmarket@gmail.com</a>. Thank you!</p>
+	<p>Please let us know through our <a href="https://www.facebook.com/ragna-marketcom-184012118837081/" target="_blank">Facebook page</a> or send us an e-mail at <a href="mailto:ragnamarketcom@gmail.com">ragnamarketcom@gmail.com</a>. Thank you!</p>
 
 
 </div>
