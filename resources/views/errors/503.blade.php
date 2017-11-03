@@ -11,6 +11,6 @@
     <title>ROPH Market</title>
 </head>
 <body>
-    <h1>Down for maintenance. We'll be right back! <img src="http://irowiki.org/cl/images/1/16/No1.gif"></h1>
+    <h1>Down for maintenance. We'll be right back!</h1>
 </body>
 </html>

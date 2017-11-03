@@ -9,7 +9,9 @@ class HomeController extends Controller
 {
     public function index()
     {
-    	$server = Server::find($_COOKIE['server']);
+    	$serverId = isset($_COOKIE['server']) ? $_COOKIE['server'] : 0;
+    	$server = Server::find($serverId);
+    	
         return view('home', compact('server'));
     }
 }

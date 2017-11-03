@@ -5,7 +5,7 @@
             <h4>
                 Username
             </h4>
-            <input id="name" type="text" name="name" :value="oldName" required size="30">
+            <input id="name" type="text" name="name" :value="oldName" required autofocus size="30">
             <span v-if="errorName" class="error">
                 {{ errorName }}
             </span>
@@ -31,7 +31,7 @@
             <h4>
                 E-Mail Address
             </h4>
-            <input id="email" type="email" name="email" :value="oldEmail" required autofocus size="30">
+            <input id="email" type="email" name="email" :value="oldEmail" required size="30">
             <span class="error" v-if="errorEmail">
                 {{ errorEmail }}
             </span>
