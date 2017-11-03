@@ -3,7 +3,7 @@
 	    <stall-row
             v-for="(stall, index) in stalls"
             :key="stall.id"
-            :name="stall.name"
+            :vendor-name="stall.user.name"
             :id="stall.id"
             :server="stall.server ? stall.server.name : null"
             :timestamp="timeAgo(stall.created_at)" />

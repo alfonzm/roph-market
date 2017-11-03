@@ -5,9 +5,10 @@
         </td>
         <td class="name">
             <a :href="`/stalls/${id}`">
-                {{ name }}
+                {{ vendorName }}'s
+                <span v-if="server" class="capitalized"> {{ server }} </span>
+                Stall
             </a>
-            <span v-if="server" class="muted capitalized">— {{ server }}</span>
         </td>
         <td class="timestamp">
             {{ timestamp }}
@@ -19,7 +20,7 @@
 
 <script>
     export default {
-        props: ['name', 'id', 'timestamp', 'server'],
+        props: ['vendor-name', 'id', 'timestamp', 'server'],
         mounted() {
         },
         methods: {

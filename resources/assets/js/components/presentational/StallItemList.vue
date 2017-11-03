@@ -12,7 +12,7 @@
                 Stall
             </th>
             <th v-if="timestamp" class="timestamp">
-                Date added
+                Timestamp
             </th>
         </tr>
 	    <stall-item-row v-for="(item, index) in stallItems" :key="item.id" :stall-item="item" :timestamp="timestamp" :link-to-stall="linkToStall" />

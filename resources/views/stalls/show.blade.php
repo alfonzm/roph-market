@@ -11,7 +11,7 @@
 
 				<div class="stall-name-name">
 					<h2>
-						{{ $stall->name }}
+						{{ $stall->user->name }}'s {{ ucfirst($stall->server->name) }} Stall
 						<span class="subheader">
 							<time-ago-date date="{{ $stall->created_at }}" />
 						</span>
@@ -33,13 +33,8 @@
 			@endif
 		</div>
 		<aside>
-			<!-- <h3>Vendor</h3> -->
-			<h3>
-				<a href="/user/{{ $stall->user->name }}">{{ $stall->user->name }}</a>'s Stall
-			</h3>
-
-			<h4>Server</h4>
-			{{ ucfirst($stall->server->name) }}
+			<h3>Vendor</h3>
+			<a href="/user/{{ $stall->user->name }}">{{ $stall->user->name }}</a>
 
 			<h4>IGNs</h4>
 			@if(isset($stall->user->groupedIgns[$stall->server->name]))
@@ -56,7 +51,10 @@
 				</p>
 			@endif
 
-			<h4>Contact</h4>
+			<h4>Server</h4>
+			{{ ucfirst($stall->server->name) }}
+
+			<h4>Contact Info</h4>
 			<p>
 				@if(!empty($stall->user->contact))
 					{!! nl2br(e($stall->user->contact)) !!}

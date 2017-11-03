@@ -14,7 +14,7 @@ class StallController extends Controller
 {
     public function index()
     {
-        return Stall::where('server_id', $_COOKIE['server'])->latest()->limit(10)->get();
+        return Stall::with('user', 'server')->where('server_id', $_COOKIE['server'])->latest()->limit(10)->get();
     }
 
     public function myStall()
@@ -79,7 +79,6 @@ class StallController extends Controller
     public function store(Request $request)
     {        
         $this->validate($request, [
-            'name' => 'required',
             'server_id' => 'required',
         ]);
 
@@ -88,7 +87,6 @@ class StallController extends Controller
         } 
 
         $stall = Stall::create([
-            'name' => request('name'),
             'user_id' => Auth::id(),
             'server_id' => request('server_id'),
         ]);
@@ -163,7 +161,6 @@ class StallController extends Controller
 
         $request = request()->input();
 
-        $stall->name = $request['name'];
         $stall->server_id = $request['server_id'];
         // $stall->description = $request['description'];
 

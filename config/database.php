@@ -1,12 +1,5 @@
 <?php
 
-if (!defined('RDS_HOSTNAME')) {
-    define('RDS_HOSTNAME', isset($_SERVER['RDS_HOSTNAME']) ? $_SERVER['RDS_HOSTNAME'] : env('DB_HOST', '127.0.0.1'));
-    define('RDS_USERNAME', isset($_SERVER['RDS_USERNAME']) ? $_SERVER['RDS_USERNAME'] : env('DB_USERNAME', 'forge'));
-    define('RDS_PASSWORD', isset($_SERVER['RDS_PASSWORD']) ? $_SERVER['RDS_PASSWORD'] : env('DB_PASSWORD', ''));
-    define('RDS_DB_NAME', isset($_SERVER['RDS_DB_NAME']) ? $_SERVER['RDS_DB_NAME'] : env('DB_DATABASE', 'forge'));
-}
-
 return [
 
     /*
@@ -48,11 +41,11 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'host' => RDS_HOSTNAME,
+            'host' => env('DB_HOST', 'localhost'),
             'port' => env('DB_PORT', '3306'),
-            'database' => RDS_DB_NAME,
-            'username' => RDS_USERNAME,
-            'password' => RDS_PASSWORD,
+            'database' => env('DB_DATABASE', 'roph_market'),
+            'username' => env('DB_USERNAME', 'root'),
+            'password' => env('DB_PASSWORD', 'root'),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',

@@ -213,6 +213,12 @@ form.stall-form {
 			display: inline;
 		}
 
+		th {
+			&.item {
+				text-align: left;
+			}
+		}
+
 		tr {
 			td {
 				padding: 3px;

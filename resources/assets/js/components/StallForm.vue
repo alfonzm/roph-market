@@ -1,30 +1,13 @@
 <template>
 	<div>
 		<form :method="method" :action="action" class="stall-form" @submit="onSubmit">
+        	<input name="server_id" type="hidden" :value="stall.server_id" />
+			
 			<table class="stall-form">
 				<colgroup>
-					<col class="label">
 					<col class="value">
 				</colgroup>
 				<tbody>
-					<!-- Stall name -->
-					<tr class="stall-name">
-						<td>
-							<label>Stall name</label>
-						</td>
-						<td>
-					        <input
-					        	id="name"
-					        	type="text"
-					        	name="name"
-					        	v-model="stall.name"
-					        	placeholder="ex. PvP Equips and Cards"
-					        	required autofocus>
-
-				        	<input name="server_id" type="hidden" :value="stall.server_id" />
-						</td>
-					</tr>
-
 					<!-- Server -->
 					<!-- <tr class="server">
 						<td>
@@ -55,9 +38,6 @@
 					<!-- Add item -->
 					<tr class="stall-add-item">
 						<td>
-							<label>Add items</label>
-						</td>
-						<td>
 							<item-search @onSelectSearchResult="onSelectSearchResult" v-model="query"></item-search>
 							<br>
 						</td>
@@ -65,9 +45,6 @@
 
 					<!-- Items -->
 					<tr class="stall-items">
-						<td valign="top">
-							<!-- <label>Items in stall</label> -->
-						</td>
 						<td>
 							<span v-if="stall.stall_items.length <= 0" class="muted thin">
 								No items yet.
@@ -75,7 +52,7 @@
 							<table class="add-items-form" cellspacing="0" v-else>
 								<tbody>
 									<tr>
-										<th colspan="2">
+										<th class="item" colspan="2">
 											Item
 										</th>
 										<th class="quantity">Quantity</th>
@@ -166,7 +143,6 @@
 						</td>
 					</tr>
 					<tr>
-						<td></td>
 						<td>
 							<button type="submit">
 					            Save
