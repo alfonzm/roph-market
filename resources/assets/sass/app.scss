@@ -71,7 +71,7 @@ header {
 
 		a {
 			font-size: $very-large-font;
-			color: $black-2-color;
+			color: $black-color;
 			&:hover {
 				text-decoration: none;
 				// color: $brand-color;
@@ -398,6 +398,33 @@ section#edit-user {
 			td {
 				text-align: left;
 			}
+		}
+	}
+}
+
+section#static-content {
+	h1 {
+		font-weight: 700;
+	}
+
+	h3 {
+		color: $black-color;
+	}
+
+	#faq {
+		h3 {
+			font-weight: 600;
+			margin-top: 1.6em;
+			margin-bottom: 0;
+		}
+
+		p, ol li {
+			line-height: 1.5em;
+			font-size: $normal-font;
+		}
+
+		p, ol {
+			margin-top: 0;
 		}
 	}
 }

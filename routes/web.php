@@ -11,22 +11,34 @@
 |
 */
 
-
-// Route::get('/test', function() {
-// });
-
 // Auth
 Auth::routes();
 Route::get('logout', 'Auth\LoginController@logout');
 
 // Pages ===============
-
 Route::group(['middleware' => ['auth']], function () {
 	// Stalls
 	Route::get('my-stall', 'StallController@myStall')->name('stalls.myStall');
 
 	// Edit profile
 	Route::get('user/edit', 'UserController@edit')->name('users.edit');
+});
+
+// Public static pages
+Route::get('blog', function() {
+	return view('static/blog', compact('stall', 'server'));
+});
+
+Route::get('about', function() {
+	return view('static/about', compact('stall', 'server'));
+});
+
+Route::get('faq', function() {
+	return view('static/faq', compact('stall', 'server'));
+});
+
+Route::get('contact', function() {
+	return view('static/contact', compact('stall', 'server'));
 });
 
 // View user profile

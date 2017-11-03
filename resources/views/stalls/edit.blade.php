@@ -17,7 +17,7 @@
 	</stall-form>
 
 	<h2>
-		Delete stall
+		Delete items in stall
 	</h2>
 	This will delete all items from the stall. This action cannot be undone.
 	<br>
@@ -26,7 +26,7 @@
 		{{ method_field('DELETE') }}
 		{{ csrf_field() }}
         <button type="submit" class="basic button danger">
-            Delete stall
+            Delete items
         </button>
     </form>
 	@else
