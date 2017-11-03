@@ -129,8 +129,10 @@ footer {
 	text-align: center;
 	color: $gray-color;
 
-	*, p {
-		font-size: $small-font;
+	font-size: $small-font;
+
+	p {
+		font-size: $very-small-font;
 	}
 
 	ul {

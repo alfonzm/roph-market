@@ -9,6 +9,6 @@
 	</ul>
 
 	<p>
-		© Copyright 2017. ragna-market.com
+		© Copyright 2017. Ragna Market is not affiliated, endorsed by, or officially connected with Gravity, Electronics Extreme, or Elite.
 	</p>
 </footer>
