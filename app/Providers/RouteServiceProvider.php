@@ -39,7 +39,14 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
-        //
+
+        // Health check route
+        Route::middleware('health_check')
+            ->namespace($this->namespace)->group(function() {
+                Route::get('/health_check', function() {
+                    echo 'Health check OK.';
+                });
+            });
     }
 
     /**
