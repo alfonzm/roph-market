@@ -110,7 +110,6 @@ export default {
 		search(params) {
 			this.loading = true
 			params.server_id = Cookies.get('server')
-			console.log(params)
 
 			axios.get('/api/v1/stall-items/search', {
 				params: params

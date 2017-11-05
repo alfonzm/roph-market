@@ -12,7 +12,7 @@ export default {
 	},
 	computed: {
 		src() {
-			return "http://imgs.ratemyserver.net/items/small/" + ((this.type == 6) ? "card" : this.id) + ".gif"
+			return "/img/ro-items/" + ((this.type == 6) ? "card" : this.id) + ".gif"
 		}
 	},
 	methods: {

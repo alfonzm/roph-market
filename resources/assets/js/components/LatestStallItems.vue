@@ -38,7 +38,6 @@ export default {
         fetchItemsList() {
             this.loading = true
             axios.get('/api/v1/stall-items', { server_id: Cookies.get('server') }).then((res) => {
-                console.log(res.data)
                 this.loading = false
                 this.stallItems = res.data
             })
