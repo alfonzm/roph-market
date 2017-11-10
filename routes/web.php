@@ -41,6 +41,10 @@ Route::get('contact', function() {
 	return view('static/contact', compact('stall', 'server'));
 });
 
+Route::get('privacy', function() {
+	return view('static/privacy');
+});
+
 // View user profile
 Route::get('user/{name}', 'UserController@show')->name('users.show');
 Route::get('user/{name}/stall/{server}', 'UserController@showStallByServer')->name('users.show.stall');

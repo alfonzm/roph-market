@@ -1,4 +1,39 @@
-@extends('layouts.app')
+@extends('layout')
+
+@section('content')
+<section id="reset-password">
+    <h2>Reset Password</h2>
+
+    <form class="form-horizontal" method="POST" action="{{ route('password.email') }}">
+        {{ csrf_field() }}
+
+        @if (session('status'))
+            <div class="message success">
+                {{ session('status') }}
+            </div>
+        @endif
+
+        <h4>
+            Please enter your e-mail address:
+        </h4>
+        <input id="email" type="email" name="email" value="{{ $email or old('email') }}" size="30" required autofocus>
+        @if ($errors->has('email'))
+            <span class="error">
+                {{ $errors->first('email') }}
+            </span>
+        @endif
+
+        <p>
+            <button type="submit">
+                Reset Password
+            </button>
+        </p>
+    </form>
+</section>
+@endsection
+
+
+<!-- @extends('layout')
 
 @section('content')
 <div class="container">
@@ -45,3 +80,4 @@
     </div>
 </div>
 @endsection
+ -->

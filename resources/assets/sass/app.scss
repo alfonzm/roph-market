@@ -52,10 +52,24 @@ body {
 	font-weight: 300;
 }
 
-form span.error {
-	font-size: $small-font;
-	color: darken(red, 5%);
-	margin-left: 8px;
+form {
+	span {
+		&.error {
+			font-size: $small-font;
+			color: darken(red, 5%);
+			margin-left: 8px;
+		}
+	}
+}
+
+.message {
+	padding: 14px;
+	border-radius: 5px;
+
+	&.success {
+		color: darken(#5cb85c, 10%);
+		background-color: lighten(#5cb85c, 40%);
+	}
 }
 
 [v-cloak] {
@@ -200,7 +214,7 @@ section {
 	}
 }
 
-section#login, section#signup {
+section#login, section#signup, section#reset-password {
 	table {
 		tr.padded-top td {
 			padding-top: 1em;
@@ -413,7 +427,6 @@ section#static-content {
 		color: $black-color;
 	}
 
-	#faq {
 		h3 {
 			font-weight: 600;
 			margin-top: 1.6em;
@@ -428,5 +441,4 @@ section#static-content {
 		p, ol {
 			margin-top: 0;
 		}
-	}
 }

@@ -68,6 +68,16 @@
                         </a>
                     </td>
                 </tr>
+
+                <!-- Forgot -->
+                <tr class="padded-top">
+                    <td></td>
+                    <td>
+                        <a href="{{ route('password.request') }}">
+                            Forgot your password?
+                        </a>
+                    </td>
+                </tr>
             </tbody>
         </table>
 
