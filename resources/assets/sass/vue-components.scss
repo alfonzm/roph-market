@@ -117,6 +117,9 @@ img.ro-item-image {
 		}
 
 		&.link-to-stall {
+			max-width: 150px;
+			word-wrap: break-word;
+			width: 100%;
 			padding: 0 15px;
 		}
 
@@ -137,12 +140,12 @@ img.ro-item-image {
 			text-align: left;
 		}
 
-		&.price, &.timestamp {
+		&.price, &.timestamp, &.quantity {
 			text-align: right;
 		}
 
-		&.link-to-stall, &.quantity {
-			text-align: center;
+		&.link-to-stall {
+			text-align: left;
 		}
 	}
 }

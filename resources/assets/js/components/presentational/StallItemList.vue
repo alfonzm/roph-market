@@ -2,14 +2,14 @@
     <table cellspacing="0" class="stall-item-list">
         <tr>
             <th colspan="2" class="name">Item</th>
+            <th v-if="linkToStall" class="link-to-stall">
+                Stall
+            </th>
             <th class="quantity">
                 Quantity
             </th>
             <th class="price">
                 Price
-            </th>
-            <th v-if="linkToStall" class="link-to-stall">
-                Stall
             </th>
             <th v-if="timestamp" class="timestamp">
                 Timestamp

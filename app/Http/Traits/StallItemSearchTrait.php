@@ -23,7 +23,9 @@ trait StallItemSearchTrait
 			$serverId = $_COOKIE['server'];
 		}
 
-		$queryBuilder = StallItem::with('stall', 'cards.roItem', 'roItem');
+		$queryBuilder = StallItem::with(['stall.user' => function($query) {
+			$query->select('id', 'name');
+		}, 'stall', 'cards.roItem', 'roItem']);
 
 		if($itemId) {
 			$queryBuilder->where(function ($query) use ($itemId) {

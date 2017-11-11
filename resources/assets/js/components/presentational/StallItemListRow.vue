@@ -11,8 +11,13 @@
                 – <span class="item-cards" v-html="stringifyCards(stallItem.cards)"></span>
             </template>
         </td>
+        <td v-if="linkToStall" class="link-to-stall">
+            <a :href="`/stalls/${stallItem.stall_id}`">
+                {{ stallItem.stall.user.name }}
+            </a>
+        </td>
         <td class="quantity">
-            {{ stallItem.quantity }}
+            {{ stallItem.quantity | comma }}
         </td>
         <td class="price">
             <template v-if="stallItem.price">
@@ -21,9 +26,6 @@
             <template v-else>
                 --
             </template>
-        </td>
-        <td v-if="linkToStall" class="link-to-stall">
-            <a target="_blank" :href="`/stalls/${stallItem.stall_id}`"><i class="fa fa-external-link"></i></a>
         </td>
         <td v-if="timestamp" class="timestamp">
             {{ timeAgo(stallItem.created_at) }}
@@ -36,6 +38,7 @@ import ItemPrice from './ItemPrice.vue'
 import RoItemImage from './RoItemImage.vue'
 import RoItemName from './RoItemName.vue'
 import moment from 'moment'
+import numeral from 'numeral'
 
 export default {
     props: ['stallItem', 'timestamp', 'linkToStall'],
@@ -44,6 +47,11 @@ export default {
         'ro-item-name': RoItemName,
         'item-price': ItemPrice
     },
+    filters: {
+        comma: function(number) {
+            return numeral(number).format('0,0');
+        }
+    },
     methods: {
         // receive array of StallItemCard.php objects
         stringifyCards(cards) {
@@ -51,7 +59,7 @@ export default {
         },
         timeAgo: function(date) {
             return moment(date).fromNow();
-        },
+        }
     }
 }
 </script>

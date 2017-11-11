@@ -11,13 +11,13 @@
                 <!-- Email -->
                 <tr>
                     <td>
-                        <label for="email">E-Mail Address</label>
+                        <label for="name">Username</label>
                     </td>
                     <td>
-                        <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus size="30">
-                        @if ($errors->has('email'))
+                        <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus size="30">
+                        @if ($errors->has('name'))
                         <span class="error">
-                            {{ $errors->first('email') }}
+                            {{ $errors->first('name') }}
                         </span>
                         @endif
                     </td>

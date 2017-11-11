@@ -35,6 +35,10 @@ class UserController extends Controller
             abort(404);
         }
 
+        $this->validate($request, [
+            'name' => 'required|string|max:50|unique:users|alpha_dash',
+        ]);
+
         $user->name = $request->input('name');
         $user->contact = $request->input('contact');
         $user->schedule = $request->input('schedule');

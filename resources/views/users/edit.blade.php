@@ -16,6 +16,11 @@
                         </td>
                         <td>
                             <input id="name" type="text" name="name" value="{{ $user->name }}" required /> 
+                            @if ($errors->has('name'))
+                            <span class="error">
+                                {{ $errors->first('name') }}
+                            </span>
+                            @endif
                         </td>
                     </tr>
                     <!-- Contact Information -->

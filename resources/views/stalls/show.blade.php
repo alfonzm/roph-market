@@ -47,7 +47,7 @@
 				</div>
 			@else
 				<p>
-					<span class="muted">No IGNs.</span>
+					<span class="muted">No IGNs in this server.</span>
 				</p>
 			@endif
 

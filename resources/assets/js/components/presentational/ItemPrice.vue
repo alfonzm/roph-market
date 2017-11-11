@@ -1,6 +1,6 @@
 <template>
     <span :class="['item-price', priceClass]">
-		{{ formattedPrice() }}z
+		{{ value | comma }}z
     </span>
 </template>
 
@@ -33,10 +33,11 @@ export default {
     		this.priceClass = 'hundred-millions'
     	}
     },
-    methods: {
-    	formattedPrice() {
-    		return numeral(this.value).format('0,0')
-    	}
-    }
+    filters: {
+        comma: function(number) {
+            return numeral(number).format('0,0');
+        }
+    },
+    methods: {}
 }
 </script>

@@ -10,7 +10,7 @@
                 {{ errorName }}
             </span>
             <div class="muted">
-                <small style="color: red">NOTE: Do not use your Ragnarok Online login credentials!</small>
+                <small>NOTE: Do not use your Ragnarok Online login credentials!</small>
             </div>
         </div>
 
