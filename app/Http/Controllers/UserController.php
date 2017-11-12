@@ -7,6 +7,7 @@ use App\User;
 use App\UserIgn;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -36,7 +37,13 @@ class UserController extends Controller
         }
 
         $this->validate($request, [
-            'name' => 'required|string|max:50|unique:users|alpha_dash',
+            'name' => [
+                'required',
+                'string',
+                'max:50',
+                'alpha_dash',
+                Rule::unique('users')->ignore($user->id)
+            ],
         ]);
 
         $user->name = $request->input('name');
