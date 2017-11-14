@@ -34,7 +34,7 @@
 	<p>As many as you want!</p>
 
 	<h3>I found a bug / An item is missing / I have suggestions for the website</h3>
-	<p>Please let us know through our <a href="https://www.facebook.com/ragna-marketcom-184012118837081/" target="_blank">Facebook page</a> or send us an e-mail at <a href="mailto:ragnamarketcom@gmail.com">ragnamarketcom@gmail.com</a>. Thank you!</p>
+	<p>Please let us know through our <a target="_blank" href="{{ env('CONTACT_FB_PAGE', '#') }}">Facebook page</a> or send us an e-mail at <a href="mailto:{{ env('CONTACT_EMAIL', 'ragnamarketcom@gmail.com') }}">{{ env('CONTACT_EMAIL', 'ragnamarketcom@gmail.com') }}</a>. Thank you!</p>
 
 
 </div>
