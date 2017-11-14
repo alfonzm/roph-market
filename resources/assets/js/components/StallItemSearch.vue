@@ -36,7 +36,7 @@
 			        	:next-class="'pagination-next'"
 
 			            :page-count="paginationLastPage"
-			            :click-handler="changePage"
+			            :click-handler="paginationChangePage"
 			            :margin-pages="1"
 			            :initial-page="paginationData.current_page-1"
 			            />

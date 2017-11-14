@@ -46,5 +46,6 @@ class InitialSeeder extends Seeder
         // ]);
 
         $this->call(RoItemsSeeder::class);
+        $this->call(MoreRoItemsSeeder::class);
     }
 }
