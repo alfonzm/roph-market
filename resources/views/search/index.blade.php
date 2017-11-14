@@ -2,9 +2,8 @@
 
 @section('content')
 	<section id="search">
-		<!-- {{ $results }} -->
-		<!-- {{ $query }} -->
 		<stall-item-search
+			:pagination-data="{{ $results }}"
 			:initial-stall-items="{{ $results }}"
 			initial-query="{{ $query }}"
 			@if(!empty($roItem))
@@ -12,5 +11,6 @@
 			@endif
 			autofocus="autofocus"
 			/>
+		}
 	</section>
 @endsection

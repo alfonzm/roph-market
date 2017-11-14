@@ -53,6 +53,13 @@ trait StallItemSearchTrait
 			});
 		}
 
-		return $queryBuilder->orderBy('created_at', 'DESC')->get();
+		$query = $queryBuilder->orderBy('created_at', 'DESC');
+
+		// pagination
+		// $page = ($request->input('p')) ? $request->input('p') - 1 : 0;
+
+		$limit = 15;
+		// $query->offset($page * $limit)->limit($limit);
+		return $query->paginate($limit);
 	}
 }

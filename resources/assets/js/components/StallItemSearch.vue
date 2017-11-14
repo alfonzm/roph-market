@@ -16,13 +16,31 @@
 					<strong>
 						&ldquo;<ro-item-name v-if="roItemToSearch" :ro-item="roItemToSearch" /><span v-else>{{ query }}</span>&rdquo;
 					</strong>
+					<span class="subheader">Found {{ paginationTotal }} result(s)</span>
 				</h3>
-				<stall-item-list
-					v-if="stallItems.length > 0"
-					:stall-items="stallItems"
-					link-to-stall="true"
-					timestamp="timestamp"
-					/>
+
+				<template v-if="stallItems.length > 0">
+					<stall-item-list
+						:stall-items="stallItems"
+						:paginating="paginating"
+						link-to-stall="true"
+						timestamp="timestamp"
+						/>
+			        <paginate
+			        	v-if="paginationLastPage > 1"
+
+			        	:container-class="'pagination'"
+			        	:page-class="'pagination-item'"
+			        	:active-class="'active'"
+			        	:prev-class="'pagination-prev'"
+			        	:next-class="'pagination-next'"
+
+			            :page-count="paginationLastPage"
+			            :click-handler="changePage"
+			            :margin-pages="1"
+			            :initial-page="paginationData.current_page-1"
+			            />
+				</template>
 				<span v-else>No results found.</span>
 			</template>
 		</div>
@@ -38,6 +56,7 @@ import Cookies from 'cookies-js'
 
 export default {
 	props: [
+		'pagination-data',
 		'initial-stall-items',
 		'initial-query',
 		'initial-ro-item-to-search',
@@ -50,18 +69,39 @@ export default {
 			query: null,
 			roItemToSearch: {},
 
+			searchParams: {
+				page: 1,
+				q: null,
+				s: null,
+			},
+
+			paginating: false,
+			paginationTotal: null,
+			paginationLastPage: null,
+			
 			loading: false,
-			showResults: false
+			showResults: false,
 		}
 	},
 	created() {
-		this.stallItems = this.initialStallItems
+		this.stallItems = this.paginationData.data
+		this.paginationTotal = this.paginationData.total
+		this.paginationLastPage = this.paginationData.last_page
+		
 		this.query = this.initialQuery
 		this.roItemToSearch = this.initialRoItemToSearch
+
+		if(this.roItemToSearch){
+			this.$set(this.searchParams, 's', this.roItemToSearch.id)
+		} else if(this.query) {
+			this.$set(this.searchParams, 'q', this.query)
+		}
 
 		if(this.initialStallItems) {
 			this.showResults = true
 		}
+
+		this.$set(this.searchParams, 'server_id', Cookies.get('server'))
 	},
 	components: {
 		'item-search': ItemSearch,
@@ -69,13 +109,32 @@ export default {
         'ro-item-name': RoItemName
 	},
 	methods: {
+		// Pagination
+		paginationChangePage(page){ 
+			this.paginating = true
+			this.$set(this.searchParams, 'page', page)
+			this.redirectSearch(this.searchParams)
+			this.search()
+		},
+
+		// receive items
 		onReceiveSearchResults(response) {
+			const paginationResponse = response.data
+			this.stallItems = paginationResponse.data
+			this.paginationTotal = paginationResponse.total
+			this.paginationLastPage = paginationResponse.last_page
+
 			this.loading = false
-			this.stallItems = response.data
+			this.paginating = false
 			this.showResults = true
 		},
-		redirectSearch(searchParams) {
-			const stringified = queryString.stringify(searchParams)
+		redirectSearch(params) {
+			var paramsToStringify = {}
+			if(params.q) { paramsToStringify.q = params.q }
+			if(params.s) { paramsToStringify.s = params.s }
+			if(params.page) { paramsToStringify.page = params.page }
+
+			const stringified = queryString.stringify(paramsToStringify)
 			const searchUrl = `/search?${stringified}`
 
 			if(this.redirect) {
@@ -86,33 +145,38 @@ export default {
 			window.history.pushState({path: searchUrl}, '', searchUrl)
 		},
 		searchStallItemByQuery(query) {
-			const params = { q: query }
-			this.redirectSearch(params)
+			this.$set(this.searchParams, 'q', query)
+			this.$set(this.searchParams, 's', null)
+			this.$set(this.searchParams, 'page', null)
+
+			this.redirectSearch(this.searchParams)
 
 			if(this.redirect) {
 				return
 			}
 
+			this.loading = true
 			this.roItemToSearch = null
-			this.search(params)
+			this.search()
 		},
 		searchStallItemByRoItem(roItem) {
-			const params = { s: roItem.id }
-			this.redirectSearch(params)
+			this.$set(this.searchParams, 's', roItem.id)
+			this.$set(this.searchParams, 'q', null)
+			this.$set(this.searchParams, 'page', null)
+
+			this.redirectSearch(this.searchParams)
 
 			if(this.redirect) {
 				return
 			}
 
-			this.roItemToSearch = roItem
-			this.search(params)
-		},
-		search(params) {
 			this.loading = true
-			params.server_id = Cookies.get('server')
-
+			this.roItemToSearch = roItem
+			this.search()
+		},
+		search() {
 			axios.get('/api/v1/stall-items/search', {
-				params: params
+				params: this.searchParams
 			}).then(this.onReceiveSearchResults);
 		}
 	}

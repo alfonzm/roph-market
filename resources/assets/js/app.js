@@ -1,6 +1,9 @@
 require('./bootstrap')
 import moment from 'moment'
+import Paginate from 'vuejs-paginate'
 window.Vue = require('vue')
+
+Vue.component('paginate', Paginate)
 
 var helpers = {
 	methods: {
