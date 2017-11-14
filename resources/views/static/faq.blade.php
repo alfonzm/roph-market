@@ -20,6 +20,13 @@
 
 	<p>You may also want to go to <a href="/user/edit">Profile > Edit</a> to add more IGNs, your contact info, or your playing schedule so other players can contact you easier.</p>
 
+	<h3>How do I search or buy items?</h3>
+	<ol>
+		<li>Search for items you want to buy using the search bar or on the <a href="/search">Search page</a>. You can search for the item name, item ID, or keywords like "card" or "wand".</li>
+		<li>Then click on the stall owner's name under the "Stall" column to go to the stall page.</li>
+		<li>Contact the vendor through the provided contact info on the right sidebar.</li>
+	</ol>
+
 	<h3>How many stalls can I create?</h3>
 	<p>You can only have one stall per server.</p>
 
@@ -27,7 +34,7 @@
 	<p>As many as you want!</p>
 
 	<h3>I found a bug / An item is missing / I have suggestions for the website</h3>
-	<p>Please let us know through our <a href="https://www.facebook.com/ragna-marketcom-184012118837081/" target="_blank">Facebook page</a> or send us an e-mail at <a href="mailto:ragnamarketcom@gmail.com">ragnamarketcom@gmail.com</a>. Thank you!</p>
+	<p>Please let us know through our <a target="_blank" href="{{ env('CONTACT_FB_PAGE', '#') }}">Facebook page</a> or send us an e-mail at <a href="mailto:{{ env('CONTACT_EMAIL', 'ragnamarketcom@gmail.com') }}">{{ env('CONTACT_EMAIL', 'ragnamarketcom@gmail.com') }}</a>. Thank you!</p>
 
 
 </div>

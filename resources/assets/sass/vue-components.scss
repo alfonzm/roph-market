@@ -174,6 +174,10 @@ table.stall-item-list {
 		@include listTableRow();
 		height: 33px;
 	}
+
+	&.paginating {
+		opacity: 0.4;
+	}
 }
 
 // StallForm.vue
@@ -360,5 +364,30 @@ form.stall-form {
 		background-color: #e5f9e7;
 		color: #1ebc30;
 		border: 1px solid #1ebc30;
+	}
+}
+
+ul.pagination {
+	text-align: center;
+	padding: 12px 0;
+
+	li {
+		display: inline;
+
+		a {
+			padding: 8px 12px;
+		}
+
+		&.pagination-next{
+			float: right;
+		}
+
+		&.pagination-prev {
+			float: left;
+		}
+	}
+
+	.active {
+		font-weight: 700;
 	}
 }

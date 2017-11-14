@@ -33,7 +33,7 @@ class SearchController extends Controller
         	$query = $searchQuery;
         }
 
-        $results = $this->searchStallItem($request);
+        $results = $this->searchStallItem($request)->toJson();
 
         return view('search/index', compact('results', 'roItem', 'query'));
     }

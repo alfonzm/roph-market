@@ -23,6 +23,7 @@
     "cookies-js": "^1.2.3",
     "numeral": "^2.0.6",
     "query-string": "^5.0.0",
-    "vue-clickaway": "^2.1.0"
+    "vue-clickaway": "^2.1.0",
+    "vuejs-paginate": "^1.4.0"
   }
 }

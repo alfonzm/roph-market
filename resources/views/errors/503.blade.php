@@ -10,7 +10,11 @@
 
     <title>Ragna Market</title>
 </head>
-<body>
-    <h1>Down for maintenance. We'll be right back!</h1>
+<body style="padding: 40px">
+    <h1>
+    	Down for maintenance. We'll be right back!
+    </h1>
+
+	<span>Check our <a target="_blank" href="{{ env('CONTACT_FB_PAGE', '#') }}">Facebook page</a> for updates.</span>
 </body>
 </html>
