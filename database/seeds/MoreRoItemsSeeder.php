@@ -18,6 +18,7 @@ class MoreRoItemsSeeder extends CsvSeeder
      */
     public function run()
     {
+        DB::disableQueryLog();
         parent::run();
     }
 }
