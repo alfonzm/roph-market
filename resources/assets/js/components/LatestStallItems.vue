@@ -58,17 +58,10 @@ export default {
 
     },
     mounted() {
+        this.loading = true
         this.search()
     },
     methods: {
-        // fetchItemsList() {
-        //     this.loading = true
-        //     axios.get('/api/v1/stall-items', { server_id: Cookies.get('server') }).then((res) => {
-        //         this.loading = false
-        //         this.stallItems = res.data
-        //     })
-        // },
-
         search() {
             axios.get('/api/v1/stall-items/search', {
                 params: {
@@ -79,7 +72,6 @@ export default {
         },
 
         onReceiveSearchResults(response) {
-            console.log(response)
             const paginationResponse = response.data
             this.stallItems = paginationResponse.data
             this.paginationTotal = paginationResponse.total
