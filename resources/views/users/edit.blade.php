@@ -29,7 +29,7 @@
                             <label for="contact">Contact Info</label>
                         </td>
                         <td>
-                            <textarea name="contact" id="contact" cols="40" rows="3" placeholder="(optional) e.g. Add me on Facebook at fb.com/johndoe">{{ $user->contact }}</textarea>
+                            <textarea name="contact" id="contact" cols="50" rows="4" placeholder="(optional) e.g. your Facebook profile URL or your vending spot location">{{ $user->contact }}</textarea>
                         </td>
                     </tr>
                 	<!-- Playing schedule -->
@@ -38,7 +38,7 @@
     				        <label for="schedule">Playing Schedule</label>
                         </td>
                         <td>
-                            <textarea name="schedule" id="schedule" cols="40" rows="3" placeholder="(optional) e.g. I am online during weekends at around 7-10 PM">{{ $user->schedule }}</textarea>
+                            <textarea name="schedule" id="schedule" cols="50" rows="4" placeholder='(optional) e.g. "I am online during weekends at around 7-10 PM"'>{{ $user->schedule }}</textarea>
                         </td>
                     </tr>
                     <tr>

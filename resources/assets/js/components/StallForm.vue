@@ -62,7 +62,7 @@
 												v-model="item.price"
 												>
 										</td>
-										<td class="refine" v-if="showRefineColumn">
+										<td class="refine">
 											<!-- Refine -->
 											<template v-if="item.ro_item.refineable == 1">
 												<input
@@ -110,7 +110,7 @@
 												</div> -->
 											</template>
 										</td>
-										<td class="cards" v-if="showCardsColumn">
+										<td class="cards">
 											<!-- Cards slots -->
 											<template v-for="slotIndex in item.ro_item.slots">
 												<item-search
