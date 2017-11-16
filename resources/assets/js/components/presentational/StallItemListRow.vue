@@ -5,7 +5,7 @@
         </td>
         <td class="name">
             <a :href="`/search?s=${stallItem.ro_item_id}`">
-                <ro-item-name :refine="stallItem.refine" :ro-item="stallItem.ro_item" />
+                <ro-item-name :refine="stallItem.refine" :ro-item="stallItem.ro_item" :modifier="stallItem.modifier" />
             </a>
             <template v-if="stallItem.cards.length > 0">
                 – <span class="item-cards" v-html="stringifyCards(stallItem.cards)"></span>

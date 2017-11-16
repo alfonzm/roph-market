@@ -37,7 +37,11 @@ trait StallItemSearchTrait
 		} else if($searchQuery) {
 			$queryBuilder->where(function($query) use ($searchQuery) {
 				$query->whereHas('roItem', function($query) use ($searchQuery) {
-					$query->where('name', 'like', '%' . $searchQuery . '%');
+					$query->where('name', 'like', '%' . $searchQuery . '%')
+					->orWhere(\DB::raw('concat(modifier, " ", name)'), 'like', '%' . $searchQuery . '%')
+					->orWhere(\DB::raw('concat("+", refine, " ", modifier, " ", name)'), 'like', '%' . $searchQuery . '%')
+					->orWhere(\DB::raw('concat("+", refine, " ", name)'), 'like', '%' . $searchQuery . '%')
+					;
 				})
 				->orWhereHas('cards', function($query) use ($searchQuery) {
 					$query->whereHas('roItem', function($query) use ($searchQuery) {
@@ -45,6 +49,13 @@ trait StallItemSearchTrait
 					});
 				});
 			});
+
+			// check for refine
+			// if(preg_match("/^\+([0-9]+)/", $searchQuery, $output_array)) {
+			// 	if(isset($output_array[1])) {
+			// 		$queryBuilder->where('refine', '=', $output_array[1]);
+			// 	}
+			// }
 		}
 
 		if($serverId) {
@@ -53,13 +64,10 @@ trait StallItemSearchTrait
 			});
 		}
 
-		$query = $queryBuilder->orderBy('created_at', 'DESC');
-
-		// pagination
-		// $page = ($request->input('p')) ? $request->input('p') - 1 : 0;
+		$query = $queryBuilder->orderBy('created_at', 'DESC')->orderBy('id',  'DESC');
 
 		$limit = 15;
-		// $query->offset($page * $limit)->limit($limit);
+		
 		return $query->paginate($limit);
 	}
 }

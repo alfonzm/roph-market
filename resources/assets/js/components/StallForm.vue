@@ -3,38 +3,11 @@
 		<form :method="method" :action="action" class="stall-form" @submit="onSubmit">
         	<input name="server_id" type="hidden" :value="stall.server_id" />
 			
-			<table class="stall-form">
+			<table class="stall-form" cellspacing="0">
 				<colgroup>
 					<col class="value">
 				</colgroup>
 				<tbody>
-					<!-- Server -->
-					<!-- <tr class="server">
-						<td>
-							<label>Server</label>
-						</td>
-						<td>
-							<select name="server_id" v-model="stall.server_id" class="capitalized">
-								<option
-									v-for="server in servers"
-									:value="server.id"
-									:selected="stall.server_id == server.id ? 'selected' : null">
-									{{ server.name }}
-								</option>
-							</select>
-						</td>
-					</tr> -->
-
-					<!-- Description -->
-					<!-- <tr class="stall-description">
-						<td valign="top">
-							<label>Description</label>
-						</td>
-						<td>
-					        <textarea v-model="stall.description" name="description" rows="3" placeholder="(optional) ex. I also accept trades. PM me for offers!"></textarea>
-						</td>
-					</tr> -->
-
 					<!-- Add item -->
 					<tr class="stall-add-item">
 						<td>
@@ -57,8 +30,8 @@
 										</th>
 										<th class="quantity">Quantity</th>
 										<th class="price">Price (optional)</th>
-										<th class="refine" v-if="showRefineColumn">Refine</th>
-										<th class="cards" v-if="showCardsColumn">Cards</th>
+										<th class="refine">Refine</th>
+										<th class="cards">Cards</th>
 									</tr>
 									<tr v-for="(item, index) in stall.stall_items" :class="{ 'is-deleting': (item.isDeleting == true) }">
 										<td class="image">
@@ -89,7 +62,7 @@
 												v-model="item.price"
 												>
 										</td>
-										<td class="refine" v-if="showRefineColumn">
+										<td class="refine">
 											<!-- Refine -->
 											<template v-if="item.ro_item.refineable == 1">
 												<input
@@ -101,8 +74,43 @@
 													placeholder="0-10"
 													>
 											</template>
+											<template v-if="[34, 2].indexOf(item.ro_item.equip_locations) >= 0">
+												<div class="modifier">
+													<select :name="`stall_items[${index}][modifier]`" v-model="item.modifier">
+														<option :value="null">No modifier</option>
+														<option>Fire</option>
+														<option>Ice</option>
+														<option>Wind</option>
+														<option>Earth</option>
+														<option>Very Strong</option>
+														<option>Very Very Strong</option>
+														<option>Very Very Very Strong</option>
+														<option>Very Strong Fire</option>
+														<option>Very Strong Ice</option>
+														<option>Very Strong Wind</option>
+														<option>Very Strong Earth</option>
+														<option>Very Very Strong Fire</option>
+														<option>Very Very Strong Ice</option>
+														<option>Very Very Strong Wind</option>
+														<option>Very Very Strong Earth</option>
+														<!-- <option :selected="atkModSelected(item.modifier, null)" :value="null">No ATK modifier</option>
+														<option :selected="atkModSelected(item.modifier, 'Very Strong')">Very Strong</option>
+														<option :selected="atkModSelected(item.modifier, 'Very Very Strong')">Very Very Strong</option>
+														<option :selected="atkModSelected(item.modifier, 'Very Very Very Strong')">Very Very Very Strong</option> -->
+													</select>
+												</div>
+												<!-- <div class="element">
+													<select :name="`stall_items[${index}][element]`" v-on:change="(e) => { selectElement(item, e.target.value) }">
+														<option :selected="elementSelected(item.modifier, null)" :value="null">No element</option>
+														<option :selected="elementSelected(item.modifier, 'Fire')">Fire</option>
+														<option :selected="elementSelected(item.modifier, 'Ice')">Ice</option>
+														<option :selected="elementSelected(item.modifier, 'Earth')">Earth</option>
+														<option :selected="elementSelected(item.modifier, 'Wind')">Wind</option>
+													</select>
+												</div> -->
+											</template>
 										</td>
-										<td class="cards" v-if="showCardsColumn">
+										<td class="cards">
 											<!-- Cards slots -->
 											<template v-for="slotIndex in item.ro_item.slots">
 												<item-search
@@ -115,8 +123,9 @@
 													:placeholder="`card slot #${slotIndex}`" /><br>
 											</template>
 										</td>
+
 										<td class="remove">
-											<a href="#" @click.prevent="remove(index, item)">remove</a>
+											<a href="#" @click.prevent="remove(index, item)"><i class="fa fa-trash-o fa-lg"></i></a>
 										</td>
 
 										<!-- Hidden fields -->
@@ -175,6 +184,7 @@ export default {
 			servers: Constants.servers,
 			query: null,
 			itemToAdd: {
+				modifier: null
 			},
 			stall: Vue.util.extend({
 				name: '',
@@ -242,9 +252,6 @@ export default {
 			for(var i=0; i < roItem.slots; i++ ){
 				this.itemToAdd.cards.push({ ro_item: { name: '' }})
 			}
-			// this.itemToAdd.cards[1] = { ro_item: { name: '' }}
-			// this.itemToAdd.cards[2] = { ro_item: { name: '' }}
-			// this.itemToAdd.cards[3] = { ro_item: { name: '' }}
 
 			this.itemToAdd.ro_item = roItem
 			this.itemToAdd.ro_item_id = roItem.id
@@ -253,7 +260,9 @@ export default {
 		},
 		addItem() {
 			this.stall.stall_items.push(Object.assign({}, this.itemToAdd))
-			this.itemToAdd = {}
+			this.itemToAdd = {
+				modifier: null
+			}
 			this.query = null
 		},
 		onSubmit(e) {
@@ -264,7 +273,7 @@ export default {
 			}
 
 			return true
-		}
+		},
 	}
 }
 </script>

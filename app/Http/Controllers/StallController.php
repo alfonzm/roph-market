@@ -173,7 +173,8 @@ class StallController extends Controller
                     'quantity' => $stallItem['quantity'],
                     'price' => $stallItem['price'],
                     'refine' => $stallItem['refine'] ?? null,
-                    'ro_item_id' => $stallItem['ro_item_id']
+                    'ro_item_id' => $stallItem['ro_item_id'],
+                    'modifier' => isset($stallItem['modifier']) ? $stallItem['modifier'] : null
                 ];
 
                 $updatedStallItem = StallItem::updateOrCreate(['id' => $stallItem['id']], $stallItemBody);
