@@ -104,7 +104,7 @@ img.ro-item-image {
 		}
 
 		&.price {
-			min-width: 130px;
+			min-width: 120px;
 			padding-right: 10px;
 		}
 
@@ -212,10 +212,9 @@ form.stall-form {
 		width: 100%;
 
 		input[type="text"],
-		input[type="number"] {
+		input[type="number"],
+		select {
 			font-size: $small-font;
-			// background-color: rgba(0,0,0,0);
-			// border: none;
 			margin: 3px;
 			display: inline;
 		}
@@ -237,6 +236,7 @@ form.stall-form {
 
 			th {
 				padding: 6px;
+				text-align: center !important;
 			}
 
 			&:nth-child(even) {
@@ -269,20 +269,35 @@ form.stall-form {
 				text-align: left;
 			}
 
-			input {
-				text-align: center;
+			&.quantity {
+				input {
+					max-width: 80px;
+				}
 			}
 
-			&.refine, &.quantity {
+			&.refine {
+				max-width: 120px;
+
+				// ATK/element modifier select
+				select {
+					width: 100%;
+					height: 30px;
+				}
+
 				input {
-					width: 60px;
+					width: 100%;
 				}
 			}
 
 			&.remove {
 				text-align: center;
-				padding: 0 5px;
+				padding: 0 10px;
 				white-space: nowrap;
+			}
+
+			&.modifiers {
+				white-space: nowrap;
+				text-align: left;
 			}
 		}
 	}
