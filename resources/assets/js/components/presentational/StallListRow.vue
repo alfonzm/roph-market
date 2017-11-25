@@ -1,7 +1,7 @@
 <template>
     <tr class="stall-row">
         <td class="img">
-            <img src="/img/vend.png">
+            <img :src="`/img/${type}.png`">
         </td>
         <td class="name">
             <a :href="`/stalls/${id}`">
@@ -20,7 +20,7 @@
 
 <script>
     export default {
-        props: ['vendor-name', 'id', 'timestamp', 'server'],
+        props: ['vendor-name', 'id', 'timestamp', 'server', 'type'],
         mounted() {
         },
         methods: {

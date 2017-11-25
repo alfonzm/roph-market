@@ -57,7 +57,7 @@ Route::get('search', 'SearchController@index')->name('search.index');
 
 // Stall page
 Route::get('stalls/{stall}', 'StallController@show')->name('stalls.show');
-Route::delete('stalls/{stall}/delete', 'StallController@destroy')->name('stalls.destroy');
+// Route::delete('stalls/{stall}/delete', 'StallController@destroy')->name('stalls.destroy');
 
 // API ===============
 

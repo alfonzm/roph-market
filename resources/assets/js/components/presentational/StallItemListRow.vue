@@ -13,6 +13,7 @@
         </td>
         <td v-if="linkToStall" class="link-to-stall">
             <a :href="`/stalls/${stallItem.stall_id}`">
+                <img :src="`/img/${stallItem.stall.type}.png`"/>
                 {{ stallItem.stall.user.name }}
             </a>
         </td>

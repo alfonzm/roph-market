@@ -2,23 +2,30 @@
 	<!-- <div class="ro-item-stall-search"> -->
 	<div class="stall-item-search">
 		<item-search
+			class="big"
 			placeholder="What are you looking for? (search for item name, item ID, or keywords)"
 			@onSelectSearchResult="searchStallItemByRoItem"
 			@onEnterQuery="searchStallItemByQuery"
 			v-model="query"
 			:autofocus="autofocus ? autofocus : null"
 			/>
-		<div class="search-results">
-			<p class="searching" v-if="loading">Searching for stalls...</p>
-			<template v-else-if="showResults">
-				<h3>
-					Search results for
-					<strong>
-						&ldquo;<ro-item-name v-if="roItemToSearch" :ro-item="roItemToSearch" /><span v-else>{{ query }}</span>&rdquo;
-					</strong>
-					<span class="subheader">Found {{ paginationTotal }} result(s)</span>
-				</h3>
+		<div class="search-results" v-if="showResults">
+			<h3>
+				Search results for
+				<strong>
+					&ldquo;<ro-item-name v-if="roItemToSearch" :ro-item="roItemToSearch" /><span v-else>{{ query }}</span>&rdquo;
+				</strong>
+				<span class="subheader">Found {{ paginationTotal }} result(s)</span>
+			</h3>
 
+			<tab-picker
+				:options="['Selling', 'Buying', 'All']"
+				:option="searchParams.type"
+				:onOptionSelect="onSelectStallType"
+				/>
+
+			<template v-if="loading">Searching...</template>
+			<template v-else>
 				<template v-if="stallItems.length > 0">
 					<stall-item-list
 						:stall-items="stallItems"
@@ -48,6 +55,8 @@
 </template>
 
 <script>
+import TabPicker from './presentational/TabPicker.vue'
+import DropdownPicker from './presentational/DropdownPicker.vue'
 import RoItemName from './presentational/RoItemName.vue'
 import ItemSearch from './presentational/ItemSearch.vue'
 import StallItemList from './presentational/StallItemList.vue'
@@ -73,6 +82,7 @@ export default {
 				page: 1,
 				q: null,
 				s: null,
+				type: Cookies.get('stall_search_type') || 'Selling',
 			},
 
 			paginating: false,
@@ -84,9 +94,13 @@ export default {
 		}
 	},
 	created() {
-		this.stallItems = this.paginationData.data
-		this.paginationTotal = this.paginationData.total
-		this.paginationLastPage = this.paginationData.last_page
+		console.log('type',Cookies.get('stall_search_type'))
+
+		if(this.paginationData){
+			this.stallItems = this.paginationData.data
+			this.paginationTotal = this.paginationData.total
+			this.paginationLastPage = this.paginationData.last_page
+		}
 		
 		this.query = this.initialQuery
 		this.roItemToSearch = this.initialRoItemToSearch
@@ -106,7 +120,9 @@ export default {
 	components: {
 		'item-search': ItemSearch,
         'stall-item-list': StallItemList,
-        'ro-item-name': RoItemName
+        'ro-item-name': RoItemName,
+		'tab-picker': TabPicker,
+		'dropdown-picker': DropdownPicker,
 	},
 	methods: {
 		// Pagination
@@ -178,6 +194,12 @@ export default {
 			axios.get('/api/v1/stall-items/search', {
 				params: this.searchParams
 			}).then(this.onReceiveSearchResults);
+		},
+		onSelectStallType(option) {
+			this.$set(this.searchParams, 'page', 1)
+			this.$set(this.searchParams, 'type', option.toLowerCase())
+			this.paginating = true
+			this.search()
 		}
 	}
 }

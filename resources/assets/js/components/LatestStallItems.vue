@@ -1,5 +1,16 @@
 <template>
-    <div class="item-list">
+    <div class="latest-stall-items">
+        <h2>
+            Latest items
+            <!-- <dropdown-picker class="stall-type-dropdown-picker" :options="['Selling', 'Buying', 'Selling & Buying']" :onOptionSelect="onOptionSelect" :option="this.type" /> -->
+        </h2>
+
+        <tab-picker
+            :options="['Selling', 'Buying', 'All']"
+            :option="type"
+            :onOptionSelect="onOptionSelect"
+            />
+
         <template v-if="loading">
             Loading...
         </template>
@@ -13,7 +24,6 @@
 
             <paginate
                 v-if="paginationLastPage > 1"
-
                 :container-class="'pagination'"
                 :page-class="'pagination-item'"
                 :active-class="'active'"
@@ -27,7 +37,7 @@
                 />
         </template>
         <template v-else>
-            No items for sale found. Why not <a href="/my-stall">set up your stall?</a>
+            No items found. Why not <a href="/my-stall">set up your stall?</a>
         </template>
     </div>
 </template>
@@ -35,16 +45,21 @@
 <script>
 
 import StallItemList from './presentational/StallItemList.vue'
+import DropdownPicker from './presentational/DropdownPicker.vue'
+import TabPicker from './presentational/TabPicker.vue'
 import Cookies from 'cookies-js'
 
 export default {
     components: {
-        'stall-item-list': StallItemList
+        'stall-item-list': StallItemList,
+        'dropdown-picker': DropdownPicker,
+        'tab-picker': TabPicker,
     },
     data() {
         return {
             page: 1,
             stallItems: [],
+            type: Cookies.get('stall_search_type') || 'Selling',
 
             paginating: false,
             paginationTotal: null,
@@ -65,6 +80,7 @@ export default {
         search() {
             axios.get('/api/v1/stall-items/search', {
                 params: {
+                    type: this.type.toLowerCase(),
                     page: this.page,
                     server_id: Cookies.get('server')
                 }
@@ -80,6 +96,14 @@ export default {
             this.loading = false
             this.paginating = false
             this.showResults = true
+        },
+        onOptionSelect(type) {
+            this.page = 1
+            this.type = type
+
+            Cookies.set('stall_search_type', type, { expires: Infinity })
+
+            this.paginationChangePage(1)
         },
 
         // Pagination

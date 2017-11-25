@@ -14,38 +14,43 @@ class StallController extends Controller
 {
     public function index()
     {
-        return Stall::with('user', 'server')->where('server_id', $_COOKIE['server'])->latest()->limit(10)->get();
+        return Stall::with('user', 'server')
+                        ->where('server_id', $_COOKIE['server'])
+                        ->latest()
+                        ->limit(10)
+                        ->get();
     }
 
     public function myStall()
     {
-        $stall = Stall::with('stallItems.roItem', 'stallItems.cards.roItem')
+        $stalls = Stall::with('stallItems.roItem', 'stallItems.cards.roItem')
                         ->where([
                             'server_id' => $_COOKIE['server'],
                             'user_id' => Auth::id()
-                        ])->first();
+                        ])->get();
 
-        $server = Server::find($_COOKIE['server']);
+        if($stalls) {
+            foreach($stalls as $stall) {
+                if(!Gate::allows('update-stall', $stall)) {
+                    abort(404);
+                }
 
-        if($stall) {
-            if(!Gate::allows('update-stall', $stall)) {
-                abort(404);
-            }
+                // Initialize stallItems[index]->roItem->name
+                // because Vue.js cannot take undefined v-model in the form
+                foreach($stall->stallItems as $stallItem) {
+                    $slots = $stallItem->roItem->slots;
 
-            // Initialize stallItems[index]->roItem->name
-            // because Vue.js cannot take undefined v-model in the form
-            foreach($stall->stallItems as $stallItem) {
-                $slots = $stallItem->roItem->slots;
-
-                for($i = 0; $i < $slots; $i++) {
-                    if(!isset($stallItem->cards[$i])) {
-                        $stallItem->cards[$i] = ['ro_item' => ['name' => '']];
+                    for($i = 0; $i < $slots; $i++) {
+                        if(!isset($stallItem->cards[$i])) {
+                            $stallItem->cards[$i] = ['ro_item' => ['name' => '']];
+                        }
                     }
                 }
             }
         }
 
-        return view('stalls/edit', compact('stall', 'server'));
+        $server = Server::find($_COOKIE['server']);
+        return view('stalls/edit', ['stalls' => $stalls, 'server' => $server]);
     }
 
     public function create()
@@ -80,15 +85,21 @@ class StallController extends Controller
     {        
         $this->validate($request, [
             'server_id' => 'required',
+            'type' => 'required',
         ]);
 
-        if(Stall::where(['user_id' => Auth::id(), 'server_id' => request('server_id')])->first()) {
+        if(Stall::where([
+                'user_id' => Auth::id(),
+                'server_id' => request('server_id'),
+                'type' => request('type')
+            ])->first()) {
             return 'You already have a stall in this server!';
-        } 
+        }
 
         $stall = Stall::create([
             'user_id' => Auth::id(),
             'server_id' => request('server_id'),
+            'type' => request('type')
         ]);
 
         foreach(request('stall_items') as $stallItem) {

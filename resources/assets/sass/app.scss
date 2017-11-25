@@ -442,3 +442,16 @@ section#static-content {
 			margin-top: 0;
 		}
 }
+
+.dropdown-picker.stall-type-dropdown-picker {
+	.dropdown-picker-options {
+		font-size: 0.7em;
+	}
+}
+
+.latest-stall-items {
+	.tab-picker {
+		font-size: $normal-font;
+		margin: 10px 0px;
+	}
+}

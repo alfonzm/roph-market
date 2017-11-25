@@ -64,6 +64,10 @@
             <div class="muted"><small>You can switch servers later.</small></div>
         </div>
 
+        <!-- Recaptcha -->
+        <br>
+        <slot></slot>
+
         <!-- Submit -->
         <p>
             <button type="submit">

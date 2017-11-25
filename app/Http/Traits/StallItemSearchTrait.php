@@ -17,12 +17,6 @@ trait StallItemSearchTrait
 		$itemId = $request->input('s');
 		$searchQuery = $request->input('q');
 
-		if($request->input('server_id')) {
-			$serverId = $request->input('server_id');
-		} else if(isset($_COOKIE['server'])) {
-			$serverId = $_COOKIE['server'];
-		}
-
 		$queryBuilder = StallItem::with(['stall.user' => function($query) {
 			$query->select('id', 'name');
 		}, 'stall', 'cards.roItem', 'roItem']);
@@ -58,12 +52,30 @@ trait StallItemSearchTrait
 			// }
 		}
 
-		if($serverId) {
-			$queryBuilder->whereHas('stall', function($query) use ($serverId) {
-				$query->where('server_id', $serverId);
+		// Get server id
+		if($request->input('server_id')) {
+			$serverId = $request->input('server_id');
+		} else if(isset($_COOKIE['server'])) {
+			$serverId = $_COOKIE['server'];
+		}
+
+		// Get stall type (buying or selling)
+		$stallType = $request->input('type') ? strtolower($request->input('type')) : 'selling';
+
+		// Set server id or type
+		if($serverId || $stallType) {
+			$queryBuilder->whereHas('stall', function($query) use ($serverId, $stallType) {
+				if($serverId) {
+					$query->where('server_id', $serverId);
+				}
+
+				if($stallType && ($stallType == 'selling' || $stallType == 'buying')) {
+					$query->where('type', $stallType);
+				}
 			});
 		}
 
+		// Build
 		$query = $queryBuilder->orderBy('created_at', 'DESC')->orderBy('id',  'DESC');
 
 		$limit = 15;
