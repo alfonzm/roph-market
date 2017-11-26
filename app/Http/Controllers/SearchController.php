@@ -20,6 +20,7 @@ class SearchController extends Controller
     {
         $roItemId = $request->input('s');
         $searchQuery = $request->input('q');
+        $stallType = $request->input('type');
 
         if(isset($_COOKIE['server'])) {
             $serverId = $_COOKIE['server'];
@@ -35,6 +36,6 @@ class SearchController extends Controller
 
         $results = $this->searchStallItem($request)->toJson();
 
-        return view('search/index', compact('results', 'roItem', 'query'));
+        return view('search/index', compact('results', 'roItem', 'query', 'stallType'));
     }
 }

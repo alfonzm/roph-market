@@ -2,7 +2,6 @@
     <div class="latest-stall-items">
         <h2>
             Latest items
-            <!-- <dropdown-picker class="stall-type-dropdown-picker" :options="['Selling', 'Buying', 'Selling & Buying']" :onOptionSelect="onOptionSelect" :option="this.type" /> -->
         </h2>
 
         <tab-picker
@@ -59,7 +58,7 @@ export default {
         return {
             page: 1,
             stallItems: [],
-            type: Cookies.get('stall_search_type') || 'Selling',
+            type: 'selling',
 
             paginating: false,
             paginationTotal: null,
@@ -70,7 +69,6 @@ export default {
         }
     },
     created() {
-
     },
     mounted() {
         this.loading = true

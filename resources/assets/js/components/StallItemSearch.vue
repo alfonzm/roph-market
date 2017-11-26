@@ -69,6 +69,7 @@ export default {
 		'initial-stall-items',
 		'initial-query',
 		'initial-ro-item-to-search',
+		'initial-stall-type',
 		'autofocus',
 		'redirect' // if set, onSelectSearchResult will redirect to /search page
 	],
@@ -82,7 +83,7 @@ export default {
 				page: 1,
 				q: null,
 				s: null,
-				type: Cookies.get('stall_search_type') || 'Selling',
+				type: Cookies.get('stall_search_type') || 'selling',
 			},
 
 			paginating: false,
@@ -94,8 +95,6 @@ export default {
 		}
 	},
 	created() {
-		console.log('type',Cookies.get('stall_search_type'))
-
 		if(this.paginationData){
 			this.stallItems = this.paginationData.data
 			this.paginationTotal = this.paginationData.total
@@ -109,6 +108,10 @@ export default {
 			this.$set(this.searchParams, 's', this.roItemToSearch.id)
 		} else if(this.query) {
 			this.$set(this.searchParams, 'q', this.query)
+		}
+
+		if(this.initialStallType) {
+			this.$set(this.searchParams, 'type', this.initialStallType)
 		}
 
 		if(this.initialStallItems) {
@@ -149,6 +152,11 @@ export default {
 			if(params.q) { paramsToStringify.q = params.q }
 			if(params.s) { paramsToStringify.s = params.s }
 			if(params.page) { paramsToStringify.page = params.page }
+			if(params.type) {
+				const type = params.type.toLowerCase()
+				paramsToStringify.type = type
+	            Cookies.set('stall_search_type', type, { expires: Infinity })
+			}
 
 			const stringified = queryString.stringify(paramsToStringify)
 			const searchUrl = `/search?${stringified}`
@@ -195,10 +203,15 @@ export default {
 				params: this.searchParams
 			}).then(this.onReceiveSearchResults);
 		},
-		onSelectStallType(option) {
+		onSelectStallType(type) {
 			this.$set(this.searchParams, 'page', 1)
-			this.$set(this.searchParams, 'type', option.toLowerCase())
+			this.$set(this.searchParams, 'type', type.toLowerCase())
 			this.paginating = true
+
+			this.redirectSearch(this.searchParams)
+
+            Cookies.set('stall_search_type', type, { expires: Infinity })
+
 			this.search()
 		}
 	}

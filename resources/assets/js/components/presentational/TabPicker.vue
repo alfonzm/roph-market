@@ -18,7 +18,7 @@ import Cookies from 'cookies-js'
 export default {
 	data() {
 		return {
-			selectedOption: null
+			selectedOption: ''
 		}
 	},
 	props: ['onOptionSelect', 'options', 'option'],
