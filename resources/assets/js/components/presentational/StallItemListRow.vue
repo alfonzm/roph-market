@@ -11,12 +11,19 @@
                 – <span class="item-cards" v-html="stringifyCards(stallItem.cards)"></span>
             </template>
         </td>
-        <td v-if="linkToStall" class="link-to-stall">
-            <a :href="`/stalls/${stallItem.stall_id}`">
-                <img :src="`/img/${stallItem.stall.type}.png`"/>
-                {{ stallItem.stall.user.name }}
-            </a>
-        </td>
+        <!-- Stall type image and stall username -->
+        <template v-if="linkToStall">
+            <td class="img">
+                <a :href="`/stalls/${stallItem.stall_id}`">
+                    <img :src="`/img/${stallItem.stall.type}.png`"/>
+                </a>
+            </td>
+            <td class="link-to-stall">
+                <a :href="`/stalls/${stallItem.stall_id}`">
+                    {{ stallItem.stall.user.name }}
+                </a>
+            </td>
+        </template>
         <td class="quantity">
             {{ stallItem.quantity | comma }}
         </td>

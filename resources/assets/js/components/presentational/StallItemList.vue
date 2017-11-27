@@ -15,7 +15,7 @@ paginating - (bool) like isLoading but for loading next pages
         <table cellspacing="0" :class="[{ paginating: paginating }, 'stall-item-list']">
             <thead>
                 <th colspan="2" class="name">Item</th>
-                <th v-if="linkToStall" class="link-to-stall">
+                <th v-if="linkToStall" class="link-to-stall" colspan="2">
                     Stall
                 </th>
                 <th class="quantity">
