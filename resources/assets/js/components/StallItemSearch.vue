@@ -11,7 +11,7 @@
 			/>
 		<div class="search-results" v-if="showResults">
 			<h3>
-				Search results for
+				Search results for <template v-if="searchParams.type == 'selling' || searchParams.type == 'buying'">{{ searchParams.type }}</template>
 				<strong>
 					&ldquo;<ro-item-name v-if="roItemToSearch" :ro-item="roItemToSearch" /><span v-else>{{ query }}</span>&rdquo;
 				</strong>
@@ -112,6 +112,7 @@ export default {
 
 		if(this.initialStallType) {
 			this.$set(this.searchParams, 'type', this.initialStallType)
+            Cookies.set('stall_search_type', this.initialStallType, { expires: Infinity })
 		}
 
 		if(this.initialStallItems) {
@@ -152,11 +153,8 @@ export default {
 			if(params.q) { paramsToStringify.q = params.q }
 			if(params.s) { paramsToStringify.s = params.s }
 			if(params.page) { paramsToStringify.page = params.page }
-			if(params.type) {
-				const type = params.type.toLowerCase()
-				paramsToStringify.type = type
-	            Cookies.set('stall_search_type', type, { expires: Infinity })
-			}
+
+			paramsToStringify.type = Cookies.get('stall_search_type' || 'selling')
 
 			const stringified = queryString.stringify(paramsToStringify)
 			const searchUrl = `/search?${stringified}`
@@ -203,15 +201,15 @@ export default {
 				params: this.searchParams
 			}).then(this.onReceiveSearchResults);
 		},
-		onSelectStallType(type) {
+		onSelectStallType(newType) {
+			const type = newType.toLowerCase()
 			this.$set(this.searchParams, 'page', 1)
-			this.$set(this.searchParams, 'type', type.toLowerCase())
+			this.$set(this.searchParams, 'type', type)
 			this.paginating = true
-
-			this.redirectSearch(this.searchParams)
 
             Cookies.set('stall_search_type', type, { expires: Infinity })
 
+			this.redirectSearch(this.searchParams)
 			this.search()
 		}
 	}

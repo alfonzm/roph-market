@@ -58,7 +58,7 @@ export default {
         return {
             page: 1,
             stallItems: [],
-            type: 'selling',
+            type: Cookies.get('stall_search_type') || 'selling',
 
             paginating: false,
             paginationTotal: null,
@@ -97,9 +97,9 @@ export default {
         },
         onOptionSelect(type) {
             this.page = 1
-            this.type = type
+            this.type = type.toLowerCase()
 
-            Cookies.set('stall_search_type', type, { expires: Infinity })
+            Cookies.set('stall_search_type', type.toLowerCase(), { expires: Infinity })
 
             this.paginationChangePage(1)
         },

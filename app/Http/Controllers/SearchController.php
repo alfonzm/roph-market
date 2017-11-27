@@ -20,10 +20,17 @@ class SearchController extends Controller
     {
         $roItemId = $request->input('s');
         $searchQuery = $request->input('q');
-        $stallType = $request->input('type');
 
         if(isset($_COOKIE['server'])) {
             $serverId = $_COOKIE['server'];
+        }
+
+        if ($request->input('type')) {
+            $stallType = $request->input('type');
+        } else if(isset($_COOKIE['stall_search_type'])) {
+            $stallType = $_COOKIE['stall_search_type'];
+        } else {
+            $stallType = 'selling';
         }
 
         if($roItemId) {
