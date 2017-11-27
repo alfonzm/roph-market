@@ -32,6 +32,6 @@ class InsertBlueSiegeBox extends Migration
      */
     public function down()
     {
-        //
+        App\RoItem::destroy([12680]);
     }
 }

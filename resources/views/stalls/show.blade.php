@@ -6,14 +6,14 @@
 			<div class="stall-name">
 				<!-- Stall img and title -->
 				<div class="stall-name-img">
-					<img src="{{ asset('img/vend_2x.png') }}" />
+					<img src="{{ asset('img/'. $stall->type .'_2x.png') }}" />
 				</div>
 
 				<div class="stall-name-name">
 					<h2>
-						{{ $stall->user->name }}'s {{ ucfirst($stall->server->name) }} Stall
+						{{ $stall->user->name }}'s {{ ucfirst($stall->server->name) }} Stall <span class="label">{{ ucfirst($stall->type) }}</span>
 						<span class="subheader">
-							<time-ago-date date="{{ $stall->created_at }}" />
+							Last updated <time-ago-date date="{{ $stall->updated_at }}" />
 						</span>
 					</h2>
 				</div>
@@ -33,7 +33,13 @@
 			@endif
 		</div>
 		<aside>
-			<h3>Vendor</h3>
+			<h3>
+				@if ($stall->type == 'selling')
+					Seller
+				@elseif ($stall->type == 'buying')
+					Buyer
+				@endif
+			</h3>
 			<a href="/user/{{ $stall->user->name }}">{{ $stall->user->name }}</a>
 
 			<h4>IGNs</h4>

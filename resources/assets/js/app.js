@@ -24,6 +24,7 @@ const app = new Vue({
 		'register-form': require('./components/RegisterForm.vue'),
 		
 		'server-picker': require('./components/presentational/ServerPicker.vue'),
+		'dropdown-picker': require('./components/presentational/DropdownPicker.vue'),
 		'stall-list': require('./components/presentational/StallList.vue'),
 		'stall-item-list': require('./components/presentational/StallItemList.vue'),
 		'time-ago-date': require('./components/presentational/TimeAgoDate.vue'),

@@ -1,9 +1,24 @@
 <template>
-	<div>
-		<form :method="method" :action="action" class="stall-form" @submit="onSubmit">
+	<div class="stall-form">
+		<!-- Stall form -->
+		<h2>
+			<span class="capitalized">My {{ server }} Stall</span>
+			<br>
+			<div class="subheader view-stall-link"><a :href="`/stalls/${stall.id}`">View stall</a></div>
+		</h2>
+
+		<tab-picker
+			class="stall-type-tab-picker"
+			:options="['Selling','Buying']"
+			:onOptionSelect="onSelectStallType"
+			:option="'Selling'"
+			/>
+
+		<form :method="method" :action="action + (stall.id ? `/${stall.id}` : '')" @submit="onSubmit">
+        	<input name="type" type="hidden" :value="stall.type" />
         	<input name="server_id" type="hidden" :value="stall.server_id" />
 			
-			<table class="stall-form" cellspacing="0">
+			<table class="stall-form-table" cellspacing="0">
 				<colgroup>
 					<col class="value">
 				</colgroup>
@@ -11,7 +26,11 @@
 					<!-- Add item -->
 					<tr class="stall-add-item">
 						<td>
-							<item-search @onSelectSearchResult="onSelectSearchResult" v-model="query"></item-search>
+							<item-search
+								@onSelectSearchResult="onSelectSearchResult"
+								v-model="query"
+								placeholder="Search for items to add to your stall..."
+								/>
 							<br>
 						</td>
 					</tr>
@@ -153,6 +172,7 @@
 					</tr>
 					<tr>
 						<td>
+							<br>
 							<button type="submit">
 					            Save
 					        </button>
@@ -163,16 +183,40 @@
 
 			<br>
 	        
+	        <!-- method type -->
+	        <input type="hidden" name="_method" :value="stall.id ? 'PUT' : 'POST'">
 
 	        <!-- CSRF token -->
 	        <slot></slot>
 		</form>
+
+		<!-- Delete stall form -->
+		<template v-if="false">
+			<h3>
+				Delete stall
+			</h3>
+			<span>This will delete all items in your <strong class="capitalized brand-colored">{{ stall.type }}</strong> stall. This action cannot be undone.</span>
+			<br>
+			<br>
+			<form method="POST" :action="action + (stall.id ? `/${stall.id}` : '')" onsubmit="return confirm('Are you sure you want to delete this stall?')">
+				<input type="hidden" name="_method" value="DELETE">
+
+				<!-- CSRF token -->
+				<slot></slot>
+
+		        <button type="submit" class="basic butto	n danger">
+		            Delete items
+		        </button>
+		    </form>
+		</template>
 	</div>
 </template>
 
 <script>
+import _ from 'lodash'
 import Constants from './Constants'
 import Cookies from 'cookies-js'
+import TabPicker from './presentational/TabPicker.vue'
 import ItemSearch from './presentational/ItemSearch.vue'
 import StallItemList from './presentational/StallItemList.vue'
 import RoItemImage from './presentational/RoItemImage.vue'
@@ -193,12 +237,13 @@ export default {
 			}, this.initialStall)
 		}
 	},
-	props: ['initialStall', 'method', 'action'],
+	props: ['initialStall', 'method', 'action', 'server', 'stalls'],
 	components: {
 		'item-search': ItemSearch,
 		'stall-item-list': StallItemList,
         'ro-item-image': RoItemImage,
         'ro-item-name': RoItemName,
+        'tab-picker': TabPicker,
 	},
 	computed: {
 		showRefineColumn() {
@@ -219,6 +264,23 @@ export default {
 
 			return false
 		},
+	},
+	mounted() {
+		let newStall = {
+			name: '',
+			server_id: Cookies.get('server') || Constants.servers[0].id,
+			stall_items: []
+		}
+
+		this.stalls['buying'] = _.filter(this.stalls, { 'type' : 'buying' })[0] || Object.assign({}, newStall)
+		this.stalls['selling'] = _.filter(this.stalls, { 'type' : 'selling' })[0] || Object.assign({}, newStall)
+
+		this.stalls['buying'].type = 'buying'
+		this.stalls['selling'].type = 'selling'
+
+		console.log('stalls', this.stalls)
+
+		this.stall = this.stalls['selling']
 	},
 	methods: {
 		remove(index, stallItem) {
@@ -274,6 +336,9 @@ export default {
 
 			return true
 		},
+		onSelectStallType(type) {
+			this.stall = this.stalls[type.toLowerCase()]
+		}
 	}
 }
 </script>
