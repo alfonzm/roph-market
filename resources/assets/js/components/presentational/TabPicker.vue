@@ -21,7 +21,7 @@ export default {
 			selectedOption: ''
 		}
 	},
-	props: ['onOptionSelect', 'options', 'option'],
+	props: ['onOptionSelect', 'options', 'option', 'disabled'],
 	watch: {
 		option(newOption, oldOption) {
 			this.selectedOption = newOption
@@ -32,6 +32,10 @@ export default {
 	},
 	methods: {
 		selectOption(option) {
+			if(this.disabled) {
+				return
+			}
+
 			if(this.onOptionSelect) {
 				this.onOptionSelect(option)
 			}

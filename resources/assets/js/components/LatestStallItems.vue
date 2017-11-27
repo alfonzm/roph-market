@@ -8,6 +8,7 @@
             :options="['Selling', 'Buying', 'All']"
             :option="type"
             :onOptionSelect="onOptionSelect"
+            :disabled="paginating || loading"
             />
 
         <template v-if="loading">
@@ -34,6 +35,9 @@
                 :margin-pages="1"
                 :initial-page="page-1"
                 />
+        </template>
+        <template v-else-if="paginating">
+            Loading...
         </template>
         <template v-else>
             No items found. Why not <a href="/my-stall">set up your stall?</a>
