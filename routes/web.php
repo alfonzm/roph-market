@@ -79,6 +79,7 @@ Route::prefix('api')->group(function() {
 			Route::delete('users/{id}/igns/{ignId}', 'UserController@deleteIgn')->name('users.deleteIgn');
 
 			// Stall Items
+			Route::put('stall-items/{stallItemId}/touch', 'StallItemController@touch')->name('stalls_items.touch');
 			Route::delete('stall-items/{stallItemId}', 'StallItemController@destroy')->name('stall_items.destroy');
 		});
 

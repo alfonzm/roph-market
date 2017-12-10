@@ -49,10 +49,16 @@
 										</th>
 										<th class="quantity">Quantity</th>
 										<th class="price">Price (optional)</th>
-										<th class="refine">Refine</th>
-										<th class="cards">Cards</th>
+										<th class="refine" v-if="showRefineColumn">Refine</th>
+										<th class="cards" v-if="showCardsColumn">Cards</th>
 									</tr>
-									<tr v-for="(item, index) in stall.stall_items" :class="{ 'is-deleting': (item.isDeleting == true) }">
+
+									<!-- Stall items -->
+									<tr v-for="(item, index) in stall.stall_items" v-if="!item.removed" :class="{
+											'is-deleting': (item.isDeleting == true),
+											'is-expired': (item.expired == true)
+										}">
+
 										<td class="image">
 											<ro-item-image :id="item.ro_item_id" :type="item.ro_item.type" />
 										</td>
@@ -71,6 +77,7 @@
 												:name="`stall_items[${index}][quantity]`"
 												type="number"
 												v-model="item.quantity"
+												:disabled="item.expired"
 												required
 												>
 										</td>
@@ -79,6 +86,7 @@
 												:name="`stall_items[${index}][price]`"
 												type="number"
 												v-model="item.price"
+												:disabled="item.expired"
 												>
 										</td>
 										<td class="refine">
@@ -86,6 +94,7 @@
 											<template v-if="item.ro_item.refineable == 1">
 												<input
 													:name="`stall_items[${index}][refine]`"
+													:disabled="item.expired"
 													type="number"
 													v-model="item.refine"
 													min="0"
@@ -93,9 +102,13 @@
 													placeholder="0-10"
 													>
 											</template>
-											<template v-if="[34, 2].indexOf(item.ro_item.equip_locations) >= 0">
+											<template v-if="[34, 2].indexOf(item.ro_item.equip_locations) >= 0 && item.ro_item.type != 6">
 												<div class="modifier">
-													<select :name="`stall_items[${index}][modifier]`" v-model="item.modifier">
+													<select
+														:name="`stall_items[${index}][modifier]`"
+														:disabled="item.expired"
+														v-model="item.modifier"
+														>
 														<option :value="null">No modifier</option>
 														<option>Fire</option>
 														<option>Ice</option>
@@ -112,21 +125,8 @@
 														<option>Very Very Strong Ice</option>
 														<option>Very Very Strong Wind</option>
 														<option>Very Very Strong Earth</option>
-														<!-- <option :selected="atkModSelected(item.modifier, null)" :value="null">No ATK modifier</option>
-														<option :selected="atkModSelected(item.modifier, 'Very Strong')">Very Strong</option>
-														<option :selected="atkModSelected(item.modifier, 'Very Very Strong')">Very Very Strong</option>
-														<option :selected="atkModSelected(item.modifier, 'Very Very Very Strong')">Very Very Very Strong</option> -->
 													</select>
 												</div>
-												<!-- <div class="element">
-													<select :name="`stall_items[${index}][element]`" v-on:change="(e) => { selectElement(item, e.target.value) }">
-														<option :selected="elementSelected(item.modifier, null)" :value="null">No element</option>
-														<option :selected="elementSelected(item.modifier, 'Fire')">Fire</option>
-														<option :selected="elementSelected(item.modifier, 'Ice')">Ice</option>
-														<option :selected="elementSelected(item.modifier, 'Earth')">Earth</option>
-														<option :selected="elementSelected(item.modifier, 'Wind')">Wind</option>
-													</select>
-												</div> -->
 											</template>
 										</td>
 										<td class="cards">
@@ -136,6 +136,7 @@
 													@onSelectSearchResult="(roItem) => {
 														addCard(index, slotIndex, roItem)
 													}"
+													:disabled="item.expired"
 													v-model="item.cards[slotIndex-1].ro_item.name"
 													:type-filter="[6]"
 													:location-filter="item.ro_item.equip_locations"
@@ -143,8 +144,35 @@
 											</template>
 										</td>
 
+										<!-- Remove button or re-add expired item -->
 										<td class="remove">
-											<a href="#" @click.prevent="remove(index, item)"><i class="fa fa-trash-o fa-lg"></i></a>
+											<input type="hidden" :name="`stall_items[${index}][expired]`" :value="item.expired ? 1 : 0">
+
+											<template v-if="!item.expired">
+												<a href="#" @click.prevent="remove(index, item)"><i class="fa fa-trash-o fa-lg"></i></a>
+											</template>
+											<div v-show="item.expired">
+												<a href="#"
+													@click.prevent=""
+													class="expired-button"
+													v-tippy="{
+														arrow: true,
+														theme: 'menu light',
+														html: `#expired-popup-${index}`,
+														delay: [0, 200],
+														interactive: true,
+													}"
+													>
+													<i class="fa fa-warning fa-lg"></i>
+												</a>
+
+												<!-- v-tippy tooltip template -->
+												<div :id="`expired-popup-${index}`" class="popup">
+													<strong>This item has expired (more than 10 days old).</strong><br/>
+													Do you want to <a href="#" @click.prevent="readdExpiredStallItem(index, item)">add it again</a> it to your stall or <a href="#" @click.prevent="remove(index, item)">remove</a> it?
+												</div>
+											</div>
+
 										</td>
 
 										<!-- Hidden fields -->
@@ -214,6 +242,7 @@
 
 <script>
 import _ from 'lodash'
+import moment from 'moment'
 import Constants from './Constants'
 import Cookies from 'cookies-js'
 import TabPicker from './presentational/TabPicker.vue'
@@ -278,29 +307,41 @@ export default {
 		this.stalls['buying'].type = 'buying'
 		this.stalls['selling'].type = 'selling'
 
-		console.log('stalls', this.stalls)
+		this.stalls.map(stall => {
+			stall.stall_items = stall.my_stall_items
+		})
 
 		this.stall = this.stalls['selling']
+
 	},
 	methods: {
+		readdExpiredStallItem(index, stallItem) {
+			axios.put(`/api/v1/stall-items/${stallItem.id}/touch`, {}).then((res) => {
+				if(res.data.success) {
+					this.$set(this.stall.stall_items[index], 'expired', false)
+				}
+			}).catch(err => {
+				alert('Failed to update item. Please try again.')
+				console.log(err)
+			})
+		},
 		remove(index, stallItem) {
 			if(stallItem.id) {
-
 				this.$set(this.stall.stall_items[index], 'isDeleting', true)
 				axios.delete(`/api/v1/stall-items/${stallItem.id}`, {}).then((res) => {
 					this.$set(this.stall.stall_items[index], 'isDeleting', false)
 
 	                if(res.data.success) {
-						this.stall.stall_items.splice(index, 1)
+						this.$set(this.stall.stall_items[index], 'removed', true)
 	                } else {
-		                alert(err.response.data.message)
+	                	alert("Failed to remove item. Please try again.")
 	                }
 	            }).catch((err) => {
 					this.$set(this.stall.stall_items[index], 'isDeleting', false)
 	                alert(err.response.data.message)
 	            })
 			} else {
-				this.stall.stall_items.splice(index, 1)
+				this.$set(this.stall.stall_items[index], 'removed', true)
 			}
 		},
 		addCard(stallItemIndex, slotIndex, roItem) {
@@ -338,7 +379,17 @@ export default {
 		},
 		onSelectStallType(type) {
 			this.stall = this.stalls[type.toLowerCase()]
-		}
+		},
+        timeAgo(date) {
+            return moment(date).fromNow()
+        },
+        filterByExpiry(stallItems, expired) {
+        	return _.filter(stallItems, {'expired': expired})
+        },
+        sortByExpiry(stallItems) {
+        	return stallItems
+        	// return _.sortBy(stallItems, 'expired')
+        }
 	}
 }
 </script>

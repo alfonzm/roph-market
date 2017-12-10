@@ -76,7 +76,7 @@ trait StallItemSearchTrait
 		}
 
 		// Build
-		$query = $queryBuilder->orderBy('created_at', 'DESC')->orderBy('id',  'DESC');
+		$query = $queryBuilder->orderBy('updated_at', 'DESC')->orderBy('id',  'DESC');
 
 		$limit = 15;
 		

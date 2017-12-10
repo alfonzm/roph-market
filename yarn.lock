@@ -4641,6 +4641,10 @@ pngquant-bin@^3.0.0:
     bin-wrapper "^3.0.0"
     logalot "^2.0.0"
 
+popper.js@^1.12.9:
+  version "1.12.9"
+  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.12.9.tgz#0dfbc2dff96c451bb332edcfcfaaf566d331d5b3"
+
 portfinder@^1.0.9:
   version "1.0.13"
   resolved "https://registry.yarnpkg.com/portfinder/-/portfinder-1.0.13.tgz#bb32ecd87c27104ae6ee44b5a3ccbf0ebb1aede9"
@@ -6075,6 +6079,12 @@ timers-browserify@^2.0.2:
   dependencies:
     setimmediate "^1.0.4"
 
+tippy.js@^1.4.1:
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/tippy.js/-/tippy.js-1.4.2.tgz#c628545796e353e36a19f5f601a398c36c615d31"
+  dependencies:
+    popper.js "^1.12.9"
+
 to-absolute-glob@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/to-absolute-glob/-/to-absolute-glob-0.1.1.tgz#1cdfa472a9ef50c239ee66999b662ca0eb39937f"
@@ -6412,6 +6422,12 @@ vue-template-compiler@^2.3.3:
 vue-template-es2015-compiler@^1.2.2:
   version "1.5.3"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.5.3.tgz#22787de4e37ebd9339b74223bc467d1adee30545"
+
+vue-tippy@^0.3.4:
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/vue-tippy/-/vue-tippy-0.3.4.tgz#3108c847e4a2680c297c932c2badd1d75e886655"
+  dependencies:
+    tippy.js "^1.4.1"
 
 vue@^2.1.10:
   version "2.4.2"

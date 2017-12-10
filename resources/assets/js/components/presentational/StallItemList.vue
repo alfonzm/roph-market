@@ -25,7 +25,7 @@ paginating - (bool) like isLoading but for loading next pages
                     Price
                 </th>
                 <th v-if="timestamp" class="timestamp">
-                    Added
+                    Updated
                 </th>
             </thead>
     	    <stall-item-row v-for="(item, index) in stallItems" :key="item.id" :stall-item="item" :timestamp="timestamp" :link-to-stall="linkToStall" />
