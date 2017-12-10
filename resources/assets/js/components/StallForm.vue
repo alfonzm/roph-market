@@ -167,8 +167,8 @@
 												</a>
 
 												<!-- v-tippy tooltip template -->
-												<div :id="`expired-popup-${index}`" class="popup">
-													<strong>This item has expired (more than 10 days old).</strong><br/>
+												<div :id="`expired-popup-${index}`" class="tippy-popup">
+													<strong>This item has expired (more than {{ stallItemExpiryDays }} days old).</strong><br/>
 													Do you want to <a href="#" @click.prevent="readdExpiredStallItem(index, item)">add it again</a> it to your stall or <a href="#" @click.prevent="remove(index, item)">remove</a> it?
 												</div>
 											</div>
@@ -254,6 +254,7 @@ import RoItemName from './presentational/RoItemName.vue'
 export default {
 	data() {
 		return {
+			stallItemExpiryDays: Constants.stallItemExpiryDays,
 			servers: Constants.servers,
 			query: null,
 			itemToAdd: {

@@ -16,12 +16,12 @@ class StallItem extends Model
         parent::boot();
 
         static::addGlobalScope('active', function(Builder $builder) {
-            $builder->where('updated_at', '>=', Carbon::now()->subDays(10)->toDateTimeString());
+            $builder->where('updated_at', '>=', Carbon::now()->subDays(env('STALL_ITEM_EXPIRY_DAYS', 30))->toDateTimeString());
         });
     }
 
     public function getExpiredAttribute() {
-        return $this->updated_at < Carbon::now()->subDays(10)->toDateTimeString();
+        return $this->updated_at < Carbon::now()->subDays(env('STALL_ITEM_EXPIRY_DAYS', 30))->toDateTimeString();
     }
 
     public function stall() {
