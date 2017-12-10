@@ -16,18 +16,23 @@ class StallController extends Controller
     {
         return Stall::with('user', 'server')
                         ->where('server_id', $_COOKIE['server'])
-                        ->latest()
+                        ->orderBy('updated_at', 'DESC')
                         ->limit(10)
                         ->get();
     }
 
     public function myStall()
     {
-        $stalls = Stall::with('stallItems.roItem', 'stallItems.cards.roItem')
-                        ->where([
-                            'server_id' => $_COOKIE['server'],
-                            'user_id' => Auth::id()
-                        ])->get();
+        $stalls = Stall::with([
+            // order by expiry
+            'myStallItems' => function($q) { $q->orderBy('updated_at', 'desc'); },
+            'myStallItems.roItem',
+            'myStallItems.cards.roItem'
+            ])
+            ->where([
+                'server_id' => $_COOKIE['server'],
+                'user_id' => Auth::id()
+            ])->withoutGlobalScopes()->get();
 
         if($stalls) {
             foreach($stalls as $stall) {
@@ -37,7 +42,7 @@ class StallController extends Controller
 
                 // Initialize stallItems[index]->roItem->name
                 // because Vue.js cannot take undefined v-model in the form
-                foreach($stall->stallItems as $stallItem) {
+                foreach($stall->myStallItems as $stallItem) {
                     $slots = $stallItem->roItem->slots;
 
                     for($i = 0; $i < $slots; $i++) {
@@ -142,24 +147,19 @@ class StallController extends Controller
         return $results;
     }
 
-    // public function show(Request $request, $serverName, $username)
     public function show(Stall $stall)
     {
-        // $stall = Stall::with(['user', 'server'])->whereHas('user', function ($query) use ($username) {
-        //     $query->where('name', '=', $username);
-        // })->whereHas('server', function ($query) use ($serverName) {
-        //     $query->where('name', '=', $serverName);
-        // })->first();
-
         if(!$stall) {
-            return 'not found';
+            abort(404);
         }
 
-        $stall = $stall->load('stallItems.cards.roItem', 'stallItems.roItem');
+        $stall = $stall->load([
+            'stallItems' => function($q) { $q->orderBy('updated_at', 'desc'); },
+            'stallItems.cards.roItem',
+            'stallItems.roItem'
+        ]);
         $stall->user->groupIgns();
         $stall->user->igns = null;
-
-        // return $stall;
 
         return view('stalls/show', compact('stall'));
     }
@@ -179,6 +179,10 @@ class StallController extends Controller
 
         if(request('stall_items')) {
             foreach(request('stall_items') as $stallItem) {
+                if($stallItem['expired'] == true) {
+                    continue;
+                }
+
                 $stallItemBody = [
                     'stall_id' => $stall->id,
                     'quantity' => $stallItem['quantity'],
@@ -188,7 +192,7 @@ class StallController extends Controller
                     'modifier' => isset($stallItem['modifier']) ? $stallItem['modifier'] : null
                 ];
 
-                $updatedStallItem = StallItem::updateOrCreate(['id' => $stallItem['id']], $stallItemBody);
+                $updatedStallItem = StallItem::withoutGlobalScopes()->updateOrCreate(['id' => $stallItem['id']], $stallItemBody);
 
                 // Update/insert cards to stallItem
                 $stallItemCardIdsToDelete = [];

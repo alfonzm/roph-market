@@ -7,7 +7,7 @@
             :type="stall.type"
             :id="stall.id"
             :server="stall.server ? stall.server.name : null"
-            :timestamp="timeAgo(stall.created_at)" />
+            :timestamp="timeAgo(stall.updated_at)" />
 	</table>
 </template>
 

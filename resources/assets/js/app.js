@@ -1,9 +1,11 @@
 require('./bootstrap')
 import moment from 'moment'
+import vueTippy from 'vue-tippy'
 import Paginate from 'vuejs-paginate'
 window.Vue = require('vue')
 
 Vue.component('paginate', Paginate)
+Vue.use(vueTippy)
 
 var helpers = {
 	methods: {

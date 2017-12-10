@@ -36,7 +36,7 @@
             </template>
         </td>
         <td v-if="timestamp" class="timestamp">
-            {{ timeAgo(stallItem.created_at) }}
+            {{ timeAgo(stallItem.updated_at) }}
         </td>
     </tr>
 </template>
