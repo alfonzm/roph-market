@@ -89,7 +89,7 @@
 												:disabled="item.expired"
 												>
 										</td>
-										<td class="refine">
+										<td class="refine" v-if="showRefineColumn">
 											<!-- Refine -->
 											<template v-if="item.ro_item.refineable == 1">
 												<input
@@ -102,7 +102,7 @@
 													placeholder="0-10"
 													>
 											</template>
-											<template v-if="[34, 2].indexOf(item.ro_item.equip_locations) >= 0 && item.ro_item.type != 6">
+											<template v-if="[34, 2].indexOf(item.ro_item.equip_locations) >= 0 && item.ro_item.type != 6 && showCardsColumn">
 												<div class="modifier">
 													<select
 														:name="`stall_items[${index}][modifier]`"
