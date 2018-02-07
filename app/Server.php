@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Server extends Model
 {
     protected $guarded = [];
+    public $timestamps = false;
 
     public function igns() {
     	return $this->hasMany('App\UserIgn');

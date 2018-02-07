@@ -51,6 +51,7 @@ import StallItemList from './presentational/StallItemList.vue'
 import DropdownPicker from './presentational/DropdownPicker.vue'
 import TabPicker from './presentational/TabPicker.vue'
 import Cookies from 'cookies-js'
+import Constants from './Constants'
 
 export default {
     components: {
@@ -84,7 +85,7 @@ export default {
                 params: {
                     type: this.type.toLowerCase(),
                     page: this.page,
-                    server_id: Cookies.get('server')
+                    server_id: Cookies.get('server') || Constants.servers[0].id,
                 }
             }).then(this.onReceiveSearchResults);
         },

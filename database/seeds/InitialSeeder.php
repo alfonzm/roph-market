@@ -33,9 +33,10 @@ class InitialSeeder extends Seeder
 
         // Servers
         DB::table('servers')->insert([
-            ['name' => 'loki'],
-            ['name' => 'thor'],
-        	['name' => 'chaos']
+         //    ['name' => 'loki'],
+         //    ['name' => 'thor'],
+            // ['name' => 'chaos'],
+        	['name' => 'valkyrie'],
         ]);
 
         // Stalls

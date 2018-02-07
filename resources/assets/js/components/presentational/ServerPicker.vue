@@ -35,10 +35,14 @@ export default {
 	},
 	mounted() {
 		var serverCookie = Cookies.get('server')
+		
+		if(!serverCookie) {
+			Cookies.set('server', Constants.servers[0].id, { expires: Infinity })
+		}
 
-		if(serverCookie) {
-			this.server = _.find(this.servers, (o) => Cookies.get('server') == o.id)
-		} else {
+		this.server = _.find(this.servers, (o) => Cookies.get('server') == o.id)
+
+		if(!this.server) {
 			this.selectServer(Constants.servers[0])
 		}
 	},

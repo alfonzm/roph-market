@@ -11,7 +11,10 @@
 
 				<div class="stall-name-name">
 					<h2>
-						{{ $stall->user->name }}'s {{ ucfirst($stall->server->name) }} Stall <span class="label">{{ ucfirst($stall->type) }}</span>
+						{{ $stall->user->name }}'s
+						<!-- {{ ucfirst($stall->server->name) }} -->
+						Stall
+						<span class="label">{{ ucfirst($stall->type) }}</span>
 						<span class="subheader">
 							Last updated <time-ago-date date="{{ $stall->updated_at }}" />
 						</span>

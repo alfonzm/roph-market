@@ -6,7 +6,7 @@
         <td class="name">
             <a :href="`/stalls/${id}`">
                 {{ vendorName }}'s
-                <span v-if="server" class="capitalized"> {{ server }} </span>
+                <!-- <span v-if="server" class="capitalized"> {{ server }} </span> -->
                 Stall
             </a>
         </td>
