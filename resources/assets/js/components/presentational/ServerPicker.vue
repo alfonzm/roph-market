@@ -1,12 +1,12 @@
 <template>
-    <div class="server-picker" v-on-clickaway="close">
+    <div class="dropdown-picker" v-on-clickaway="close">
         <a href="#" @click="toggle">
         	<template v-if="server">
 	        	{{ server.name }}
         	</template>
-        	&nbsp;&nbsp;<i class="fa fa-caret-down"></i>
+        	<i class="fa fa-caret-down"></i>
         </a>
-        <div :class="{active: show}" class="server-list">
+        <div :class="{active: show}" class="dropdown-picker-options">
     		<a
 				v-for="server in servers"
         		href="#"
@@ -35,10 +35,14 @@ export default {
 	},
 	mounted() {
 		var serverCookie = Cookies.get('server')
+		
+		if(!serverCookie) {
+			Cookies.set('server', Constants.servers[0].id, { expires: Infinity })
+		}
 
-		if(serverCookie) {
-			this.server = _.find(this.servers, (o) => Cookies.get('server') == o.id)
-		} else {
+		this.server = _.find(this.servers, (o) => Cookies.get('server') == o.id)
+
+		if(!this.server) {
 			this.selectServer(Constants.servers[0])
 		}
 	},

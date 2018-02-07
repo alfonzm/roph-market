@@ -99,7 +99,7 @@ table {
 
 	tr {
 		td:last-child {
-			padding-right: 10px;
+			// padding-right: 10px;
 		}
 	}
 }
@@ -160,6 +160,10 @@ a.button, button, input[type="submit"] {
 
 .capitalized {
 	text-transform: capitalize;
+}
+
+.brand-colored {
+	color: $brand-color;
 }
 
 .server-name-label {

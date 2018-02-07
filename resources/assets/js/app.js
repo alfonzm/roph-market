@@ -1,9 +1,11 @@
 require('./bootstrap')
 import moment from 'moment'
+import vueTippy from 'vue-tippy'
 import Paginate from 'vuejs-paginate'
 window.Vue = require('vue')
 
 Vue.component('paginate', Paginate)
+Vue.use(vueTippy)
 
 var helpers = {
 	methods: {
@@ -24,6 +26,7 @@ const app = new Vue({
 		'register-form': require('./components/RegisterForm.vue'),
 		
 		'server-picker': require('./components/presentational/ServerPicker.vue'),
+		'dropdown-picker': require('./components/presentational/DropdownPicker.vue'),
 		'stall-list': require('./components/presentational/StallList.vue'),
 		'stall-item-list': require('./components/presentational/StallItemList.vue'),
 		'time-ago-date': require('./components/presentational/TimeAgoDate.vue'),

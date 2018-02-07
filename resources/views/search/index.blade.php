@@ -9,6 +9,7 @@
 			@if(!empty($roItem))
 			:initial-ro-item-to-search="{{ $roItem }}"
 			@endif
+			initial-stall-type="{{ $stallType }}"
 			autofocus="autofocus"
 			/>
 		}

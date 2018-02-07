@@ -1,12 +1,12 @@
 <template>
     <tr class="stall-row">
         <td class="img">
-            <img src="/img/vend.png">
+            <img :src="`/img/${type}.png`">
         </td>
         <td class="name">
             <a :href="`/stalls/${id}`">
                 {{ vendorName }}'s
-                <span v-if="server" class="capitalized"> {{ server }} </span>
+                <!-- <span v-if="server" class="capitalized"> {{ server }} </span> -->
                 Stall
             </a>
         </td>
@@ -20,7 +20,7 @@
 
 <script>
     export default {
-        props: ['vendor-name', 'id', 'timestamp', 'server'],
+        props: ['vendor-name', 'id', 'timestamp', 'server', 'type'],
         mounted() {
         },
         methods: {

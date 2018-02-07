@@ -40,17 +40,35 @@ class StallItemController extends Controller
 		return $queryBuilder->latest()->limit(10)->get();
 	}
 
-	public function destroy($stallItemId) {
-		$stallItem = StallItem::with('stall.stallItems')->find($stallItemId);
+	// Used to re-add expired stal-items back to the stall
+	// by calling touch() to update the updated_at date
+	public function touch($stallItemId) {
+		$stallItem = StallItem::withoutGlobalScopes()->find($stallItemId);
 
 		if(!Gate::allows('update-stall', $stallItem->stall)) {
             abort(404);
         }
 
-        if(StallItem::destroy($stallItemId)) {
+		if($stallItem->touch() && $stallItem->stall->touch()) {
             return response(['success' => 'true']);
-        }
+		}
 
-        return response(['success' => 'false', 'message' => 'Failed to remove item.'], 400);
+        return response(['success' => false, 'message' => 'Failed to re-add item to stall.'], 400);		
+	}
+
+	public function destroy($stallItemId) {
+		$stallItem = StallItem::withoutGlobalScopes()->with('stall.stallItems')->find($stallItemId);
+
+		if($stallItem) {
+			if(!Gate::allows('update-stall', $stallItem->stall)) {
+	            abort(404);
+	        }
+
+	        if($stallItem->delete()) {
+	            return response(['success' => true]);
+	        }
+		}
+
+        return response(['success' => false, 'message' => 'Failed to remove item.'], 400);
 	}
 }

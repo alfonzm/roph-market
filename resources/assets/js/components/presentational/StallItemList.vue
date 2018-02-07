@@ -1,9 +1,21 @@
+<!-- 
+
+StallItemList - receives a list of StallItems to display in a table
+
+Props:
+stallItems - (bool) array of stall items
+timestamp - (bool) display timestamp column or not
+linkToStall - (bool) whether to display the link to stall column or not
+paginating - (bool) like isLoading but for loading next pages
+
+ -->
+
 <template>
     <div>
         <table cellspacing="0" :class="[{ paginating: paginating }, 'stall-item-list']">
-            <tr>
+            <thead>
                 <th colspan="2" class="name">Item</th>
-                <th v-if="linkToStall" class="link-to-stall">
+                <th v-if="linkToStall" class="link-to-stall" colspan="2">
                     Stall
                 </th>
                 <th class="quantity">
@@ -13,9 +25,9 @@
                     Price
                 </th>
                 <th v-if="timestamp" class="timestamp">
-                    Timestamp
+                    Updated
                 </th>
-            </tr>
+            </thead>
     	    <stall-item-row v-for="(item, index) in stallItems" :key="item.id" :stall-item="item" :timestamp="timestamp" :link-to-stall="linkToStall" />
     	</table>
     </div>

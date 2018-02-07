@@ -57,7 +57,7 @@ Route::get('search', 'SearchController@index')->name('search.index');
 
 // Stall page
 Route::get('stalls/{stall}', 'StallController@show')->name('stalls.show');
-Route::delete('stalls/{stall}/delete', 'StallController@destroy')->name('stalls.destroy');
+// Route::delete('stalls/{stall}/delete', 'StallController@destroy')->name('stalls.destroy');
 
 // API ===============
 
@@ -79,6 +79,7 @@ Route::prefix('api')->group(function() {
 			Route::delete('users/{id}/igns/{ignId}', 'UserController@deleteIgn')->name('users.deleteIgn');
 
 			// Stall Items
+			Route::put('stall-items/{stallItemId}/touch', 'StallItemController@touch')->name('stalls_items.touch');
 			Route::delete('stall-items/{stallItemId}', 'StallItemController@destroy')->name('stall_items.destroy');
 		});
 

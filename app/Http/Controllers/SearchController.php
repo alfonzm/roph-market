@@ -25,6 +25,14 @@ class SearchController extends Controller
             $serverId = $_COOKIE['server'];
         }
 
+        if ($request->input('type')) {
+            $stallType = $request->input('type');
+        } else if(isset($_COOKIE['stall_search_type'])) {
+            $stallType = $_COOKIE['stall_search_type'];
+        } else {
+            $stallType = 'selling';
+        }
+
         if($roItemId) {
         	$roItem = RoItem::where('id', $roItemId)->first();
             $query = $roItem->name;
@@ -35,6 +43,6 @@ class SearchController extends Controller
 
         $results = $this->searchStallItem($request)->toJson();
 
-        return view('search/index', compact('results', 'roItem', 'query'));
+        return view('search/index', compact('results', 'roItem', 'query', 'stallType'));
     }
 }

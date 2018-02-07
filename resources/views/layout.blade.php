@@ -18,10 +18,23 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script>window.Laravel = { csrfToken: '{{ csrf_token() }}' }</script>
 
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('/css/font-awesome.min.css') }}" rel="stylesheet">
 
-    <title>Ragna Market</title>
+    <title>Ragna-Market.com</title>
+
+    <!-- Open graph data -->
+    <meta property="og:title" content="Ragna-Market.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ragna-market.com/" />
+    <meta property="og:image" content="https://ragna-market.com/img/screenshot.png" />
+    <meta property="og:keywords" content="ragnarok, ragna, ragnarok, online, market, philippines, roph, pro, sell, buy, items, vend, vending, thor, loki, chaos" />
+    <meta property="og:description" content="Ragna-Market.com is a virtual marketplace for Ragnarok Online Philippines where you can set up a stall to sell your items, or search for items you're looking to buy." />
+
+    <!-- Twitter card data -->
+    <meta name="twitter:card" value="summary_large_image">
+    <meta name="twitter:image" value="https://ragna-market.com/img/screenshot.png">
+    <meta name="twitter:image:src" value="https://ragna-market.com/img/screenshot.png">
 </head>
 <body>
     <div id="app" v-cloak>
@@ -29,6 +42,6 @@
         @yield('content')
         @include('commons.footer')
     </div>
-   <script src="{{ asset('js/app.js') }}"></script>
+   <script src="{{ mix('/js/app.js') }}"></script>
 </body>
 </html>
