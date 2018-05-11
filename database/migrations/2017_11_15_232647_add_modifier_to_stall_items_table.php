@@ -16,6 +16,8 @@ class AddModifierToStallItemsTable extends Migration
         Schema::table('stall_items', function (Blueprint $table) {
             $table->string('modifier')->nullable();
         });
+
+        Artisan::call('db:seed');
     }
 
     /**
